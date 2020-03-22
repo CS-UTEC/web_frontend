@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+@import './palettes/gob-palette.scss';
+
+
+
+$default-gob-primary: mat-palette($md-gob-primary);
+$default-gob-accent: mat-palette($md-gob-accent);
+
+$default-gob-light-theme: mat-light-theme(
+    $default-gob-primary,
+    $default-gob-accent
+);
