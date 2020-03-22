@@ -1,13 +1,55 @@
 <app-nav-bar></app-nav-bar>
 
-<mat-grid-list cols="2" >
+<mat-grid-list cols="2" rowHeight="50%">
   <mat-grid-tile colspan="1" rowspan="1">
+    <div class="full-width container">
+      <h4>Región</h4>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Seleccione una región</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let opcion of opciones" [value]="opciones.value">
+            {{opcion.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <h4>Provincia</h4>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Seleccione una provincia</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let opcion of opciones" [value]="opciones.value">
+            {{opcion.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <h4>Distrito</h4>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Seleccione un distrito</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let opcion of opciones" [value]="opciones.value">
+            {{opcion.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    
   </mat-grid-tile>
   <mat-grid-tile colspan="1" rowspan="2">
       <!--Acá va el mapa-->
       <div #mapContainer id="map"></div>
   </mat-grid-tile>
   <mat-grid-tile colspan="1" rowspan="1">
+    <div class="full-width container">
+      <h4 style="color: #bf0909;"> Enviar un anuncio</h4>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Anuncios</mat-label>
+        <textarea matInput rows="8" placeholder="Anuncios"></textarea>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button >Enviar</button>
+    </div>
 
   </mat-grid-tile>
 </mat-grid-list>
