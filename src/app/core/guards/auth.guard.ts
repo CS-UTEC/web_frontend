@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
     }
 
     checkLogin(url: string){
-        if (!this.authService.isLoggedIn()) {
+        if (!this.authService.isTokenExpired()) {
             return true;
         }
         // not logged in so redirect to login page with the return url

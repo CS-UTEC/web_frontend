@@ -6,14 +6,13 @@
   form {
     max-width: 300px;
     margin: auto;
+    
   }
   
   mat-form-field {
     width: 100%;
+    background-color: white;
   }
-  
   .actions {
     text-align: center;
   }
-
-   

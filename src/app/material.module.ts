@@ -10,6 +10,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
 import { LayoutModule } from '@angular/cdk/layout';
 
 const materialModules = [
@@ -24,6 +25,7 @@ const materialModules = [
   MatButtonModule,
   MatIconModule,
   MatToolbarModule,
+  MatCardModule,
   LayoutModule,
 ]
 
