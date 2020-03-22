@@ -1,0 +1,51 @@
+<app-nav-bar></app-nav-bar>
+
+<mat-grid-list cols="2" rowHeight="1:2">
+  <mat-grid-tile>
+    <div style="height: 100%; width: 100%;">
+      <mat-grid-list cols="1">
+        <mat-grid-tile rowspan="1">
+          <h4>Región</h4>
+          <mat-form-field class="full-width">
+            <mat-label>Seleccione una región</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let opcion of opciones" [value]="opcion.value">
+                {{opcion.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <h4>Provincia</h4>
+          <mat-form-field class="full-width">
+          <mat-label>Seleccione una provincia</mat-label>
+          <mat-select>
+              <mat-option *ngFor="let opcion of opciones" [value]="opcion.value">
+              {{opcion.viewValue}}
+              </mat-option>
+          </mat-select>
+          </mat-form-field>
+          <h4>Distrito</h4>
+
+          <mat-form-field class="full-width">
+          <mat-label>Seleccione un distrito</mat-label>
+          <mat-select>
+              <mat-option *ngFor="let opcion of opciones" [value]="opcion.value">
+              {{opcion.viewValue}}
+              </mat-option>
+          </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile rowspan="2">
+          <mat-form-field appearance="fill">
+            <mat-label>Anuncios</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+
+  </mat-grid-tile>
+  <mat-grid-tile>
+      <!--Acá va el mapa-->
+      <div #mapContainer id="map"></div>
+  </mat-grid-tile>
+</mat-grid-list>

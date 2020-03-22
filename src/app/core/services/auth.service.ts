@@ -34,7 +34,7 @@ export class AuthService {
     constructor(private http: HttpClient, private router: Router) { }
 
     login(username: string, password: string) {
-        return this.http.post<any>(environment.APIEndpoint + '/token/generate-token', { username: username, password: password })
+        return this.http.post<any>(environment.APIEndpoint + '/login', { username: username, password: password })
             .pipe(
                 map(user => {
                 // login successful if there's a jwt token in the response

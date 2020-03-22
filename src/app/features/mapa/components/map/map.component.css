@@ -1,0 +1,31 @@
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+mat-grid-tile {
+  background: lightblue;
+}
+
+
+#map {
+  height: 100%;
+  width: 100%;
+ }
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
