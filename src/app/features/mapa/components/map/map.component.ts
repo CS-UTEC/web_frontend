@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
+interface Food {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -30,7 +35,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.mapInitializer();
   }
 
-  opciones: any[] = [
+  opciones: Food[] = [
     {value: 'opcion-0', viewValue: 'Opción 1'},
     {value: 'opcion-1', viewValue: 'Opción 2'},
     {value: 'opcion-2', viewValue: 'Opción 3'},
