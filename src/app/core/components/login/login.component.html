@@ -1,27 +1,18 @@
-<mat-card style="background-color: white; max-width: 300px">
+<div class = "formlogin">
 
-  <a routerLink="/" title="Inicio">
-    <img mat-card-image src="../../../../assets/escudo.svg" alt="Logo Proyecto" height="50px">
-  </a>
+  <form [formGroup]="loginForm">
+    
+    <mat-form-field appearance="fill">
+      <input matInput type="text" id="username" placeholder="Username" autocomplete="off" formControlName="username" required>
+    </mat-form-field>
 
-  <mat-card-title>
-    Identifíquese
-  </mat-card-title>
-  <mat-card-content>
-    <form [formGroup]="loginForm">
+    <mat-form-field appearance="fill">
+      <input matInput type="password" id="password" placeholder="Password" formControlName="password" required>
+    </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <input matInput type="text" id="username" placeholder="Username" autocomplete="off" formControlName="username" required>
-      </mat-form-field>
-    
-      <mat-form-field appearance="fill">
-        <input matInput type="password" id="password" placeholder="Password" formControlName="password" required>
-      </mat-form-field>
-    
-      <div class="actions">
-        <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Entrar</button>
-      </div>
-    
-    </form>
-  </mat-card-content>
-</mat-card>
+    <div class="actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Ingresa</button>
+    </div>
+
+  </form>
+</div>
