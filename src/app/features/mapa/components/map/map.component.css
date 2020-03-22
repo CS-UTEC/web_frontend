@@ -4,11 +4,16 @@
 }
 
 mat-grid-tile {
-  background: lightblue;
+  background: white;
 }
 
+.container {
+  margin-top: 10px;
+  padding: 10px;
+}
 
 #map {
+  height: 100%;
   width: 100%;
  }
 
