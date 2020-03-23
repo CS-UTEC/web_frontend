@@ -18,8 +18,11 @@
   }
 
   .actions button{
-    background: #FA8072;
+    background: #CD5C5C;
     color: #ffffff;
+    font-size: large;
+    width: 120px;
+    height: 50px;
   }
 
   .formlogin{
@@ -28,25 +31,20 @@
     left:50%;
     width: 300px;
     margin-left: -150px;
-    height: 324 px;
-    margin-top: -162px;
-
+    height: 400px;
+    margin-top: -200px;
   }
-  
-  mat-form-field.mat-form-field {
-    font-size: 16px;
-  }
-
 
   ::ng-deep.mat-form-field-ripple {
-    /*change color of underline when focused*/
-    background-color: white !important;;
+    background-color: red !important;;
    }
 
-   .mat-form-field-empty.mat-form-field-label {
-    color: white;
-}
 
    ::ng-deep input.mat-input-element {
-    color: white;
+    color: black;
+  }
+
+  .campo{
+    background-color: white;
+    border-radius: 25px;
   }

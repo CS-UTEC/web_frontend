@@ -1,19 +1,25 @@
 <div class = "formlogin">
+  <img src="../../../../assets/escudo.svg" alt="" style="margin-bottom: 20px;">
 
   <form [formGroup]="loginForm">
-    <img src="../../../../assets/escudo.svg" alt="">
-    <mat-form-field appearance="fill">
-      <input matInput type="text" id="username" placeholder="Username" autocomplete="off" formControlName="username" required>
-    </mat-form-field>
+    <div class="campo">
+      <mat-form-field appearance="fill">
+        <input matInput type="text" id="username" placeholder="Username" autocomplete="off" formControlName="username" required>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <input matInput type="password" id="password" placeholder="Password" formControlName="password" required>
-    </mat-form-field>
+    <br>
+
+    <div class="campo">
+      <mat-form-field appearance="fill">
+        <input matInput type="password" id="password" placeholder="Password" formControlName="password" required>
+      </mat-form-field>
+    </div>
 
     <br>
 
     <div class="actions">
-      <button mat-raised-button  type="submit" [disabled]="!loginForm.valid">Ingresa</button>
+      <button mat-raised-button  type="submit" [disabled]="!loginForm.valid">Ingresar</button>
     </div>
 
   </form>
