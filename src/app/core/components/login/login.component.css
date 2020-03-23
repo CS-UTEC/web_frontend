@@ -22,7 +22,11 @@
     color: #ffffff;
     font-size: large;
     width: 120px;
-    height: 50px;
+    height: 43px;
+    border-radius: 15px;
+    
+    /*font-family: "Lato", sans-serif;*/
+    font-family: "Ubuntu", ubuntu;
   }
 
   .formlogin{
@@ -46,5 +50,10 @@
 
   .campo{
     background-color: white;
-    border-radius: 25px;
+    border-radius: 15px;
+    height: 50px;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    display: none;
   }
