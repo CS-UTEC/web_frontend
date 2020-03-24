@@ -4,7 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginAltComponent } from './components/login_alt/login_alt.component';
 
 
-const routes: Routes = [
+const authRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent
@@ -16,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(authRoutes)],
   exports: [RouterModule]
 })
 export class CoreRoutingModule { }

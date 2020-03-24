@@ -15,7 +15,7 @@ export class AuthService {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Access-Control-Allow-Headers': 'Content-Type',
-          'Authorization': 'Bearer ' + localStorage.getItem('currentUser')
+          'Authorization': 'Bearer ' + localStorage.getItem('currentUserToken')
         };
         const requestOptions = {
           headers: new HttpHeaders(headerDict),
@@ -23,38 +23,25 @@ export class AuthService {
         return  requestOptions;
     }
 
-    public currentUserRol(): string {
-        return localStorage.getItem('currentUserRol');
-    }
-
-    public currentUrl(): string {
-        return localStorage.getItem('currentUrl');
-    }
-
     constructor(private http: HttpClient, private router: Router) { }
 
     login(username: string, password: string) {
-        return this.http.post<any>(environment.APIEndpoint + '/login', { username: username, password: password })
-            .pipe(
-                map(user => {
+        return this.http.post<any>(environment.APIEndpoint + '/login/web', { username: username, password: password })
+            .pipe(map(user => {
                 // login successful if there's a jwt token in the response
-                if (user.result && user.result.token) {
+                if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', user.result.token);
-                    localStorage.setItem('currentUserRol', user.result.rol);
-                    localStorage.setItem('currentUrl', user.result.url);
+                    localStorage.setItem('currentUserToken', user.token);
                 }
 
-                return user.result.token;
+                return user.token;
             }
         ));
     }
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('currentUserRol');
-        localStorage.removeItem('currentUrl');
+        localStorage.removeItem('currentUserToken');
         this.router.navigate(['/']);
     }
 
@@ -67,23 +54,15 @@ export class AuthService {
 
         const date = new Date(0); 
         date.setUTCSeconds(decoded.exp);
-        console.log(date);
         return date;
     }
 
     isTokenExpired(token?: string): boolean {
-        if(!token) token = localStorage.getItem('currentUser');
+        if(!token) token = localStorage.getItem('currentUserToken');
         if(!token) return true;
 
         const date = this.getTokenExpirationDate(token);
         if(date === undefined) return false;
         return !(date.valueOf() > new Date().valueOf());
-    }
-
-    isSuperAdmin(): boolean {
-        if (this.currentUserRol() == null) {
-            return false;
-        }
-        return this.currentUserRol() == "SUPERADMIN";
     }
 }

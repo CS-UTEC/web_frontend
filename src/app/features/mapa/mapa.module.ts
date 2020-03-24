@@ -14,8 +14,6 @@ import { CoreModule } from 'src/app/core/core.module';
   declarations: [MapComponent],
   imports: [
     MaterialModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     CommonModule,
     CoreModule,
     FormsModule,

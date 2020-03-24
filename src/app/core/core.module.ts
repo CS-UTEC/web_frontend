@@ -20,8 +20,6 @@ import { LoginAltComponent } from './components/login_alt/login_alt.component';
     LoginAltComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
     CommonModule,
     MaterialModule,
     FormsModule,
