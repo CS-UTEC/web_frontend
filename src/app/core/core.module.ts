@@ -10,12 +10,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
+import { LoginAltComponent } from './components/login_alt/login_alt.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent, 
-    NavBarComponent
+    NavBarComponent,
+    LoginAltComponent
   ],
   imports: [
     BrowserModule,

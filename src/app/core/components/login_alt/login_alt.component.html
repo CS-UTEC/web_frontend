@@ -1,0 +1,33 @@
+<div class="backgroundDiv">
+  
+  
+  <div class = "formlogin">
+    <img src="../../../../assets/escudo.svg" alt="" style="margin-bottom: 20px;">
+
+    <form [formGroup]="loginForm">
+      <div class="campo">
+        <mat-form-field appearance="fill">
+          <mat-label style="color: white;">Código de usuario</mat-label>
+          <input matInput id="username">
+        </mat-form-field>
+      </div>
+
+      <br>
+
+      <div class="campo">
+        <mat-form-field appearance="fill">
+          <mat-label style="color: white;">Contraseña</mat-label>
+        <input matInput type="password" id="password" formControlName="password">
+        </mat-form-field>
+      </div> 
+
+      <br>
+
+      <div class="actions">
+        <button mat-raised-button  type="submit" [disabled]="!loginForm.valid">Ingresar</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+

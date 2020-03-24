@@ -1,0 +1,65 @@
+:host {
+    text-align: center;
+    display: block;
+  }
+  
+  form {
+    max-width: 300px;
+    margin: auto;
+    
+  }
+  
+  mat-form-field {
+    width: 100%;
+    color: #ffffff;
+  }
+  .actions {
+    text-align: center;
+  }
+
+  .actions button{
+    background: #CD5C5C;
+    color: #ffffff;
+    font-size: large;
+    width: 120px;
+    height: 43px;
+    border-radius: 15px;
+    
+    /*font-family: "Lato", sans-serif;*/
+    font-family: "Ubuntu", ubuntu;
+  }
+
+  .formlogin{
+    position: absolute;
+    top:50%;
+    left:50%;
+    width: 300px;
+    margin-left: -150px;
+    height: 400px;
+    margin-top: -200px;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    background-color: white !important;;
+   }
+
+
+   ::ng-deep input.mat-input-element {
+    color: black;
+  }
+
+  .campo{
+    background-color:#bf0909;
+    border-radius: 15px;
+    height: 50px;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    display: none;
+  }
+
+  .backgroundDiv{
+    background-image: url("../../../../assets/background_vicuna.svg");
+    height: 100%;
+    min-height: 100%;
+  }

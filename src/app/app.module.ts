@@ -10,7 +10,7 @@ import { MapaModule } from './features/mapa/mapa.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
