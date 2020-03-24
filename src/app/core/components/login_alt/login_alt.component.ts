@@ -10,6 +10,7 @@ import { Title } from "@angular/platform-browser";
 export class LoginAltComponent implements OnInit {
 
   loginForm: FormGroup;
+  hide = true;
 
   constructor(private formBuilder: FormBuilder, private elementRef: ElementRef, private titleService:Title) {
     this.titleService.setTitle("Login")

@@ -1,13 +1,13 @@
 <div class="backgroundDiv">
   
   <div class = "formlogin">
-    <img src="../../../../assets/escudo.svg" alt="" style="margin-bottom: 20px;">
+    <img src="../../../../assets/escudo.svg" class="escudoRojo" style="margin-bottom: 20px; fill: #bf0909">
 
     <form [formGroup]="loginForm">
       <div class="campo">
         <mat-form-field appearance="fill">
           <mat-label style="color: white;">Código de usuario</mat-label>
-          <input matInput id="username">
+          <input matInput style="color: white;" id="username">
         </mat-form-field>
       </div>
 
@@ -16,7 +16,14 @@
       <div class="campo">
         <mat-form-field appearance="fill">
           <mat-label style="color: white;">Contraseña</mat-label>
-        <input matInput type="password" id="password" formControlName="password">
+          
+          <!--<input matInput type="password" id="password" formControlName="password">-->
+          
+          <input matInput style="color: white;" [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
+
+          <button type="button" color="white" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Mostrar/esconder contraseña'" [attr.aria-pressed]="hide">
+           <mat-icon >{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
         </mat-form-field>
       </div> 
 
