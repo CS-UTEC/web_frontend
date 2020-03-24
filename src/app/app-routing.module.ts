@@ -1,25 +1,30 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'mapa',
     pathMatch: 'full',
-    redirectTo: 'mapa'
+    loadChildren: () => import('./features/mapa/mapa.module').then(mod => mod.MapaModule),
+    canLoad: [AuthGuard]
   },
   {
-    path: 'mapa',
-    loadChildren: () => import('./features/mapa/mapa.module').then(mod => mod.MapaModule),
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: '/login'
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(
     routes,
-    { enableTracing: false,
-      useHash: false,
-      anchorScrolling: 'enabled'
+    { enableTracing: false
     }
     )],
   exports: [RouterModule]

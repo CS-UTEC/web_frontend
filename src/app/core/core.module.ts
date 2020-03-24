@@ -18,8 +18,6 @@ import { AuthService } from './services/auth.service';
     NavBarComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
     CommonModule,
     MaterialModule,
     FormsModule,
