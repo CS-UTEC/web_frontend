@@ -8,12 +8,8 @@
   <form [formGroup]="loginForm">
     <div class="campo">
       <mat-form-field appearance="fill">
-        <mat-label>Tipo de documento</mat-label>
-        <mat-select>
-          <mat-option value="option">DNI</mat-option>
-          <mat-option value="option">Carnet de extranjería</mat-option>
-          <mat-option value="option">Otro</mat-option>
-        </mat-select>
+        <mat-label>Código de usuario</mat-label>
+        <input matInput id="username"> <!--Creo que un placeholder no es necesario (estéticamente)-->
       </mat-form-field>
     </div>
 
@@ -21,9 +17,8 @@
 
     <div class="campo">
       <mat-form-field appearance="fill">
-        <mat-label>Nr. de documento</mat-label>
-        <input matInput>
-       <!-- <input matInput type="password" id="password" placeholder="Password" formControlName="password" required>-->
+        <mat-label>Contraseña</mat-label>
+       <input matInput type="password" id="password" formControlName="password">
       </mat-form-field>
     </div> 
 
