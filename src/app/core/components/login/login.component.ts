@@ -1,13 +1,10 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-<<<<<<< HEAD
 import { Title } from "@angular/platform-browser";
-=======
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
->>>>>>> 7710c480923eaf2c6606aead715281b676357461
 
 @Component({
   selector: 'app-login',
@@ -20,22 +17,18 @@ export class LoginComponent implements OnInit {
   hide = true;
   returnUrl: string;
 
-<<<<<<< HEAD
-  constructor(private formBuilder: FormBuilder, private elementRef: ElementRef, private titleService:Title) {
-    this.titleService.setTitle("Login")
-   }
-=======
+
   constructor(
     private formBuilder: FormBuilder, 
     private elementRef: ElementRef,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    public snackBar: MatSnackBar){ 
+    public snackBar: MatSnackBar,
+    private titleService:Title){ 
+      this.titleService.setTitle("Login")
 
     }
->>>>>>> 7710c480923eaf2c6606aead715281b676357461
-
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       username: [''],
