@@ -6,12 +6,15 @@
       <h4>Región</h4>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Seleccione una región</mat-label>
-        <mat-select>
-          <mat-option>
-            opcion
+        <mat-select [(value)]="selectedRegion">
+          <mat-option *ngFor = "let reg of departamentos" [value] = "reg">
+            {{reg}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <button mat-button (click)="zoomregion($event)" type="button">
+        Zoom
+      </button>
       <br>
       <h4>Provincia</h4>
       <mat-form-field appearance="fill" class="full-width">
