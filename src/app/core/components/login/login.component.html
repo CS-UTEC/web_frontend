@@ -1,35 +1,39 @@
-<div class = "formlogin">
-  <img src="../../../../assets/escudo.svg" alt="" style="margin-bottom: 20px;">
-
-  <head>
-    <title>Login</title>
-  </head>
-
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="campo">
-      <mat-form-field appearance="fill">
-        <mat-label>Código de usuario</mat-label>
-        <input matInput type="text" id="username"> <!--Creo que un placeholder no es necesario (estéticamente)-->
-      </mat-form-field>
-    </div>
-
-    <br>
-
-    <div class="campo">
-      <mat-form-field appearance="fill">
-        <mat-label>Contraseña</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
-        <button type="button" color="primary" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon >{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-        </button>
-      </mat-form-field>
-    </div> 
-
-    <br>
-
-    <div class="actions">
-      <button mat-raised-button  type="submit" [disabled]="!loginForm.valid">Ingresar</button>
-    </div>
-
-  </form>
+<div style="height: 100vh; background-color: #bf0909;">
+  <div class = "formlogin">
+    <img src="../../../../assets/escudo.svg" alt="" style="margin-bottom: 20px;">
+  
+    <head>
+      <title>Login</title>
+    </head>
+  
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="campo">
+        <mat-form-field appearance="fill">
+          <mat-label>Código de usuario</mat-label>
+          <input matInput type="text" id="username" formControlName="username" autocomplete="off"> <!--Creo que un placeholder no es necesario (estéticamente)-->
+        </mat-form-field>
+      </div>
+  
+      <br>
+  
+      <div class="campo">
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
+          <button type="button" color="primary" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon >{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div> 
+  
+      <br>
+  
+      <div class="actions">
+        <button mat-raised-button  type="submit" [disabled]="!loginForm.valid">Ingresar</button>
+      </div>
+  
+    </form>
+  </div> 
 </div>
+
+

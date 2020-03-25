@@ -42,7 +42,7 @@ export class AuthService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUserToken');
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
     }
 
     getTokenExpirationDate(token: string): Date {

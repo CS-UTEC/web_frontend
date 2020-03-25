@@ -1,6 +1,25 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <img src="../../../../assets/escudo.svg" alt="escudo" width="40px" height="40px">
-      <span>&nbsp; Gobierno del Perú</span>
-  </mat-toolbar-row>
+<mat-toolbar color="primary" class="mat-elevation-z3">
+  <!--
+  <button mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  -->
+  <img src="../../../../assets/escudo.svg" alt="escudo" width="40px" height="40px">
+  <span>&nbsp; Gobierno del Perú</span>
+
+  <span class="fill-spacer"></span>
+  
+  <button mat-icon-button [matMenuTriggerFor]="moreMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #moreMenu="matMenu">
+    <button mat-menu-item (click)="onLogout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Salir
+    </button>
+    <button mat-menu-item>
+      <mat-icon>help</mat-icon>
+      Help
+    </button>
+  </mat-menu>
 </mat-toolbar>

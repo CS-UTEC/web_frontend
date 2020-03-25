@@ -3,11 +3,11 @@
   <div class = "formlogin">
     <img src="../../../../assets/escudo.svg" class="escudoRojo" style="margin-bottom: 20px; fill: #bf0909">
 
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <div class="campo">
         <mat-form-field appearance="fill">
           <mat-label style="color: white;">Código de usuario</mat-label>
-          <input matInput style="color: white;" id="username">
+          <input matInput type="text" style="color: white;" id="username" formControlName="username" autocomplete="off">
         </mat-form-field>
       </div>
 
