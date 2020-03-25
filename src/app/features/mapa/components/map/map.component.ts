@@ -1,4 +1,23 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import * as _moment from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { AbstractControl } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
+import { Title } from '@angular/platform-browser';
+
+const moment = _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 interface Food {
   value: string;
@@ -14,7 +33,16 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
 
-  constructor() { }
+  region = '';
+  provincia = '';
+  distrito = '';
+
+  constructor(
+    private dateAdapter: DateAdapter<any>,
+    private titleService:Title) { 
+    this.titleService.setTitle("Dashboard")
+    this.dateAdapter.setLocale('es');
+  }
   map: google.maps.Map;
   lat = -12.0402859
   lng = -77.093785;
@@ -41,4 +69,13 @@ export class MapComponent implements OnInit, AfterViewInit {
     {value: 'opcion-2', viewValue: 'Opción 3'},
   ];
 
+}
+
+export class DateValidator {
+  static dateVaidator(AC: AbstractControl) {
+    if (AC && AC.value && !moment(AC.value, 'DD/MM/AAAA', true).isValid()) {
+      return { 'dateVaidator': true };
+    }
+    return null;
+  }
 }

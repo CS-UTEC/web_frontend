@@ -31,8 +31,40 @@ $md-gob-primary: (
     )
 );
 
-
 $md-gob-accent: (
+    50 : #e8e8e9,
+    100 : #c5c6c7,
+    200 : #9ea0a2,
+    300 : #777a7d,
+    400 : #595e61,
+    500 : #3c4145,
+    600 : #363b3e,
+    700 : #2e3236,
+    800 : #272a2e,
+    900 : #1a1c1f,
+    A100 : #6db3f9,
+    A200 : #3c9af7,
+    A400 : #0280ff,
+    A700 : #0074e7,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$md-gob-accent-alter: (
     50 : #e0ebf5,
     100 : #b3cce6,
     200 : #80aad5,
