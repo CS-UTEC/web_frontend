@@ -17,6 +17,9 @@
                   <button mat-menu-item>Limpiar</button>
                 </mat-menu>
               </mat-card-title>
+
+              <!--Acá va el filtro por fecha-->
+
               <mat-card-subtitle>Filtrar por fecha</mat-card-subtitle>
               <mat-card-content> 
                 <div class="row">
@@ -39,26 +42,41 @@
                 </div>           
               <mat-divider></mat-divider>
               <br>
+
+              <!--Acá va el filtro por ubicación-->
+
               <mat-card-subtitle>Filtrar por ubicación</mat-card-subtitle>
               <div class="row">
                 <div class="col">
+
+                  <!--Acá va el filtro por región-->
+
                   <mat-form-field class="full-width">
                     <input type="text"
                            placeholder="Región"
                            aria-label="Región"
                            matInput
                            [matAutocomplete]="auto"
-                           [(ngModel)]="region">
-                    <button mat-button *ngIf="region" matSuffix mat-icon-button aria-label="Borrar" (click)="region=''">
+                           [(ngModel)]="selectedRegion">
+                    <button mat-button *ngIf="selectedRegion" matSuffix mat-icon-button aria-label="Borrar" (click)="selectedRegion=''">
                       <mat-icon>close</mat-icon>
                     </button>
                     <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option>
-                        Gaa
+                      <mat-option *ngFor = "let reg of departamentos" [value] = "reg">
+                        {{reg}}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
+
+                  <!--Luego se debe eliminar el botón de zoom-->
+
+                  <button mat-button (click)="zoomregion($event)" type="button">
+                    Zoom
+                  </button>
                 </div>
+
+                <!--Acá va el filtro por provincia-->
+
                 <div class="col">
                   <mat-form-field class="full-width">
                     <input type="text"
@@ -77,6 +95,9 @@
                     </mat-autocomplete>
                   </mat-form-field>
                 </div>
+
+                <!--Acá va el filtro por distrito-->
+
                 <div class="col">
                   <mat-form-field class="full-width">
                     <input type="text"
@@ -98,6 +119,9 @@
               </div>
               <mat-divider></mat-divider>
               <br>
+
+              <!--Acá va el filtro por tipo-->
+
               <mat-card-subtitle>Filtrar por tipo</mat-card-subtitle>
               <div class="row">
                 <div class="col">
@@ -113,9 +137,10 @@
               </mat-card-content>
             </mat-card>
             <mat-divider></mat-divider>
-            
-
           </mat-tab>
+
+          <!--Acá van nuevo features-->
+
           <mat-tab label="Gráficos"> Gráficos van acá </mat-tab>
           <mat-tab label="Proyecciones"> Proyecciones van acá </mat-tab>
         </mat-tab-group>
