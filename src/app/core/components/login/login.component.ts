@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
+  onLogin() {
     this.authService.login(this.control.username.value, this.control.password.value)
     .pipe(first())
     .subscribe(
