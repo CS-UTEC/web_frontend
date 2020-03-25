@@ -84,8 +84,8 @@
                            aria-label="Provincia"
                            matInput
                            [matAutocomplete]="auto1"
-                           [(ngModel)]="provincia">
-                    <button mat-button *ngIf="provincia" matSuffix mat-icon-button aria-label="Borrar" (click)="provincia=''">
+                           [(ngModel)]="selectedProvincia">
+                    <button mat-button *ngIf="selectedProvincia" matSuffix mat-icon-button aria-label="Borrar" (click)="selectedProvincia=''">
                       <mat-icon>close</mat-icon>
                     </button>
                     <mat-autocomplete #auto1="matAutocomplete">
@@ -105,8 +105,8 @@
                            aria-label="Distrito"
                            matInput
                            [matAutocomplete]="auto2"
-                           [(ngModel)]="distrito">
-                    <button mat-button *ngIf="distrito" matSuffix mat-icon-button aria-label="Borrar" (click)="distrito=''">
+                           [(ngModel)]="selectedDistrito">
+                    <button mat-button *ngIf="selectedDistrito" matSuffix mat-icon-button aria-label="Borrar" (click)="selectedDistrito=''">
                       <mat-icon>close</mat-icon>
                     </button>
                     <mat-autocomplete #auto2="matAutocomplete">
