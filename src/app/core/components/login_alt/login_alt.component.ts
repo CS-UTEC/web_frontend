@@ -1,34 +1,38 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { first } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login_alt.component.html',
+  styleUrls: ['./login_alt.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginAltComponent implements OnInit {
 
+  @Output() isAlt = new EventEmitter<boolean>();
+
+  returnUrl: string;
   loginForm: FormGroup;
   hide = true;
-  returnUrl: string;
-
 
   constructor(
     private formBuilder: FormBuilder, 
-    private elementRef: ElementRef,
+    private elementRef: ElementRef, 
+    private titleService:Title,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    public snackBar: MatSnackBar,
-    private titleService:Title){ 
-      this.titleService.setTitle("Login")
+    public snackBar: MatSnackBar
+    ) {
+    this.titleService.setTitle("Login")
+   }
+  
 
-    }
+
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -62,6 +66,10 @@ export class LoginComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 3000,
     });
+  }
+
+  ngAfterViewInit(){
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'white';
   }
 
 }

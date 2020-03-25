@@ -1,0 +1,15 @@
+.app-sidenav {
+    min-width: 200px;
+  }
+  .bottom-right-fab {
+    position: absolute !important;
+    bottom: 20px;
+    right: 20px;
+  }
+  .fill-spacer {
+    flex: 1 1 0;
+  }
+  .active-link {
+    color: #3F51B5 !important;
+    background-color: rgba(0, 0, 0, 0.12) !important;
+  }
