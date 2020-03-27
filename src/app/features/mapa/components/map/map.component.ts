@@ -1,10 +1,13 @@
-import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit, NgModule } from '@angular/core';
 import * as _moment from 'moment';
 import { AbstractControl } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { Title } from '@angular/platform-browser';
 import * as data from './data.json';
-import MarkerClusterer from "@google/markerclusterer"
+import MarkerClusterer from "@google/markerclusterer";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { single } from './data';
 
 const moment = _moment;
 
@@ -26,6 +29,25 @@ export const MY_FORMATS = {
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit, AfterViewInit {
+  single: any[];
+  multi: any[];
+
+  view: any[] = [700, 400];
+
+  //options (from template)
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = false;
+  showXAxisLabel = true;
+  xAxisLabel = 'Día';
+  showYAxisLabel = true;
+  yAxisLabel = 'Número de casos';
+  colorScheme = {
+    domain: ['#bf0909']
+  };
+
+
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
 
@@ -74,7 +96,17 @@ export class MapComponent implements OnInit, AfterViewInit {
     private titleService:Title) { 
     this.titleService.setTitle("Dashboard")
     this.dateAdapter.setLocale('es');
+    Object.assign(this, {single})
   }
+
+  //TEST
+  onSelect(event){
+    console.log(event);
+  }
+
+
+
+
   map: google.maps.Map;
   lat = -9.1899672;
   lng = -75.015152;
