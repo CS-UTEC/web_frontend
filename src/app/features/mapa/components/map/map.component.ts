@@ -5,6 +5,7 @@ import { DateAdapter } from '@angular/material/core';
 import { Title } from '@angular/platform-browser';
 import * as data from './data.json';
 import MarkerClusterer from "@google/markerclusterer"
+import { Overlay } from '@angular/cdk/overlay';
 
 const moment = _moment;
 
@@ -66,15 +67,11 @@ export class MapComponent implements OnInit, AfterViewInit {
   Distritos = [];
   DistritosNombres = [];
 
+  SelectedMarkers = [];
+  
 
   dist = data.data;
 
-  constructor(
-    private dateAdapter: DateAdapter<any>,
-    private titleService:Title) { 
-    this.titleService.setTitle("Dashboard")
-    this.dateAdapter.setLocale('es');
-  }
   map: google.maps.Map;
   lat = -9.1899672;
   lng = -75.015152;
@@ -84,18 +81,56 @@ export class MapComponent implements OnInit, AfterViewInit {
     zoom: 6,
   };
 
+  drawingManager = new google.maps.drawing.DrawingManager ({
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: [google.maps.drawing.OverlayType.POLYGON, google.maps.drawing.OverlayType.RECTANGLE]
+    }
+  });
+
+  constructor(
+    private dateAdapter: DateAdapter<any>,
+    private titleService:Title) { 
+    this.titleService.setTitle("Dashboard")
+    this.dateAdapter.setLocale('es');
+  }
+
+  figureComplete (figure, markers) {
+    console.log ("Figura creada");
+    var temp = []
+    markers.forEach (function (mark){
+      if (figure.getBounds ().contains (mark.getPosition ())){
+        console.log (mark.getLabel());
+        temp.push (mark.getLabel ());
+      }
+    })
+    this.SelectedMarkers = temp;
+    figure.setVisible (false);
+  }
+
   mapInitializer() {
+
     this.map = new google.maps.Map(this.gmap.nativeElement, 
       this.mapOptions);
-      var markers = this.dist.map (function (dis, i){
-        let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
-        return new google.maps.Marker ({
-          position : pos,
-        })
-      });
-      new MarkerClusterer (this.map, markers,
-        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-     }
+
+    var markers = this.dist.map (function (dis, i){
+      let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
+      return new google.maps.Marker ({
+        label : dis.departamento + " - " + dis.provincia + " - " + dis.distrito,
+        position : pos
+      })
+    });
+
+    new MarkerClusterer (this.map, markers,
+      {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    this.drawingManager.setMap(this.map);
+
+    google.maps.event.addListener (this.drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle,markers))
+
+    google.maps.event.addListener (this.drawingManager, 'polygoncomplete', polygon => this.figureComplete (polygon, markers))
+
+  }
   
 
   ngOnInit(): void {}
