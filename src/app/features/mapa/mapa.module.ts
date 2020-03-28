@@ -6,6 +6,7 @@ import { MapComponent } from './components/map/map.component';
 import { MaterialModule } from 'src/app/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from 'src/app/core/core.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { CoreModule } from 'src/app/core/core.module';
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
-    MapaRoutingModule
+    MapaRoutingModule,
+    FlexLayoutModule
   ]
 })
 export class MapaModule { }

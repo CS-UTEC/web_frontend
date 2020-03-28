@@ -79,6 +79,13 @@ export class MapComponent implements OnInit, AfterViewInit {
   mapOptions: google.maps.MapOptions = {
     center: this.coordinates,
     zoom: 6,
+    mapTypeId: 'hybrid',
+    zoomControl: true,
+    mapTypeControl: false,
+    scaleControl: true,
+    streetViewControl: false,
+    rotateControl: true,
+    fullscreenControl: true
   };
 
   drawingManager = new google.maps.drawing.DrawingManager ({
