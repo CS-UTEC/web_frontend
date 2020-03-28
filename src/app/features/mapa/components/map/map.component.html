@@ -57,22 +57,19 @@
                            aria-label="Región"
                            matInput
                            [matAutocomplete]="auto"
-                           [(ngModel)]="selectedRegion">
-                    <button mat-button *ngIf="selectedRegion" matSuffix mat-icon-button aria-label="Borrar" (click)="selectedRegion=''">
+                           [(ngModel)]="selectedRegion"
+                           (ngModelChange) = "selectRegion()"
+                           >
+                    <button mat-button *ngIf="selectedRegion" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectRegion()">
                       <mat-icon>close</mat-icon>
                     </button>
                     <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor = "let reg of departamentos" [value] = "reg">
+                      <mat-option *ngFor = "let reg of regiones" [value] = "reg">
                         {{reg}}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
 
-                  <!--Luego se debe eliminar el botón de zoom-->
-
-                  <button mat-button (click)="zoomregion($event)" type="button">
-                    Zoom
-                  </button>
                 </div>
 
                 <!--Acá va el filtro por provincia-->
@@ -84,13 +81,15 @@
                            aria-label="Provincia"
                            matInput
                            [matAutocomplete]="auto1"
-                           [(ngModel)]="selectedProvincia">
-                    <button mat-button *ngIf="selectedProvincia" matSuffix mat-icon-button aria-label="Borrar" (click)="selectedProvincia=''">
+                           [(ngModel)]="selectedProvincia"
+                           (ngModelChange) = "selectProvincia()"
+                           >
+                    <button mat-button *ngIf="selectedProvincia" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectProvincia()">
                       <mat-icon>close</mat-icon>
                     </button>
                     <mat-autocomplete #auto1="matAutocomplete">
-                      <mat-option>
-                        Opción
+                      <mat-option *ngFor = "let pro of ProvinciasNombres" [value] = "pro">
+                        {{pro}}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
@@ -105,13 +104,15 @@
                            aria-label="Distrito"
                            matInput
                            [matAutocomplete]="auto2"
-                           [(ngModel)]="selectedDistrito">
-                    <button mat-button *ngIf="selectedDistrito" matSuffix mat-icon-button aria-label="Borrar" (click)="selectedDistrito=''">
+                           [(ngModel)]="selectedDistrito"
+                           (ngModelChange) = "selectDistrito()"
+                           >
+                    <button mat-button *ngIf="selectedDistrito" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectDistrito()">
                       <mat-icon>close</mat-icon>
                     </button>
                     <mat-autocomplete #auto2="matAutocomplete">
-                      <mat-option>
-                        Opción
+                      <mat-option *ngFor = "let di of DistritosNombres" [value] = "di">
+                        {{di}}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
@@ -135,6 +136,10 @@
                 </div>
               </div>            
               </mat-card-content>
+            </mat-card>
+            <mat-card>
+              Seleccionados: 
+              {{SelectedMarkers}}
             </mat-card>
             <mat-divider></mat-divider>
           </mat-tab>
