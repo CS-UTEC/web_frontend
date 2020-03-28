@@ -1,5 +1,9 @@
 <div id="wrapper">
-  <div fxLayout="row" fxLayout.lt-sm="column"  fxFill>
+
+  <!--Acá va la barra de navegación-->
+
+  <app-nav-bar></app-nav-bar>
+  <div style="width: 100vw; height: calc(100% - 64px);" fxLayout="row" fxLayout.lt-sm="column"  fxFill>
 		<div fxFlex="30" fxFlex.lt-sm="50">
       <div fxLayout="column" class="f-height">
 
@@ -21,20 +25,27 @@
 
               <mat-card fxFlex>         
                 <mat-card-subtitle>Filtrar por fecha</mat-card-subtitle>
+                <form [formGroup]="filtroForm">
                 <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
-                  <mat-form-field fxFlex>
-                    <mat-label>Fecha de inicio</mat-label>
-                    <input matInput [matDatepicker]="picker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-                  <mat-form-field fxFlex>
-                    <mat-label>Fecha de fin</mat-label>
-                    <input matInput [matDatepicker]="picker2">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
-                  </mat-form-field>
-                </div>                
+
+                  
+                    <mat-form-field fxFlex>
+                      <mat-label>Fecha de inicio</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="fechaInicio">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                      <mat-label>Fecha de fin</mat-label>
+                      <input matInput [matDatepicker]="picker2" formControlName="fechaFin">
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                  
+                  
+                </div>
+                <button mat-button type="button" (click)="getData()" >Search</button>    
+              </form>            
               </mat-card>
               
               <mat-divider></mat-divider>
@@ -127,7 +138,36 @@
   
             <!--Acá van nuevo features-->
   
-            <mat-tab label="Gráficos"> Gráficos van acá </mat-tab>
+            <mat-tab label="Gráficos"> 
+              <dx-chart
+              id="chart"
+              title="Gross State Product within the Great Lakes Region"
+              [dataSource]="grossProductData"
+              (onPointClick)="onPointClick($event)">
+              <dxi-series valueField="year2004" name="2004"></dxi-series>
+              <dxi-series valueField="year2001" name="2001"></dxi-series>
+              <dxi-series valueField="year1998" name="1998"></dxi-series>
+              <dxo-common-series-settings
+                  argumentField="state"
+                  type="bar"
+                  hoverMode="allArgumentPoints"
+                  selectionMode="allArgumentPoints">
+                  <dxo-label
+                      [visible]="true"
+                      [format]="{
+                          type: 'fixedPoint',
+                          precision: '0'
+                      }">
+                  </dxo-label>
+              </dxo-common-series-settings>
+              <dxo-legend
+                  verticalAlignment="bottom"
+                  horizontalAlignment="center">
+              </dxo-legend>
+              <dxo-export [enabled]="true"></dxo-export>
+          </dx-chart>
+              
+            </mat-tab>
             
           </mat-tab-group>
           
@@ -146,14 +186,49 @@
                     <textarea matInput rows="8" placeholder="Ej. Respete la cuarentena..."></textarea>
                   </mat-form-field>
                   <mat-card-actions align="end">
-                    <button mat-button color="accent">Enviar</button>
                     <button mat-button color="warn">Limpiar</button>
+                    <button mat-button color="accent" (click)="onNotify()">Enviar</button>
                   </mat-card-actions>
                 </mat-card>
               </div>
 
             </mat-tab>
-            <mat-tab label="Anuncios Enviados">
+            <mat-tab label="Notificar Usuarios">
+              <div class="f-min-height-width-padding" fxLayout="column" class="f-height" fxLayoutAlign="space-between">
+                <mat-card fxFlex>
+                  <form [formGroup]="reportCaseForm">
+                    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+                      <mat-form-field fxFlex>
+                        <mat-label>Tipo de Documento</mat-label>
+                        <mat-select formControlName="type" required>
+                          <mat-option *ngFor="let docType of docTypes" [value]="docType">
+                            {{docType}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex>
+                        <mat-label>Número de Documento</mat-label>
+                        <input matInput type="text" formControlName="document" required>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex>
+                        <mat-label>Tipo de Caso</mat-label>
+                        <mat-select formControlName="report" required>
+                          <mat-option *ngFor="let val of reportType" [value]="val">
+                            {{val}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      
+                    </div>
+                  </form>
+                  <mat-card-actions align="end">
+                    <button mat-button color="warn" type= "button" (click)="resetReportCaseForm()">Limpiar</button>
+                    <button mat-button color="accent" type= "button" (click)="onReportCase()" [disabled]="!reportCaseForm.valid">Notificar</button>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
 
             </mat-tab>
           </mat-tab-group>
