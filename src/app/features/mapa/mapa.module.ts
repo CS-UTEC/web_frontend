@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from 'src/app/core/core.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DxChartModule } from 'devextreme-angular';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [MapComponent],
@@ -20,7 +20,8 @@ import { DxChartModule } from 'devextreme-angular';
     ReactiveFormsModule,
     MapaRoutingModule,
     FlexLayoutModule,
-    DxChartModule
+    DxChartModule,
+    NgxChartsModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

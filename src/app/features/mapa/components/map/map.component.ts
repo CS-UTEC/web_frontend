@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit, NgModule } from '@angular/core';
 import * as _moment from 'moment';
 import { AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
@@ -10,7 +10,8 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 import { DataService } from 'src/app/shared/services/data.service';
 import { MapUser } from 'src/app/shared/models/mapUser.model';
 import { Person } from 'src/app/shared/models/person.model';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { single } from './data';
 
 const moment = _moment;
 
@@ -40,6 +41,25 @@ export class GrossProduct {
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit, AfterViewInit {
+  single: any[];
+  multi: any[];
+
+  view: any[] = [700, 400];
+
+  //options (from template)
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = false;
+  showXAxisLabel = true;
+  xAxisLabel = 'Día';
+  showYAxisLabel = true;
+  yAxisLabel = 'Número de casos';
+  colorScheme = {
+    domain: ['#bf0909']
+  };
+
+
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
 
@@ -117,6 +137,11 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
   });
 
+
+  onSelect(event){
+    console.log(event);
+  }
+
   constructor(
     private dateAdapter: DateAdapter<any>,
     private title: Title,
@@ -126,6 +151,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     ) { 
     this.title.setTitle("Dashboard")
     this.dateAdapter.setLocale('es');
+    Object.assign(this, {single})
   }
 
   figureComplete (figure, markers) {
