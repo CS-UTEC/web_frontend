@@ -117,13 +117,15 @@ export class MapComponent implements OnInit, AfterViewInit {
     var markers = this.dist.map (function (dis, i){
       let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
       return new google.maps.Marker ({
-        label : dis.departamento + " - " + dis.provincia + " - " + dis.distrito,
-        position : pos
+        position : pos,
+        label : dis.distrito,
+        icon : {url : '/./../../../assets/pins/pingray1.svg',
+        scaledSize: new google.maps.Size(50, 50) }
       })
     });
 
     new MarkerClusterer (this.map, markers,
-      {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+      {imagePath: '/./../../../assets/marketsicons/a'});
     this.drawingManager.setMap(this.map);
 
     google.maps.event.addListener (this.drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle,markers))
