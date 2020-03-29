@@ -177,7 +177,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       return new google.maps.Marker ({
         position : pos,
         icon : {url : '/./../../../assets/pins/pingray1.svg',
-        scaledSize: new google.maps.Size(50, 50) }
+        scaledSize: new google.maps.Size(0, 0) }
       })
     });
 
