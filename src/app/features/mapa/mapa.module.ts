@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MapaRoutingModule } from './mapa-routing.module';
@@ -6,7 +6,9 @@ import { MapComponent } from './components/map/map.component';
 import { MaterialModule } from 'src/app/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from 'src/app/core/core.module';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { DxChartModule } from 'devextreme-angular';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [MapComponent],
@@ -16,7 +18,12 @@ import { CoreModule } from 'src/app/core/core.module';
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
-    MapaRoutingModule
-  ]
+    MapaRoutingModule,
+    FlexLayoutModule,
+    DxChartModule,
+    NgxChartsModule
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class MapaModule { }
+
