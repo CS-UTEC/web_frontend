@@ -101,8 +101,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     var temp = []
     markers.forEach (function (mark){
       if (figure.getBounds ().contains (mark.getPosition ())){
-        console.log (mark.getLabel());
-        temp.push (mark.getLabel ());
+        console.log (mark.getPosition().toJSON());
+        temp.push (JSON.stringify(mark.getPosition().toJSON()));
       }
     })
     this.SelectedMarkers = temp;
@@ -118,7 +118,6 @@ export class MapComponent implements OnInit, AfterViewInit {
       let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
       return new google.maps.Marker ({
         position : pos,
-        label : dis.distrito,
         icon : {url : '/./../../../assets/pins/pingray1.svg',
         scaledSize: new google.maps.Size(50, 50) }
       })
