@@ -1,11 +1,17 @@
-import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit, NgModule } from '@angular/core';
 import * as _moment from 'moment';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { Title } from '@angular/platform-browser';
 import * as data from './data.json';
 import MarkerClusterer from "@google/markerclusterer"
 import { Overlay } from '@angular/cdk/overlay';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { DataService } from 'src/app/shared/services/data.service';
+import { MapUser } from 'src/app/shared/models/mapUser.model';
+import { Person } from 'src/app/shared/models/person.model';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { single } from './data';
 
 const moment = _moment;
 
@@ -21,12 +27,39 @@ export const MY_FORMATS = {
   },
 };
 
+export class GrossProduct {
+  state: string;
+  year1998: number;
+  year2001: number;
+  year2004: number;
+}
+
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit, AfterViewInit {
+  single: any[];
+  multi: any[];
+
+  view: any[] = [700, 400];
+
+  //options (from template)
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = false;
+  showXAxisLabel = true;
+  xAxisLabel = 'Día';
+  showYAxisLabel = true;
+  yAxisLabel = 'Número de casos';
+  colorScheme = {
+    domain: ['#bf0909']
+  };
+
+
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
 
@@ -68,6 +101,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   DistritosNombres = [];
 
   SelectedMarkers = [];
+
+
+
+  notificationForm = this.fb.group({
+    message: [null, Validators.required]
+  })
+
+  
   
 
   dist = data.data;
@@ -79,21 +120,38 @@ export class MapComponent implements OnInit, AfterViewInit {
   mapOptions: google.maps.MapOptions = {
     center: this.coordinates,
     zoom: 6,
+    mapTypeId: 'hybrid',
+    zoomControl: true,
+    mapTypeControl: false,
+    scaleControl: true,
+    streetViewControl: false,
+    rotateControl: true,
+    fullscreenControl: true
   };
 
   drawingManager = new google.maps.drawing.DrawingManager ({
     drawingControl: true,
     drawingControlOptions: {
       position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: [google.maps.drawing.OverlayType.POLYGON, google.maps.drawing.OverlayType.RECTANGLE]
+      drawingModes: [google.maps.drawing.OverlayType.RECTANGLE] //google.maps.drawing.OverlayType.POLYGON
     }
   });
 
+
+  onSelect(event){
+    console.log(event);
+  }
+
   constructor(
     private dateAdapter: DateAdapter<any>,
-    private titleService:Title) { 
-    this.titleService.setTitle("Dashboard")
+    private title: Title,
+    private notificationService: NotificationService,
+    private dataService: DataService,
+    private fb: FormBuilder
+    ) { 
+    this.title.setTitle("Dashboard")
     this.dateAdapter.setLocale('es');
+    Object.assign(this, {single})
   }
 
   figureComplete (figure, markers) {
@@ -211,7 +269,104 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.map.setZoom (12);
   }
 
+  filtroForm = this.fb.group({
+    fechaInicio: [null, Validators.required],
+    fechaFin: [null, Validators.required],
+    estado: ['confirmed']
+  })
 
+  getData(){
+
+    let req = new MapUser();
+    req.from = Number (new Date(this.filtroForm.value.fechaInicio));
+    req.to = Number (new Date(this.filtroForm.value.fechaFin));
+    req.state = this.filtroForm.value.estado;
+    
+    console.log(req);
+    this.dataService.getData(req)
+    .subscribe(puntos => console.log(puntos))
+  }
+
+  onNotify(){
+    console.log(this.SelectedMarkers)
+  }
+
+
+  reportCaseForm = this.fb.group({
+    document: [null, Validators.required],
+    type: [null, Validators.required],
+    report: [null, Validators.required]
+  })
+
+  docTypes: string[] = ['DNI', 'Pasaporte', 'Carnet de Extranjería'];
+  reportType: string[] = ['Caso confirmado', 'Caso recuperado'];
+
+  onReportCase () {
+    let person = this.reportCaseForm.value;
+    let req = new Person();
+    req.document = person.document;
+    req.type = person.type;
+    if (person.report === "Caso confirmado"){
+      this.notificationService.notifyConfirmedCase(req)
+      .subscribe(res=> {this.resetReportCaseForm()})
+    }else if(person.report === "Caso recuperado"){
+      this.notificationService.notifyRecoverCase(req)
+      .subscribe(res=> {this.resetReportCaseForm()})
+    }
+
+  }
+
+  resetReportCaseForm () {
+    this.reportCaseForm.reset();
+  }
+
+  /*Devxtreme */
+
+  onPointClick(e) {
+    e.target.select();
+}
+
+  grossProductData: GrossProduct[] = [{
+    state: "Illinois",
+    year1998: 423.721,
+    year2001: 476.851,
+    year2004: 528.904
+}, {
+    state: "Indiana",
+    year1998: 178.719,
+    year2001: 195.769,
+    year2004: 227.271
+}, {
+    state: "Michigan",
+    year1998: 308.845,
+    year2001: 335.793,
+    year2004: 372.576
+}, {
+    state: "Ohio",
+    year1998: 348.555,
+    year2001: 374.771,
+    year2004: 418.258
+}, {
+    state: "Wisconsin",
+    year1998: 160.274,
+    year2001: 182.373,
+    year2004: 211.727
+}];
+
+
+  customizePoint = (arg: any) => {
+      var color, hoverStyle;
+      switch (arg.data.type) {
+          case "Star":
+              color = "red";
+              hoverStyle = { border: { color: "red" } };
+              break;
+          case "Satellite":
+              color = "gray";
+              hoverStyle = { border: { color: "gray" } };
+      }
+      return { color, hoverStyle };
+  }
 }
 
 export class DateValidator {
@@ -222,3 +377,4 @@ export class DateValidator {
     return null;
   }
 }
+

@@ -54,6 +54,7 @@
     height: 50px;
   }
 
+  /*Acá está el bug*/
   ::ng-deep .mat-form-field-underline {
     display: none;
   }
