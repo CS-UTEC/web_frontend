@@ -27,12 +27,6 @@ export const MY_FORMATS = {
   },
 };
 
-export class GrossProduct {
-  state: string;
-  year1998: number;
-  year2001: number;
-  year2004: number;
-}
 
 
 @Component({
@@ -269,9 +263,12 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.map.setZoom (12);
   }
 
+  minDate = new Date("2020-03-06");
+  maxDate = new Date();
+
   filtroForm = this.fb.group({
-    fechaInicio: [null, Validators.required],
-    fechaFin: [null, Validators.required],
+    fechaInicio: [this.minDate, Validators.required],
+    fechaFin: [new Date(), Validators.required],
     estado: ['confirmed']
   })
 
@@ -326,32 +323,6 @@ export class MapComponent implements OnInit, AfterViewInit {
     e.target.select();
 }
 
-  grossProductData: GrossProduct[] = [{
-    state: "Illinois",
-    year1998: 423.721,
-    year2001: 476.851,
-    year2004: 528.904
-}, {
-    state: "Indiana",
-    year1998: 178.719,
-    year2001: 195.769,
-    year2004: 227.271
-}, {
-    state: "Michigan",
-    year1998: 308.845,
-    year2001: 335.793,
-    year2004: 372.576
-}, {
-    state: "Ohio",
-    year1998: 348.555,
-    year2001: 374.771,
-    year2004: 418.258
-}, {
-    state: "Wisconsin",
-    year1998: 160.274,
-    year2001: 182.373,
-    year2004: 211.727
-}];
 
 
   customizePoint = (arg: any) => {
