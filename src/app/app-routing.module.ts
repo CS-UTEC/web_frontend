@@ -5,7 +5,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'mapa',
+    path: 'dashboard',
     pathMatch: 'full',
     loadChildren: () => import('./features/mapa/mapa.module').then(mod => mod.MapaModule),
     canLoad: [AuthGuard]

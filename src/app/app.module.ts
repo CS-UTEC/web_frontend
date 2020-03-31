@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { MapaModule } from './features/mapa/mapa.module';
 import { HttpClientModule } from '@angular/common/http'; 
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     CoreModule,
     MapaModule,
+    SharedModule.forRoot(),
     MaterialModule,
     AppRoutingModule,
   ],

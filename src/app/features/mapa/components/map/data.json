@@ -1599,7 +1599,7 @@
         {
             "latitud": "-9.173100", 
             "provincia": "Santa", 
-            "distrito": "Nepe\u00c3\u00b1a", 
+            "distrito": "Nepeña", 
             "longitud": "-78.359700", 
             "departamento": "Ancash"
         }, 
@@ -2075,14 +2075,14 @@
         {
             "latitud": "-13.923900", 
             "provincia": "Aymaraes", 
-            "distrito": "San Juan de Chac\u00c3\u00b1a", 
+            "distrito": "San Juan de Chacña", 
             "longitud": "-73.182800", 
             "departamento": "Apurimac"
         }, 
         {
             "latitud": "-14.203600", 
             "provincia": "Aymaraes", 
-            "distrito": "Sa\u00c3\u00b1ayca", 
+            "distrito": "Sañayca", 
             "longitud": "-73.346100", 
             "departamento": "Apurimac"
         }, 
@@ -2439,7 +2439,7 @@
         {
             "latitud": "-16.558600", 
             "provincia": "Arequipa", 
-            "distrito": "Queque\u00c3\u00b1a", 
+            "distrito": "Quequeña", 
             "longitud": "-71.454400", 
             "departamento": "Arequipa"
         }, 
@@ -2579,7 +2579,7 @@
         {
             "latitud": "-16.432800", 
             "provincia": "Camana", 
-            "distrito": "Oco\u00c3\u00b1a", 
+            "distrito": "Ocoña", 
             "longitud": "-73.108100", 
             "departamento": "Arequipa"
         }, 
@@ -2768,7 +2768,7 @@
         {
             "latitud": "-15.727500", 
             "provincia": "Castilla", 
-            "distrito": "U\u00c3\u00b1on", 
+            "distrito": "Uñon", 
             "longitud": "-72.431700", 
             "departamento": "Arequipa"
         }, 
@@ -3475,7 +3475,7 @@
         {
             "latitud": "-14.977800", 
             "provincia": "Lucanas", 
-            "distrito": "Chavi\u00c3\u00b1a", 
+            "distrito": "Chaviña", 
             "longitud": "-73.836400", 
             "departamento": "Ayacucho"
         }, 
@@ -3524,7 +3524,7 @@
         {
             "latitud": "-14.398300", 
             "provincia": "Lucanas", 
-            "distrito": "Oca\u00c3\u00b1a", 
+            "distrito": "Ocaña", 
             "longitud": "-74.821900", 
             "departamento": "Ayacucho"
         }, 
@@ -3608,7 +3608,7 @@
         {
             "latitud": "-14.810000", 
             "provincia": "Parinacochas", 
-            "distrito": "Coronel Casta\u00c3\u00b1eda", 
+            "distrito": "Coronel Castañeda", 
             "longitud": "-73.288600", 
             "departamento": "Ayacucho"
         }, 
@@ -3748,7 +3748,7 @@
         {
             "latitud": "-14.172800", 
             "provincia": "Sucre", 
-            "distrito": "Huaca\u00c3\u00b1a", 
+            "distrito": "Huacaña", 
             "longitud": "-73.886400", 
             "departamento": "Ayacucho"
         }, 
@@ -3965,7 +3965,7 @@
         {
             "latitud": "-7.086400", 
             "provincia": "Cajamarca", 
-            "distrito": "Enca\u00c3\u00b1ada", 
+            "distrito": "Encañada", 
             "longitud": "-78.344700", 
             "departamento": "Cajamarca"
         }, 
@@ -3986,7 +3986,7 @@
         {
             "latitud": "-7.161700", 
             "provincia": "Cajamarca", 
-            "distrito": "Los Ba\u00c3\u00b1os del Inca", 
+            "distrito": "Los Baños del Inca", 
             "longitud": "-78.463300", 
             "departamento": "Cajamarca"
         }, 
@@ -4770,7 +4770,7 @@
         {
             "latitud": "-6.576400", 
             "provincia": "Santa Cruz", 
-            "distrito": "Chancayba\u00c3\u00b1os", 
+            "distrito": "Chancaybaños", 
             "longitud": "-78.868100", 
             "departamento": "Cajamarca"
         }, 
@@ -5253,7 +5253,7 @@
         {
             "latitud": "-14.311400", 
             "provincia": "Chumbivilcas", 
-            "distrito": "Qui\u00c3\u00b1ota", 
+            "distrito": "Quiñota", 
             "longitud": "-72.138900", 
             "departamento": "Cusco"
         }, 
@@ -5519,7 +5519,7 @@
         {
             "latitud": "-13.002500", 
             "provincia": "Paucartambo", 
-            "distrito": "Kos\u00c3\u00b1ipata", 
+            "distrito": "Kosñipata", 
             "longitud": "-71.422500", 
             "departamento": "Cusco"
         }, 
@@ -6653,7 +6653,7 @@
         {
             "latitud": "-9.500000", 
             "provincia": "Huamalies", 
-            "distrito": "Pu\u00c3\u00b1os", 
+            "distrito": "Puños", 
             "longitud": "-76.885000", 
             "departamento": "Huanuco"
         }, 
@@ -6743,35 +6743,35 @@
         }, 
         {
             "latitud": "-8.604400", 
-            "provincia": "Mara\u00c3\u00b1on", 
+            "provincia": "Marañon", 
             "distrito": "Huacrachuco", 
             "longitud": "-77.148900", 
             "departamento": "Huanuco"
         }, 
         {
             "latitud": "-8.659400", 
-            "provincia": "Mara\u00c3\u00b1on", 
+            "provincia": "Marañon", 
             "distrito": "Cholon", 
             "longitud": "-76.848100", 
             "departamento": "Huanuco"
         }, 
         {
             "latitud": "-8.768100", 
-            "provincia": "Mara\u00c3\u00b1on", 
+            "provincia": "Marañon", 
             "distrito": "San Buenaventura", 
             "longitud": "-77.186700", 
             "departamento": "Huanuco"
         }, 
         {
             "latitud": "-8.793300", 
-            "provincia": "Mara\u00c3\u00b1on", 
+            "provincia": "Marañon", 
             "distrito": "La Morada", 
             "longitud": "-76.249700", 
             "departamento": "Huanuco"
         }, 
         {
             "latitud": "-8.636400", 
-            "provincia": "Mara\u00c3\u00b1on", 
+            "provincia": "Marañon", 
             "distrito": "Santa Rosa de Alto Yanajanca", 
             "longitud": "-76.343900", 
             "departamento": "Huanuco"
@@ -6849,7 +6849,7 @@
         {
             "latitud": "-10.076900", 
             "provincia": "Lauricocha", 
-            "distrito": "Ba\u00c3\u00b1os", 
+            "distrito": "Baños", 
             "longitud": "-76.735600", 
             "departamento": "Huanuco"
         }, 
@@ -6954,7 +6954,7 @@
         {
             "latitud": "-14.035000", 
             "provincia": "Ica", 
-            "distrito": "La Tingui\u00c3\u00b1a", 
+            "distrito": "La Tinguiña", 
             "longitud": "-75.709200", 
             "departamento": "Ica"
         }, 
@@ -7409,7 +7409,7 @@
         {
             "latitud": "-11.955000", 
             "provincia": "Huancayo", 
-            "distrito": "Sa\u00c3\u00b1o", 
+            "distrito": "Saño", 
             "longitud": "-75.260600", 
             "departamento": "Junin"
         }, 
@@ -7675,7 +7675,7 @@
         {
             "latitud": "-11.863300", 
             "provincia": "Jauja", 
-            "distrito": "Leonor Ordo\u00c3\u00b1ez", 
+            "distrito": "Leonor Ordoñez", 
             "longitud": "-75.416900", 
             "departamento": "Junin"
         }, 
@@ -8795,7 +8795,7 @@
         {
             "latitud": "-6.923300", 
             "provincia": "Chiclayo", 
-            "distrito": "Sa\u00c3\u00b1a", 
+            "distrito": "Saña", 
             "longitud": "-79.583900", 
             "departamento": "Lambayeque"
         }, 
@@ -8836,42 +8836,42 @@
         }, 
         {
             "latitud": "-6.639400", 
-            "provincia": "Ferre\u00c3\u00b1afe", 
-            "distrito": "Ferre\u00c3\u00b1afe", 
+            "provincia": "Ferreñafe", 
+            "distrito": "Ferreñafe", 
             "longitud": "-79.791100", 
             "departamento": "Lambayeque"
         }, 
         {
             "latitud": "-6.044700", 
-            "provincia": "Ferre\u00c3\u00b1afe", 
-            "distrito": "Ca\u00c3\u00b1aris", 
+            "provincia": "Ferreñafe", 
+            "distrito": "Cañaris", 
             "longitud": "-79.264700", 
             "departamento": "Lambayeque"
         }, 
         {
             "latitud": "-6.237200", 
-            "provincia": "Ferre\u00c3\u00b1afe", 
+            "provincia": "Ferreñafe", 
             "distrito": "Incahuasi", 
             "longitud": "-79.315000", 
             "departamento": "Lambayeque"
         }, 
         {
             "latitud": "-6.645600", 
-            "provincia": "Ferre\u00c3\u00b1afe", 
+            "provincia": "Ferreñafe", 
             "distrito": "Manuel Antonio Mesones Muro", 
             "longitud": "-79.736100", 
             "departamento": "Lambayeque"
         }, 
         {
             "latitud": "-6.566400", 
-            "provincia": "Ferre\u00c3\u00b1afe", 
+            "provincia": "Ferreñafe", 
             "distrito": "Pitipo", 
             "longitud": "-79.780800", 
             "departamento": "Lambayeque"
         }, 
         {
             "latitud": "-6.636700", 
-            "provincia": "Ferre\u00c3\u00b1afe", 
+            "provincia": "Ferreñafe", 
             "distrito": "Pueblo Nuevo", 
             "longitud": "-79.794700", 
             "departamento": "Lambayeque"
@@ -8991,7 +8991,7 @@
         {
             "latitud": "-12.056700", 
             "provincia": "Lima", 
-            "distrito": "Bre\u00c3\u00b1a", 
+            "distrito": "Breña", 
             "longitud": "-77.053600", 
             "departamento": "Lima"
         }, 
@@ -9382,113 +9382,113 @@
         }, 
         {
             "latitud": "-13.082500", 
-            "provincia": "Ca\u00c3\u00b1ete", 
-            "distrito": "San Vicente de Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
+            "distrito": "San Vicente de Cañete", 
             "longitud": "-76.388300", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.778900", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Asia", 
             "longitud": "-76.557200", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.525600", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Calango", 
             "longitud": "-76.543300", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-13.026700", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Cerro Azul", 
             "longitud": "-76.479400", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.517200", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Chilca", 
             "longitud": "-76.736100", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.725800", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Coayllo", 
             "longitud": "-76.460600", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-13.060800", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Imperial", 
             "longitud": "-76.350000", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.959700", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Lunahuana", 
             "longitud": "-76.139200", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.655300", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Mala", 
             "longitud": "-76.630000", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-13.074200", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Nuevo Imperial", 
             "longitud": "-76.315800", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.863600", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Pacaran", 
             "longitud": "-76.051900", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.950000", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Quilmana", 
             "longitud": "-76.382800", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.643100", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "San Antonio", 
             "longitud": "-76.650000", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-13.050800", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "San Luis", 
             "longitud": "-76.429400", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.619400", 
-            "provincia": "Ca\u00c3\u00b1ete", 
+            "provincia": "Cañete", 
             "distrito": "Santa Cruz de Flores", 
             "longitud": "-76.639700", 
             "departamento": "Lima"
         }, 
         {
             "latitud": "-12.858100", 
-            "provincia": "Ca\u00c3\u00b1ete", 
-            "distrito": "Zu\u00c3\u00b1iga", 
+            "provincia": "Cañete", 
+            "distrito": "Zuñiga", 
             "longitud": "-76.022500", 
             "departamento": "Lima"
         }, 
@@ -10041,7 +10041,7 @@
         {
             "latitud": "-12.293900", 
             "provincia": "Yauyos", 
-            "distrito": "Hua\u00c3\u00b1ec", 
+            "distrito": "Huañec", 
             "longitud": "-76.138600", 
             "departamento": "Lima"
         }, 
@@ -10146,7 +10146,7 @@
         {
             "latitud": "-12.931100", 
             "provincia": "Yauyos", 
-            "distrito": "Vi\u00c3\u00b1ac", 
+            "distrito": "Viñac", 
             "longitud": "-75.779400", 
             "departamento": "Lima"
         }, 
@@ -10460,42 +10460,42 @@
         }, 
         {
             "latitud": "-4.821900", 
-            "provincia": "Datem del Mara\u00c3\u00b1on", 
+            "provincia": "Datem del Marañon", 
             "distrito": "Barranca", 
             "longitud": "-76.564200", 
             "departamento": "Loreto"
         }, 
         {
             "latitud": "-5.271100", 
-            "provincia": "Datem del Mara\u00c3\u00b1on", 
+            "provincia": "Datem del Marañon", 
             "distrito": "Cahuapanas", 
             "longitud": "-76.985800", 
             "departamento": "Loreto"
         }, 
         {
             "latitud": "-4.565000", 
-            "provincia": "Datem del Mara\u00c3\u00b1on", 
+            "provincia": "Datem del Marañon", 
             "distrito": "Manseriche", 
             "longitud": "-77.418300", 
             "departamento": "Loreto"
         }, 
         {
             "latitud": "-4.324700", 
-            "provincia": "Datem del Mara\u00c3\u00b1on", 
+            "provincia": "Datem del Marañon", 
             "distrito": "Morona", 
             "longitud": "-77.214700", 
             "departamento": "Loreto"
         }, 
         {
             "latitud": "-4.644200", 
-            "provincia": "Datem del Mara\u00c3\u00b1on", 
+            "provincia": "Datem del Marañon", 
             "distrito": "Pastaza", 
             "longitud": "-76.598100", 
             "departamento": "Loreto"
         }, 
         {
             "latitud": "-3.475000", 
-            "provincia": "Datem del Mara\u00c3\u00b1on", 
+            "provincia": "Datem del Marañon", 
             "distrito": "Andoas", 
             "longitud": "-76.434400", 
             "departamento": "Loreto"
@@ -10587,7 +10587,7 @@
         {
             "latitud": "-10.954400", 
             "provincia": "Tahuamanu", 
-            "distrito": "I\u00c3\u00b1apari", 
+            "distrito": "Iñapari", 
             "longitud": "-69.581400", 
             "departamento": "Madre de Dios"
         }, 
@@ -10671,7 +10671,7 @@
         {
             "latitud": "-16.141100", 
             "provincia": "General Sanchez Cerro", 
-            "distrito": "Ichu\u00c3\u00b1a", 
+            "distrito": "Ichuña", 
             "longitud": "-70.539200", 
             "departamento": "Moquegua"
         }, 
@@ -11322,7 +11322,7 @@
         {
             "latitud": "-4.581100", 
             "provincia": "Talara", 
-            "distrito": "Pari\u00c3\u00b1as", 
+            "distrito": "Pariñas", 
             "longitud": "-81.274700", 
             "departamento": "Piura"
         }, 
@@ -11462,7 +11462,7 @@
         {
             "latitud": "-15.799200", 
             "provincia": "Puno", 
-            "distrito": "Ma\u00c3\u00b1azo", 
+            "distrito": "Mañazo", 
             "longitud": "-70.345800", 
             "departamento": "Puno"
         }, 
@@ -11560,7 +11560,7 @@
         {
             "latitud": "-14.768900", 
             "provincia": "Azangaro", 
-            "distrito": "Mu\u00c3\u00b1ani", 
+            "distrito": "Muñani", 
             "longitud": "-69.952800", 
             "departamento": "Puno"
         }, 
@@ -11931,7 +11931,7 @@
         {
             "latitud": "-14.476700", 
             "provincia": "Melgar", 
-            "distrito": "Nu\u00c3\u00b1oa", 
+            "distrito": "Nuñoa", 
             "longitud": "-70.637200", 
             "departamento": "Puno"
         }, 
@@ -12365,7 +12365,7 @@
         {
             "latitud": "-6.508900", 
             "provincia": "Lamas", 
-            "distrito": "Cu\u00c3\u00b1umbuqui", 
+            "distrito": "Cuñumbuqui", 
             "longitud": "-76.480300", 
             "departamento": "San Martin"
         }, 
