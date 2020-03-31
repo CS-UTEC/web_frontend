@@ -206,19 +206,29 @@ mapOptions: google.maps.MapOptions = {
     return this.getId(type, name).match(/.{1,2}/g); 
   }
 
-  getLatLongFirstDistrict(id):any {
+  getLatLongFirstDistrict(type, id):any {
     let latLong: Array<any> = [];
-    let lat = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == id)[0].latitud;
-    let lg = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == id)[0].longitud;
-    latLong.push(lat);
-    latLong.push(lg);
+    if (type == "dep"){
+      let lat = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == id)[0].latitud;
+      let lg = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == id)[0].longitud;
+      latLong.push(lat);
+      latLong.push(lg);
+    }else if( type == "prov"){
+      let pubigeo = id.match(/.{1,2}/g);
+      let lat = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == pubigeo[0] && x.ubigeo.match(/.{1,2}/g)[1] == pubigeo[1])[0].latitud;
+      let lg = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == pubigeo[0] && x.ubigeo.match(/.{1,2}/g)[1] == pubigeo[1])[0].longitud;
+      latLong.push(lat);
+      latLong.push(lg);
+    }
     return latLong;
+
+
   }
 
 
   check(){
     console.log(this.getId("dist", "Huaraz"))
-    console.log(this.getLatLongFirstDistrict("01"))
+    console.log(this.getLatLongFirstDistrict("dep","01"))
     
   }
 
@@ -230,7 +240,7 @@ mapOptions: google.maps.MapOptions = {
         let idRegionSelected = this.getId("dep", this.selectedRegion);
         let idRegionData = prov.pubigeo.match(/.{1,2}/g)[0];
         if (idRegionSelected == idRegionData){
-          let latLong = this.getLatLongFirstDistrict(idRegionData)
+          let latLong = this.getLatLongFirstDistrict("dep", idRegionData)
           prov["latitud"] = latLong[0];
           prov["longitud"] = latLong[1];
           this.provinciasFiltradas.push (prov);
@@ -260,7 +270,7 @@ mapOptions: google.maps.MapOptions = {
         let ubprov = [distUbigeo[0], distUbigeo[1]];
         let idProvData = ubprov.join('');
         if (idProvSelected == idProvData){
-          let latLong = this.getLatLongFirstDistrict(ubprov[0])
+          let latLong = this.getLatLongFirstDistrict("prov",idProvData)
           dist["latitud"] = latLong[0];
           dist["longitud"] = latLong[1];
           this.distritosFiltrados.push (dist);
