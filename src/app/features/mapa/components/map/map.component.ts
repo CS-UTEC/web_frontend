@@ -139,7 +139,8 @@ mapOptions: google.maps.MapOptions = {
             icon : 
               {
                 url : '/./../../../assets/pins/pingray1.svg',
-                scaledSize: new google.maps.Size(0, 0) 
+                scaledSize: new google.maps.Size(0, 0),
+                //size : new google.maps.Size (40,30)
               }
           }
         )
@@ -149,7 +150,7 @@ mapOptions: google.maps.MapOptions = {
     new MarkerClusterer ( this.map, markers,
       {
         gridSize: 40,
-        imagePath: '/./../../../assets/marketsicons/a'
+        imagePath: '/./../../../assets/marketsicons/m'
       }
     );
 
@@ -159,20 +160,22 @@ mapOptions: google.maps.MapOptions = {
         drawingControlOptions: 
           {
             position: google.maps.ControlPosition.TOP_CENTER,
-            drawingModes: [google.maps.drawing.OverlayType.RECTANGLE] //google.maps.drawing.OverlayType.POLYGON
+            drawingModes: [google.maps.drawing.OverlayType.RECTANGLE, google.maps.drawing.OverlayType.POLYGON, google.maps.drawing.OverlayType.CIRCLE ]
           }
       }
     );
 
     drawingManager.setMap(this.map);
 
-    /*
+    
     
 
-    google.maps.event.addListener (this.drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle,markers))
+    google.maps.event.addListener (drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle,markers))
 
-    google.maps.event.addListener (this.drawingManager, 'polygoncomplete', polygon => this.figureComplete (polygon, markers))
-    */
+    google.maps.event.addListener (drawingManager, 'polygoncomplete', polygon => this.polygonComplete (polygon, markers))
+
+    google.maps.event.addListener (drawingManager, 'circlecomplete', circle => this.figureComplete (circle, markers))
+    
   }
 
   ngAfterViewInit() {
@@ -283,7 +286,7 @@ mapOptions: google.maps.MapOptions = {
  
 
 
-/*
+
   figureComplete (figure, markers) {
     console.log ("Figura creada");
     var temp = []
@@ -293,18 +296,30 @@ mapOptions: google.maps.MapOptions = {
         temp.push (JSON.stringify(mark.getPosition().toJSON()));
       }
     })
-    this.SelectedMarkers = temp;
+    //this.SelectedMarkers = temp;
     figure.setVisible (false);
   }
-  */
 
-  
-
-
-
- 
-
-
+  polygonComplete (figure, markers) {
+    console.log ("Figura creada");
+    var temp = []
+    var paths = figure.getPaths();
+    var bounds = new google.maps.LatLngBounds();
+    paths.forEach(function(path) {
+      var ar = path.getArray();
+      for(var i = 0, l = ar.length;i < l; i++) {
+        bounds.extend(ar[i]);
+      }
+    });
+    markers.forEach (function (mark){
+      if (bounds.contains (mark.getPosition ())){
+        console.log (mark.getPosition().toJSON());
+        temp.push (JSON.stringify(mark.getPosition().toJSON()));
+      }
+    })
+    //this.SelectedMarkers = temp;
+    figure.setVisible (false);
+  }
 
   minDate = new Date("2020-03-06");
   maxDate = new Date();
