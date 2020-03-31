@@ -68,8 +68,8 @@
                       <mat-icon>close</mat-icon>
                     </button>
                     <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor = "let reg of regiones" [value] = "reg">
-                        {{reg}}
+                      <mat-option *ngFor = "let reg of regiones" [value] = "reg.Departamento">
+                        {{reg.Departamento}}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>

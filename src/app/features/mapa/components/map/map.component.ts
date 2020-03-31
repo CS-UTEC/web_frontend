@@ -13,6 +13,12 @@ import { Person } from 'src/app/shared/models/person.model';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { single } from './data';
 
+import * as depData from './data/dep.json';
+import * as provData from './data/prov.json';
+import * as disData from './data/dist.json';
+
+
+
 const moment = _moment;
 
 export const MY_FORMATS = {
@@ -27,14 +33,41 @@ export const MY_FORMATS = {
   },
 };
 
+export class Coordenadas{
+  latitud: number;
+  longitud: number;
 
+  constructor (lat, long){
+    this.latitud = lat;
+    this.longitud = long;
+  }
+}
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements AfterViewInit {
+
+  constructor(
+    private dateAdapter: DateAdapter<any>,
+    private title: Title,
+    private notificationService: NotificationService,
+    private dataService: DataService,
+    private fb: FormBuilder
+    ) { 
+    this.title.setTitle("Dashboard");
+    this.dateAdapter.setLocale('es');
+    Object.assign(this, {single});
+    this.regiones = (depData as any).default;
+    this.provincia = (provData as any).default;
+    this.distrito = (disData as any).default;
+  }
+  
+
+  /* Gráficos */
+  
   single: any[];
   multi: any[];
 
@@ -53,7 +86,11 @@ export class MapComponent implements OnInit, AfterViewInit {
     domain: ['#bf0909']
   };
 
+  onSelect(event){
+    console.log(event);
+  }
 
+  /*---------- */
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
 
@@ -61,33 +98,86 @@ export class MapComponent implements OnInit, AfterViewInit {
   selectedProvincia = '';
   selectedDistrito = '';
 
-  regiones = [
-    "Amazonas",
-    "Ancash",
-    "Apurimac",
-    "Arequipa",
-    "Ayacucho",
-    "Cajamarca",
-    "Callao",
-    "Cusco",
-    "Huancavelica",
-    "Huanuco",
-    "Ica",
-    "Junin",
-    "La Libertad",
-    "Lambayeque",
-    "Lima",
-    "Loreto",
-    "Madre De Dios",
-    "Moquegua",
-    "Pasco",
-    "Piura",
-    "Puno",
-    "San Martin",
-    "Tacna",
-    "Tumbes",
-    "Ucayali"
-  ];
+/*Mapa */
+
+// Data de regiones, provincias y distritos
+  regiones:any; 
+  provincia:any;
+  distrito: any;
+ 
+
+// Variables de control
+
+map: google.maps.Map;
+coordMapaInicial = new Coordenadas(-9.1899672, -75.015152);
+coordinates = new google.maps.LatLng(this.coordMapaInicial.latitud, this.coordMapaInicial.longitud);
+
+mapOptions: google.maps.MapOptions = {
+  center: this.coordinates,
+  zoom: 6,
+  mapTypeId: 'hybrid', //Opciones de visualización
+  zoomControl: true,
+  mapTypeControl: false,
+  scaleControl: true,
+  streetViewControl: false,
+  rotateControl: true,
+  fullscreenControl: true
+};
+
+//Funcion de inicializacion 
+
+  mapInitializer() {
+
+    this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
+
+    let markers = this.distrito.map(
+      function (dis, i){
+        let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
+        return new google.maps.Marker(
+          {
+            position: pos,
+            icon : 
+              {
+                url : '/./../../../assets/pins/pingray1.svg',
+                scaledSize: new google.maps.Size(0, 0) 
+              }
+          }
+        )
+      }
+    )
+
+    new MarkerClusterer ( this.map, markers,
+      {
+        gridSize: 40,
+        imagePath: '/./../../../assets/marketsicons/a'
+      }
+    );
+
+    let drawingManager = new google.maps.drawing.DrawingManager (
+      {
+        drawingControl: true,
+        drawingControlOptions: 
+          {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: [google.maps.drawing.OverlayType.RECTANGLE] //google.maps.drawing.OverlayType.POLYGON
+          }
+      }
+    );
+
+    drawingManager.setMap(this.map);
+
+    /*
+    
+
+    google.maps.event.addListener (this.drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle,markers))
+
+    google.maps.event.addListener (this.drawingManager, 'polygoncomplete', polygon => this.figureComplete (polygon, markers))
+    */
+  }
+
+  ngAfterViewInit() {
+    this.mapInitializer();
+  }
 
   Provincias = [];
   ProvinciasNombres = [];
@@ -98,106 +188,12 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 
 
-  notificationForm = this.fb.group({
-    message: [null, Validators.required]
-  })
-
-  
-  
-
-  dist = data.data;
-
-  map: google.maps.Map;
-  lat = -9.1899672;
-  lng = -75.015152;
-  coordinates = new google.maps.LatLng(this.lat, this.lng);
-  mapOptions: google.maps.MapOptions = {
-    center: this.coordinates,
-    zoom: 6,
-    mapTypeId: 'hybrid',
-    zoomControl: true,
-    mapTypeControl: false,
-    scaleControl: true,
-    streetViewControl: false,
-    rotateControl: true,
-    fullscreenControl: true
-  };
-
-  drawingManager = new google.maps.drawing.DrawingManager ({
-    drawingControl: true,
-    drawingControlOptions: {
-      position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: [google.maps.drawing.OverlayType.RECTANGLE] //google.maps.drawing.OverlayType.POLYGON
-    }
-  });
-
-
-  onSelect(event){
-    console.log(event);
-  }
-
-  constructor(
-    private dateAdapter: DateAdapter<any>,
-    private title: Title,
-    private notificationService: NotificationService,
-    private dataService: DataService,
-    private fb: FormBuilder
-    ) { 
-    this.title.setTitle("Dashboard")
-    this.dateAdapter.setLocale('es');
-    Object.assign(this, {single})
-  }
-
-  figureComplete (figure, markers) {
-    console.log ("Figura creada");
-    var temp = []
-    markers.forEach (function (mark){
-      if (figure.getBounds ().contains (mark.getPosition ())){
-        console.log (mark.getPosition().toJSON());
-        temp.push (JSON.stringify(mark.getPosition().toJSON()));
-      }
-    })
-    this.SelectedMarkers = temp;
-    figure.setVisible (false);
-  }
-
-  mapInitializer() {
-
-    this.map = new google.maps.Map(this.gmap.nativeElement, 
-      this.mapOptions);
-
-    var markers = this.dist.map (function (dis, i){
-      let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
-      return new google.maps.Marker ({
-        position : pos,
-        icon : {url : '/./../../../assets/pins/pingray1.svg',
-        scaledSize: new google.maps.Size(0, 0) }
-      })
-    });
-
-    new MarkerClusterer (this.map, markers,
-      {imagePath: '/./../../../assets/marketsicons/a'});
-    this.drawingManager.setMap(this.map);
-
-    google.maps.event.addListener (this.drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle,markers))
-
-    google.maps.event.addListener (this.drawingManager, 'polygoncomplete', polygon => this.figureComplete (polygon, markers))
-
-  }
-  
-
-  ngOnInit(): void {}
-
-  ngAfterViewInit() {
-    this.mapInitializer();
-  }
-
   selectRegion () {
     if (this.selectedRegion)
     {
       this.Provincias = [];
       this.ProvinciasNombres = [];
-      for (let d of this.dist){
+      for (let d of this.distrito){
         if (this.selectedRegion == d.departamento){
           this.Provincias.push (d);
           this.ProvinciasNombres.push (d.provincia);
@@ -263,6 +259,53 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.map.setZoom (12);
   }
 
+
+
+
+
+
+
+
+
+  
+  
+
+  dist = data.data;
+
+
+
+
+  /*
+
+  */
+
+
+ 
+
+
+/*
+  figureComplete (figure, markers) {
+    console.log ("Figura creada");
+    var temp = []
+    markers.forEach (function (mark){
+      if (figure.getBounds ().contains (mark.getPosition ())){
+        console.log (mark.getPosition().toJSON());
+        temp.push (JSON.stringify(mark.getPosition().toJSON()));
+      }
+    })
+    this.SelectedMarkers = temp;
+    figure.setVisible (false);
+  }
+  */
+
+  
+
+
+
+ 
+
+
+
   minDate = new Date("2020-03-06");
   maxDate = new Date();
 
@@ -316,6 +359,10 @@ export class MapComponent implements OnInit, AfterViewInit {
   resetReportCaseForm () {
     this.reportCaseForm.reset();
   }
+
+  notificationForm = this.fb.group({
+    message: [null, Validators.required]
+  })
 
   /*Devxtreme */
 
