@@ -31,20 +31,20 @@
                   
                     <mat-form-field fxFlex>
                       <mat-label>Fecha de inicio</mat-label>
-                      <input matInput [matDatepicker]="picker" formControlName="fechaInicio">
+                      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="fechaInicio">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field fxFlex>
                       <mat-label>Fecha de fin</mat-label>
-                      <input matInput [matDatepicker]="picker2" formControlName="fechaFin">
+                      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" formControlName="fechaFin">
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                     </mat-form-field>
                   
                   
                 </div>
-                <button mat-button type="button" (click)="getData()" >Search</button>    
+                <button mat-button type="button" (click)="check()" >Search</button>    
               </form>            
               </mat-card>
               
@@ -68,8 +68,8 @@
                       <mat-icon>close</mat-icon>
                     </button>
                     <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor = "let reg of regiones" [value] = "reg">
-                        {{reg}}
+                      <mat-option *ngFor = "let reg of regiones" [value] = "reg.Departamento">
+                        {{reg.Departamento}}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
@@ -89,8 +89,8 @@
                     <mat-icon>close</mat-icon>
                   </button>
                   <mat-autocomplete #auto1="matAutocomplete">
-                    <mat-option *ngFor = "let pro of ProvinciasNombres" [value] = "pro">
-                      {{pro}}
+                    <mat-option *ngFor = "let pro of provinciasFiltradas" [value] = "pro.Provincia">
+                      {{pro.Provincia}}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -110,8 +110,8 @@
                     <mat-icon>close</mat-icon>
                   </button>
                   <mat-autocomplete #auto2="matAutocomplete">
-                    <mat-option *ngFor = "let di of DistritosNombres" [value] = "di">
-                      {{di}}
+                    <mat-option *ngFor = "let di of distritosFiltrados" [value] = "di.Distrito">
+                      {{di.Distrito}}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>

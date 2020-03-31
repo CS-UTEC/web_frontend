@@ -13,6 +13,12 @@ import { Person } from 'src/app/shared/models/person.model';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { single } from './data';
 
+import * as depData from './data/dep.json';
+import * as provData from './data/prov.json';
+import * as disData from './data/dist.json';
+
+
+
 const moment = _moment;
 
 export const MY_FORMATS = {
@@ -27,20 +33,41 @@ export const MY_FORMATS = {
   },
 };
 
-export class GrossProduct {
-  state: string;
-  year1998: number;
-  year2001: number;
-  year2004: number;
-}
+export class Coordenadas{
+  latitud: number;
+  longitud: number;
 
+  constructor (lat, long){
+    this.latitud = lat;
+    this.longitud = long;
+  }
+}
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements AfterViewInit {
+
+  constructor(
+    private dateAdapter: DateAdapter<any>,
+    private title: Title,
+    private notificationService: NotificationService,
+    private dataService: DataService,
+    private fb: FormBuilder
+    ) { 
+    this.title.setTitle("Dashboard");
+    this.dateAdapter.setLocale('es');
+    Object.assign(this, {single});
+    this.regiones = (depData as any).default;
+    this.provincia = (provData as any).default;
+    this.distrito = (disData as any).default;
+  }
+  
+
+  /* Gráficos */
+  
   single: any[];
   multi: any[];
 
@@ -59,7 +86,11 @@ export class MapComponent implements OnInit, AfterViewInit {
     domain: ['#bf0909']
   };
 
+  onSelect(event){
+    console.log(event);
+  }
 
+  /*---------- */
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
 
@@ -67,151 +98,161 @@ export class MapComponent implements OnInit, AfterViewInit {
   selectedProvincia = '';
   selectedDistrito = '';
 
-  regiones = [
-    "Amazonas",
-    "Ancash",
-    "Apurimac",
-    "Arequipa",
-    "Ayacucho",
-    "Cajamarca",
-    "Callao",
-    "Cusco",
-    "Huancavelica",
-    "Huanuco",
-    "Ica",
-    "Junin",
-    "La Libertad",
-    "Lambayeque",
-    "Lima",
-    "Loreto",
-    "Madre De Dios",
-    "Moquegua",
-    "Pasco",
-    "Piura",
-    "Puno",
-    "San Martin",
-    "Tacna",
-    "Tumbes",
-    "Ucayali"
-  ];
+/*Mapa */
 
-  Provincias = [];
-  ProvinciasNombres = [];
-  Distritos = [];
-  DistritosNombres = [];
+// Data de regiones, provincias y distritos
+  regiones:any; 
+  provincia:any;
+  distrito: any;
+ 
 
-  SelectedMarkers = [];
+// Variables de control
 
+map: google.maps.Map;
+coordMapaInicial = new Coordenadas(-9.1899672, -75.015152);
+coordinates = new google.maps.LatLng(this.coordMapaInicial.latitud, this.coordMapaInicial.longitud);
 
+mapOptions: google.maps.MapOptions = {
+  center: this.coordinates,
+  zoom: 6,
+  mapTypeId: 'hybrid', //Opciones de visualización
+  zoomControl: true,
+  mapTypeControl: false,
+  scaleControl: true,
+  streetViewControl: false,
+  rotateControl: true,
+  fullscreenControl: true
+};
 
-  notificationForm = this.fb.group({
-    message: [null, Validators.required]
-  })
-
-  
-  
-
-  dist = data.data;
-
-  map: google.maps.Map;
-  lat = -9.1899672;
-  lng = -75.015152;
-  coordinates = new google.maps.LatLng(this.lat, this.lng);
-  mapOptions: google.maps.MapOptions = {
-    center: this.coordinates,
-    zoom: 6,
-    mapTypeId: 'hybrid',
-    zoomControl: true,
-    mapTypeControl: false,
-    scaleControl: true,
-    streetViewControl: false,
-    rotateControl: true,
-    fullscreenControl: true
-  };
-
-  drawingManager = new google.maps.drawing.DrawingManager ({
-    drawingControl: true,
-    drawingControlOptions: {
-      position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: [google.maps.drawing.OverlayType.RECTANGLE] //google.maps.drawing.OverlayType.POLYGON
-    }
-  });
-
-
-  onSelect(event){
-    console.log(event);
-  }
-
-  constructor(
-    private dateAdapter: DateAdapter<any>,
-    private title: Title,
-    private notificationService: NotificationService,
-    private dataService: DataService,
-    private fb: FormBuilder
-    ) { 
-    this.title.setTitle("Dashboard")
-    this.dateAdapter.setLocale('es');
-    Object.assign(this, {single})
-  }
-
-  figureComplete (figure, markers) {
-    console.log ("Figura creada");
-    var temp = []
-    markers.forEach (function (mark){
-      if (figure.getBounds ().contains (mark.getPosition ())){
-        console.log (mark.getPosition().toJSON());
-        temp.push (JSON.stringify(mark.getPosition().toJSON()));
-      }
-    })
-    this.SelectedMarkers = temp;
-    figure.setVisible (false);
-  }
+//Funcion de inicializacion 
 
   mapInitializer() {
 
-    this.map = new google.maps.Map(this.gmap.nativeElement, 
-      this.mapOptions);
+    this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
 
-    var markers = this.dist.map (function (dis, i){
-      let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
-      return new google.maps.Marker ({
-        position : pos,
-        icon : {url : '/./../../../assets/pins/pingray1.svg',
-        scaledSize: new google.maps.Size(0, 0) }
-      })
-    });
+    let markers = this.distrito.map(
+      function (dis, i){
+        let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
+        return new google.maps.Marker(
+          {
+            position: pos,
+            icon : 
+              {
+                url : '/./../../../assets/pins/pingray1.svg',
+                scaledSize: new google.maps.Size(0, 0),
+                //size : new google.maps.Size (40,30)
+              }
+          }
+        )
+      }
+    )
 
-    new MarkerClusterer (this.map, markers,
-      {imagePath: '/./../../../assets/marketsicons/a'});
-    this.drawingManager.setMap(this.map);
+    new MarkerClusterer ( this.map, markers,
+      {
+        gridSize: 40,
+        imagePath: '/./../../../assets/marketsicons/m'
+      }
+    );
 
-    google.maps.event.addListener (this.drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle,markers))
+    let drawingManager = new google.maps.drawing.DrawingManager (
+      {
+        drawingControl: true,
+        drawingControlOptions: 
+          {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: [google.maps.drawing.OverlayType.RECTANGLE, google.maps.drawing.OverlayType.POLYGON, google.maps.drawing.OverlayType.CIRCLE ]
+          }
+      }
+    );
 
-    google.maps.event.addListener (this.drawingManager, 'polygoncomplete', polygon => this.figureComplete (polygon, markers))
+    drawingManager.setMap(this.map);
 
+    
+    
+
+    google.maps.event.addListener (drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle,markers))
+
+    google.maps.event.addListener (drawingManager, 'polygoncomplete', polygon => this.polygonComplete (polygon, markers))
+
+    google.maps.event.addListener (drawingManager, 'circlecomplete', circle => this.figureComplete (circle, markers))
+    
   }
-  
-
-  ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.mapInitializer();
   }
 
+  provinciasFiltradas:any[] = [];
+  distritosFiltrados = [];
+
+
+  ProvinciasNombres = [];
+  Distritos = [];
+  
+
+  SelectedMarkers = [];
+
+
+  getId(type, name): string{
+    if (type === "dep"){
+      return this.regiones.find(x=> x.Departamento == name).id;
+    }else if (type === "prov"){
+      return this.provincia.find(x=> x.Provincia == name).pubigeo;
+    }else if (type === "dist"){
+      return this.distrito.find(x=> x.Distrito == name).ubigeo;
+    }
+  }
+
+  //Divide el ubigeo en cadenas de dos
+
+  splitUbigeos(type, name): any {
+    return this.getId(type, name).match(/.{1,2}/g); 
+  }
+
+  getLatLongFirstDistrict(type, id):any {
+    let latLong: Array<any> = [];
+    if (type == "dep"){
+      let lat = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == id)[0].latitud;
+      let lg = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == id)[0].longitud;
+      latLong.push(lat);
+      latLong.push(lg);
+    }else if( type == "prov"){
+      let pubigeo = id.match(/.{1,2}/g);
+      let lat = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == pubigeo[0] && x.ubigeo.match(/.{1,2}/g)[1] == pubigeo[1])[0].latitud;
+      let lg = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == pubigeo[0] && x.ubigeo.match(/.{1,2}/g)[1] == pubigeo[1])[0].longitud;
+      latLong.push(lat);
+      latLong.push(lg);
+    }
+    return latLong;
+
+
+  }
+
+
+  check(){
+    console.log(this.getId("dist", "Huaraz"))
+    console.log(this.getLatLongFirstDistrict("dep","01"))
+    
+  }
+
   selectRegion () {
     if (this.selectedRegion)
     {
-      this.Provincias = [];
-      this.ProvinciasNombres = [];
-      for (let d of this.dist){
-        if (this.selectedRegion == d.departamento){
-          this.Provincias.push (d);
-          this.ProvinciasNombres.push (d.provincia);
+      this.provinciasFiltradas = [];
+      for (let prov of this.provincia){
+        let idRegionSelected = this.getId("dep", this.selectedRegion);
+        let idRegionData = prov.pubigeo.match(/.{1,2}/g)[0];
+        console.log("Dep");
+        console.log(prov);
+        if (idRegionSelected == idRegionData){
+          let latLong = this.getLatLongFirstDistrict("dep", idRegionData)
+          prov["latitud"] = latLong[0];
+          prov["longitud"] = latLong[1];
+          this.provinciasFiltradas.push (prov);
         }
       }
-      this.ProvinciasNombres = [...new Set(this.ProvinciasNombres)];
-      if (this.Provincias.length){
-        this.map.panTo ({"lat" : parseFloat(this.Provincias[0].latitud), "lng" : parseFloat(this.Provincias[0].longitud)});
+      if (this.provinciasFiltradas.length){
+        this.map.panTo ({"lat" : parseFloat(this.provinciasFiltradas[0].latitud), "lng" : parseFloat(this.provinciasFiltradas[0].longitud)});
         this.map.setZoom(10);
       }
     }
@@ -219,8 +260,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   deselectRegion (){
     this.selectedRegion = "";
-    this.ProvinciasNombres = [];
-    this.Provincias = [];
+    this.provinciasFiltradas = [];
     this.map.panTo (this.coordinates);
     this.map.setZoom(6);
   }
@@ -228,16 +268,23 @@ export class MapComponent implements OnInit, AfterViewInit {
   selectProvincia () {
     if (this.selectedProvincia){
       this.Distritos = [];
-      this.DistritosNombres = [];
-      for (let p of this.Provincias){
-        if (this.selectedProvincia == p.provincia){
-          this.Distritos.push (p);
-          this.DistritosNombres.push (p.distrito);
+      this.distritosFiltrados = [];
+      for (let dist of this.distrito){
+        let idProvSelected = this.getId("prov", this.selectedProvincia);
+        let distUbigeo = dist.ubigeo.match(/.{1,2}/g)
+        let ubprov = [distUbigeo[0], distUbigeo[1]];
+        let idProvData = ubprov.join('');
+        console.log("Prov");
+        console.log(dist);
+        if (idProvSelected == idProvData){
+          let latLong = this.getLatLongFirstDistrict("prov",idProvData)
+          dist["latitud"] = latLong[0];
+          dist["longitud"] = latLong[1];
+          this.distritosFiltrados.push (dist);
         }
       }
-      this.DistritosNombres = [...new Set(this.DistritosNombres)];
-      if (this.Distritos.length){
-        this.map.panTo ({"lat" : parseFloat(this.Distritos[0].latitud), "lng" : parseFloat (this.Distritos[0].longitud)});
+      if (this.distritosFiltrados.length){
+        this.map.panTo ({"lat" : parseFloat(this.distritosFiltrados[0].latitud), "lng" : parseFloat (this.distritosFiltrados[0].longitud)});
         this.map.setZoom (12);
       }
     }
@@ -245,16 +292,18 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   deselectProvincia () {
     this.selectedProvincia = "";
-    this.DistritosNombres = [];
+    this.distritosFiltrados = [];
     this.Distritos = [];
-    this.map.panTo ({"lat" : parseFloat(this.Provincias[0].latitud), "lng" : parseFloat(this.Provincias[0].longitud)});
+    this.map.panTo ({"lat" : parseFloat(this.provinciasFiltradas[0].latitud), "lng" : parseFloat(this.provinciasFiltradas[0].longitud)});
     this.map.setZoom (10);
   }
 
   selectDistrito () {
     if (this.selectedDistrito){
-      for (let d of this.Distritos){
-        if (this.selectedDistrito == d.distrito){
+      for (let d of this.distritosFiltrados){
+        console.log("Dist");
+        console.log(d);
+        if (this.selectedDistrito == d.Distrito){
           this.map.panTo ({"lat" : parseFloat(d.latitud), "lng" : parseFloat (d.longitud)});
           this.map.setZoom (15);
           break;
@@ -265,13 +314,75 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   deselectDistrito () {
     this.selectedDistrito = "";
-    this.map.panTo ({"lat" : parseFloat(this.Distritos[0].latitud), "lng" : parseFloat (this.Distritos[0].longitud)});
+    this.map.panTo ({"lat" : parseFloat(this.distritosFiltrados[0].latitud), "lng" : parseFloat (this.distritosFiltrados[0].longitud)});
     this.map.setZoom (12);
   }
 
+
+
+
+
+
+
+
+
+  
+  
+
+  dist = data.data;
+
+
+
+
+  /*
+
+  */
+
+
+ 
+
+
+
+  figureComplete (figure, markers) {
+    console.log ("Figura creada");
+    var temp = []
+    markers.forEach (function (mark){
+      if (figure.getBounds ().contains (mark.getPosition ())){
+        console.log (mark.getPosition().toJSON());
+        temp.push (JSON.stringify(mark.getPosition().toJSON()));
+      }
+    })
+    //this.SelectedMarkers = temp;
+    figure.setVisible (false);
+  }
+
+  polygonComplete (figure, markers) {
+    console.log ("Figura creada");
+    var temp = []
+    var paths = figure.getPaths();
+    var bounds = new google.maps.LatLngBounds();
+    paths.forEach(function(path) {
+      var ar = path.getArray();
+      for(var i = 0, l = ar.length;i < l; i++) {
+        bounds.extend(ar[i]);
+      }
+    });
+    markers.forEach (function (mark){
+      if (bounds.contains (mark.getPosition ())){
+        console.log (mark.getPosition().toJSON());
+        temp.push (JSON.stringify(mark.getPosition().toJSON()));
+      }
+    })
+    //this.SelectedMarkers = temp;
+    figure.setVisible (false);
+  }
+
+  minDate = new Date("2020-03-06");
+  maxDate = new Date();
+
   filtroForm = this.fb.group({
-    fechaInicio: [null, Validators.required],
-    fechaFin: [null, Validators.required],
+    fechaInicio: [this.minDate, Validators.required],
+    fechaFin: [new Date(), Validators.required],
     estado: ['confirmed']
   })
 
@@ -320,38 +431,16 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.reportCaseForm.reset();
   }
 
+  notificationForm = this.fb.group({
+    message: [null, Validators.required]
+  })
+
   /*Devxtreme */
 
   onPointClick(e) {
     e.target.select();
 }
 
-  grossProductData: GrossProduct[] = [{
-    state: "Illinois",
-    year1998: 423.721,
-    year2001: 476.851,
-    year2004: 528.904
-}, {
-    state: "Indiana",
-    year1998: 178.719,
-    year2001: 195.769,
-    year2004: 227.271
-}, {
-    state: "Michigan",
-    year1998: 308.845,
-    year2001: 335.793,
-    year2004: 372.576
-}, {
-    state: "Ohio",
-    year1998: 348.555,
-    year2001: 374.771,
-    year2004: 418.258
-}, {
-    state: "Wisconsin",
-    year1998: 160.274,
-    year2001: 182.373,
-    year2004: 211.727
-}];
 
 
   customizePoint = (arg: any) => {
