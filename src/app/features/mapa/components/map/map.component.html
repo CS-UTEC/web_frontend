@@ -10,6 +10,8 @@
         <div fxFlex="55">
 
           <mat-tab-group mat-stretch-tabs  color="primary" class="full-width-height mat-elevation-z1">
+            
+            <!--Filter Tab-->
             <mat-tab label="Filtrar"> 
 
               <div class="f-min-height-width-padding" fxLayout="column" class="f-height" fxLayoutAlign="space-between">
@@ -137,25 +139,33 @@
             </mat-tab>
   
             <!--Acá van nuevo features-->
-  
-            <mat-tab label="Gráficos"> 
-              <ngx-charts-bar-vertical
-              [view]="view"
-              [scheme]="colorScheme"
-              [results]="single"
-              [gradient]="gradient"
-              [xAxis]="showXAxis"
-              [yAxis]="showYAxis"
-              [legend]="showLegend"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="xAxisLabel"
-              [yAxisLabel]="yAxisLabel"
-              (select)="onSelect($event)">
-            </ngx-charts-bar-vertical>
-              
-            </mat-tab>
             
+
+            <!--Graph Tab-->
+            <mat-tab label="Gráficos"> 
+
+              
+              <dx-chart
+                  id="chart"
+                  [dataSource]="dataSource">
+                  <dxi-series argumentField="x1" valueField="y1"></dxi-series>
+                  <dxi-series argumentField="x2" valueField="y2">
+                      <dxo-point symbol="triangleDown"></dxo-point>
+                  </dxi-series>
+                  <dxi-value-axis [tickInterval]="50"></dxi-value-axis>
+                  <dxo-common-series-settings type="scatter"></dxo-common-series-settings>
+                  <dxo-argument-axis [tickInterval]="5">
+                      <dxo-grid [visible]="true"></dxo-grid>
+                      <dxo-minor-grid [visible]="true"></dxo-minor-grid>
+                  </dxo-argument-axis>
+                  <dxo-legend [visible]="false"></dxo-legend>
+                  <dxo-common-pane-settings>
+                      <dxo-border [visible]="true"></dxo-border>
+                  </dxo-common-pane-settings>
+              </dx-chart>
+
+
+              </mat-tab> 
           </mat-tab-group>
           
         </div>

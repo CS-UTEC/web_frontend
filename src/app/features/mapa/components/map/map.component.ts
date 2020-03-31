@@ -1,8 +1,9 @@
-import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit, NgModule } from '@angular/core';
+import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit, NgModule, enableProdMode } from '@angular/core';
 import * as _moment from 'moment';
 import { AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
-import { Title } from '@angular/platform-browser';
+import { Title, BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import * as data from './data.json';
 import MarkerClusterer from "@google/markerclusterer"
 import { Overlay } from '@angular/cdk/overlay';
@@ -12,6 +13,10 @@ import { MapUser } from 'src/app/shared/models/mapUser.model';
 import { Person } from 'src/app/shared/models/person.model';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { single } from './data';
+
+import { DxChartModule } from 'devextreme-angular';
+import { ScatterData, Service } from './map.service';
+
 
 const moment = _moment;
 
@@ -38,11 +43,14 @@ export class GrossProduct {
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
+  providers: [Service]
 })
 export class MapComponent implements OnInit, AfterViewInit {
   single: any[];
   multi: any[];
+
+  dataSource: ScatterData[];
 
   view: any[] = [700, 400];
 
@@ -147,11 +155,15 @@ export class MapComponent implements OnInit, AfterViewInit {
     private title: Title,
     private notificationService: NotificationService,
     private dataService: DataService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+
+    service: Service
     ) { 
     this.title.setTitle("Dashboard")
     this.dateAdapter.setLocale('es');
     Object.assign(this, {single})
+
+    this.dataSource = service.generateDataSource();
   }
 
   figureComplete (figure, markers) {
