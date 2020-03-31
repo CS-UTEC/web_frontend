@@ -179,29 +179,65 @@ mapOptions: google.maps.MapOptions = {
     this.mapInitializer();
   }
 
-  Provincias = [];
+  provinciasFiltradas:any[] = [];
+  distritosFiltrados = [];
+
+
   ProvinciasNombres = [];
   Distritos = [];
-  DistritosNombres = [];
+  
 
   SelectedMarkers = [];
 
 
+  getId(type, name): string{
+    if (type === "dep"){
+      return this.regiones.find(x=> x.Departamento == name).id;
+    }else if (type === "prov"){
+      return this.provincia.find(x=> x.Provincia == name).pubigeo;
+    }else if (type === "dist"){
+      return this.distrito.find(x=> x.Distrito == name).ubigeo;
+    }
+  }
+
+  //Divide el ubigeo en cadenas de dos
+
+  splitUbigeos(type, name): any {
+    return this.getId(type, name).match(/.{1,2}/g); 
+  }
+
+  getLatLongFirstDistrict(id):any {
+    let latLong: Array<any> = [];
+    let lat = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == id)[0].latitud;
+    let lg = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == id)[0].longitud;
+    latLong.push(lat);
+    latLong.push(lg);
+    return latLong;
+  }
+
+
+  check(){
+    console.log(this.getId("dist", "Huaraz"))
+    console.log(this.getLatLongFirstDistrict("01"))
+    
+  }
 
   selectRegion () {
     if (this.selectedRegion)
     {
-      this.Provincias = [];
-      this.ProvinciasNombres = [];
-      for (let d of this.distrito){
-        if (this.selectedRegion == d.departamento){
-          this.Provincias.push (d);
-          this.ProvinciasNombres.push (d.provincia);
+      this.provinciasFiltradas = [];
+      for (let prov of this.provincia){
+        let idRegionSelected = this.getId("dep", this.selectedRegion);
+        let idRegionData = prov.pubigeo.match(/.{1,2}/g)[0];
+        if (idRegionSelected == idRegionData){
+          let latLong = this.getLatLongFirstDistrict(idRegionData)
+          prov["latitud"] = latLong[0];
+          prov["longitud"] = latLong[1];
+          this.provinciasFiltradas.push (prov);
         }
       }
-      this.ProvinciasNombres = [...new Set(this.ProvinciasNombres)];
-      if (this.Provincias.length){
-        this.map.panTo ({"lat" : parseFloat(this.Provincias[0].latitud), "lng" : parseFloat(this.Provincias[0].longitud)});
+      if (this.provinciasFiltradas.length){
+        this.map.panTo ({"lat" : parseFloat(this.provinciasFiltradas[0].latitud), "lng" : parseFloat(this.provinciasFiltradas[0].longitud)});
         this.map.setZoom(10);
       }
     }
@@ -209,8 +245,7 @@ mapOptions: google.maps.MapOptions = {
 
   deselectRegion (){
     this.selectedRegion = "";
-    this.ProvinciasNombres = [];
-    this.Provincias = [];
+    this.provinciasFiltradas = [];
     this.map.panTo (this.coordinates);
     this.map.setZoom(6);
   }
@@ -218,16 +253,21 @@ mapOptions: google.maps.MapOptions = {
   selectProvincia () {
     if (this.selectedProvincia){
       this.Distritos = [];
-      this.DistritosNombres = [];
-      for (let p of this.Provincias){
-        if (this.selectedProvincia == p.provincia){
-          this.Distritos.push (p);
-          this.DistritosNombres.push (p.distrito);
+      this.distritosFiltrados = [];
+      for (let dist of this.distrito){
+        let idProvSelected = this.getId("prov", this.selectedProvincia);
+        let distUbigeo = dist.ubigeo.match(/.{1,2}/g)
+        let ubprov = [distUbigeo[0], distUbigeo[1]];
+        let idProvData = ubprov.join('');
+        if (idProvSelected == idProvData){
+          let latLong = this.getLatLongFirstDistrict(ubprov[0])
+          dist["latitud"] = latLong[0];
+          dist["longitud"] = latLong[1];
+          this.distritosFiltrados.push (dist);
         }
       }
-      this.DistritosNombres = [...new Set(this.DistritosNombres)];
-      if (this.Distritos.length){
-        this.map.panTo ({"lat" : parseFloat(this.Distritos[0].latitud), "lng" : parseFloat (this.Distritos[0].longitud)});
+      if (this.distritosFiltrados.length){
+        this.map.panTo ({"lat" : parseFloat(this.distritosFiltrados[0].latitud), "lng" : parseFloat (this.distritosFiltrados[0].longitud)});
         this.map.setZoom (12);
       }
     }
@@ -235,16 +275,16 @@ mapOptions: google.maps.MapOptions = {
 
   deselectProvincia () {
     this.selectedProvincia = "";
-    this.DistritosNombres = [];
+    this.distritosFiltrados = [];
     this.Distritos = [];
-    this.map.panTo ({"lat" : parseFloat(this.Provincias[0].latitud), "lng" : parseFloat(this.Provincias[0].longitud)});
+    this.map.panTo ({"lat" : parseFloat(this.provinciasFiltradas[0].latitud), "lng" : parseFloat(this.provinciasFiltradas[0].longitud)});
     this.map.setZoom (10);
   }
 
   selectDistrito () {
     if (this.selectedDistrito){
-      for (let d of this.Distritos){
-        if (this.selectedDistrito == d.distrito){
+      for (let d of this.distritosFiltrados){
+        if (this.selectedDistrito == d.Distrito){
           this.map.panTo ({"lat" : parseFloat(d.latitud), "lng" : parseFloat (d.longitud)});
           this.map.setZoom (15);
           break;
@@ -255,7 +295,7 @@ mapOptions: google.maps.MapOptions = {
 
   deselectDistrito () {
     this.selectedDistrito = "";
-    this.map.panTo ({"lat" : parseFloat(this.Distritos[0].latitud), "lng" : parseFloat (this.Distritos[0].longitud)});
+    this.map.panTo ({"lat" : parseFloat(this.distritosFiltrados[0].latitud), "lng" : parseFloat (this.distritosFiltrados[0].longitud)});
     this.map.setZoom (12);
   }
 
