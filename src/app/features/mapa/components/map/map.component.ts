@@ -16,6 +16,8 @@ import { single } from './data';
 import * as depData from './data/dep.json';
 import * as provData from './data/prov.json';
 import * as disData from './data/dist.json';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 
 
@@ -167,9 +169,6 @@ mapOptions: google.maps.MapOptions = {
 
     drawingManager.setMap(this.map);
 
-    
-    
-
     google.maps.event.addListener (drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle,markers))
 
     google.maps.event.addListener (drawingManager, 'polygoncomplete', polygon => this.polygonComplete (polygon, markers))
@@ -182,77 +181,53 @@ mapOptions: google.maps.MapOptions = {
     this.mapInitializer();
   }
 
-  provinciasFiltradas:any[] = [];
+  /* Filtros */
+
+  //Utilitarios
+
+  getRegionId(name): string{
+    return this.regiones.find(x => x.departamento == name).id;
+  }
+
+  getProvinciaId(name: any, dataFiltrada: any[]): any{
+    let p = dataFiltrada.find(x => x.provincia == name);
+    return [p.id, p.idp];
+  }
+
+  getLatLongFirstDistrict(type, id, idp?):any {
+    let latLong: Array<any> = [];
+    if (type == "dep"){
+      let dist = this.distrito.filter(x => x.id == id)[0];
+      latLong.push(dist.latitud, dist.longitud);
+    }else if( type == "prov"){
+      let dist = this.distrito.filter(x => x.id == id && x.idp == idp)[0];
+      latLong.push(dist.latitud, dist.longitud);
+    }
+    return latLong;
+  }
+
+  provinciasFiltradas = [];
   distritosFiltrados = [];
 
 
-  ProvinciasNombres = [];
-  Distritos = [];
-  
-
-  SelectedMarkers = [];
-
-
-  getId(type, name): string{
-    if (type === "dep"){
-      return this.regiones.find(x=> x.Departamento == name).id;
-    }else if (type === "prov"){
-      return this.provincia.find(x=> x.Provincia == name).pubigeo;
-    }else if (type === "dist"){
-      return this.distrito.find(x=> x.Distrito == name).ubigeo;
-    }
-  }
-
-  //Divide el ubigeo en cadenas de dos
-
-  splitUbigeos(type, name): any {
-    return this.getId(type, name).match(/.{1,2}/g); 
-  }
-
-  getLatLongFirstDistrict(type, id):any {
-    let latLong: Array<any> = [];
-    if (type == "dep"){
-      let lat = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == id)[0].latitud;
-      let lg = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == id)[0].longitud;
-      latLong.push(lat);
-      latLong.push(lg);
-    }else if( type == "prov"){
-      let pubigeo = id.match(/.{1,2}/g);
-      let lat = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == pubigeo[0] && x.ubigeo.match(/.{1,2}/g)[1] == pubigeo[1])[0].latitud;
-      let lg = this.distrito.filter(x => x.ubigeo.match(/.{1,2}/g)[0] == pubigeo[0] && x.ubigeo.match(/.{1,2}/g)[1] == pubigeo[1])[0].longitud;
-      latLong.push(lat);
-      latLong.push(lg);
-    }
-    return latLong;
-
-
-  }
-
-
-  check(){
-    console.log(this.getId("dist", "Huaraz"))
-    console.log(this.getLatLongFirstDistrict("dep","01"))
-    
-  }
+  // Funciones
 
   selectRegion () {
-    if (this.selectedRegion)
-    {
+    if (this.selectedRegion){
       this.provinciasFiltradas = [];
+      let idRegionSelected: any;
+      let latLong: any;
       for (let prov of this.provincia){
-        let idRegionSelected = this.getId("dep", this.selectedRegion);
-        let idRegionData = prov.pubigeo.match(/.{1,2}/g)[0];
-        console.log("Dep");
-        console.log(prov);
-        if (idRegionSelected == idRegionData){
-          let latLong = this.getLatLongFirstDistrict("dep", idRegionData)
-          prov["latitud"] = latLong[0];
-          prov["longitud"] = latLong[1];
+        idRegionSelected = this.getRegionId(this.selectedRegion);
+        if (idRegionSelected == prov.id){
+          latLong = this.getLatLongFirstDistrict("dep", idRegionSelected);
+          prov['lat']=latLong[0];
+          prov['lng']=latLong[1];
           this.provinciasFiltradas.push (prov);
         }
       }
       if (this.provinciasFiltradas.length){
-        this.map.panTo ({"lat" : parseFloat(this.provinciasFiltradas[0].latitud), "lng" : parseFloat(this.provinciasFiltradas[0].longitud)});
+        this.map.panTo ({"lat" : parseFloat(latLong[0]), "lng" : parseFloat(latLong[1])});
         this.map.setZoom(10);
       }
     }
@@ -260,31 +235,30 @@ mapOptions: google.maps.MapOptions = {
 
   deselectRegion (){
     this.selectedRegion = "";
+    this.selectedProvincia = "";
+    this.selectedDistrito = "";
     this.provinciasFiltradas = [];
+    this.distritosFiltrados = [];
     this.map.panTo (this.coordinates);
     this.map.setZoom(6);
   }
 
   selectProvincia () {
     if (this.selectedProvincia){
-      this.Distritos = [];
       this.distritosFiltrados = [];
+      let idProvSelected: any;
+      let latLong: any;
       for (let dist of this.distrito){
-        let idProvSelected = this.getId("prov", this.selectedProvincia);
-        let distUbigeo = dist.ubigeo.match(/.{1,2}/g)
-        let ubprov = [distUbigeo[0], distUbigeo[1]];
-        let idProvData = ubprov.join('');
-        console.log("Prov");
-        console.log(dist);
-        if (idProvSelected == idProvData){
-          let latLong = this.getLatLongFirstDistrict("prov",idProvData)
-          dist["latitud"] = latLong[0];
-          dist["longitud"] = latLong[1];
+        idProvSelected = this.getProvinciaId(this.selectedProvincia,this.provinciasFiltradas);
+        if (idProvSelected[0] == dist.id && idProvSelected[1] == dist.idp){
+          latLong = this.getLatLongFirstDistrict("prov",idProvSelected[0], idProvSelected[1]);
+          dist['lat'] = latLong[0];
+          dist['lng'] = latLong[1];
           this.distritosFiltrados.push (dist);
         }
       }
       if (this.distritosFiltrados.length){
-        this.map.panTo ({"lat" : parseFloat(this.distritosFiltrados[0].latitud), "lng" : parseFloat (this.distritosFiltrados[0].longitud)});
+        this.map.panTo ({"lat" : parseFloat(latLong[0]), "lng" : parseFloat (latLong[1])});
         this.map.setZoom (12);
       }
     }
@@ -292,8 +266,8 @@ mapOptions: google.maps.MapOptions = {
 
   deselectProvincia () {
     this.selectedProvincia = "";
+    this.selectedDistrito = "";
     this.distritosFiltrados = [];
-    this.Distritos = [];
     this.map.panTo ({"lat" : parseFloat(this.provinciasFiltradas[0].latitud), "lng" : parseFloat(this.provinciasFiltradas[0].longitud)});
     this.map.setZoom (10);
   }
@@ -301,9 +275,7 @@ mapOptions: google.maps.MapOptions = {
   selectDistrito () {
     if (this.selectedDistrito){
       for (let d of this.distritosFiltrados){
-        console.log("Dist");
-        console.log(d);
-        if (this.selectedDistrito == d.Distrito){
+        if (this.selectedDistrito == d.distrito){
           this.map.panTo ({"lat" : parseFloat(d.latitud), "lng" : parseFloat (d.longitud)});
           this.map.setZoom (15);
           break;
@@ -317,42 +289,20 @@ mapOptions: google.maps.MapOptions = {
     this.map.panTo ({"lat" : parseFloat(this.distritosFiltrados[0].latitud), "lng" : parseFloat (this.distritosFiltrados[0].longitud)});
     this.map.setZoom (12);
   }
+  /*Draw selection */
 
-
-
-
-
-
-
-
-
-  
-  
-
-  dist = data.data;
-
-
-
-
-  /*
-
-  */
-
-
- 
-
-
+  SelectedMarkers = [];
 
   figureComplete (figure, markers) {
     console.log ("Figura creada");
-    var temp = []
+    let temp = []
     markers.forEach (function (mark){
       if (figure.getBounds ().contains (mark.getPosition ())){
         console.log (mark.getPosition().toJSON());
         temp.push (JSON.stringify(mark.getPosition().toJSON()));
       }
     })
-    //this.SelectedMarkers = temp;
+    this.SelectedMarkers.push(temp);
     figure.setVisible (false);
   }
 
@@ -373,9 +323,15 @@ mapOptions: google.maps.MapOptions = {
         temp.push (JSON.stringify(mark.getPosition().toJSON()));
       }
     })
-    //this.SelectedMarkers = temp;
+    this.SelectedMarkers.push(temp);
     figure.setVisible (false);
   }
+
+  check(){
+    this.getData()
+  }
+
+  /* Selection */
 
   minDate = new Date("2020-03-06");
   maxDate = new Date();
@@ -391,6 +347,8 @@ mapOptions: google.maps.MapOptions = {
     let req = new MapUser();
     req.from = Number (new Date(this.filtroForm.value.fechaInicio));
     req.to = Number (new Date(this.filtroForm.value.fechaFin));
+    //req.from = this.filtroForm.value.fechaInicio;
+    //req.to = this.filtroForm.value.fechaFin;
     req.state = this.filtroForm.value.estado;
     
     console.log(req);

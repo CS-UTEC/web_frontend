@@ -1,102 +1,102 @@
 [
   {
     "id": "01",
-    "Departamento": "Amazonas"
+    "departamento": "Amazonas"
   },
   {
     "id": "02",
-    "Departamento": "Áncash"
+    "departamento": "Áncash"
   },
   {
     "id": "03",
-    "Departamento": "Apurímac"
+    "departamento": "Apurímac"
   },
   {
     "id": "04",
-    "Departamento": "Arequipa"
+    "departamento": "Arequipa"
   },
   {
     "id": "05",
-    "Departamento": "Ayacucho"
+    "departamento": "Ayacucho"
   },
   {
     "id": "06",
-    "Departamento": "Cajamarca"
+    "departamento": "Cajamarca"
   },
   {
     "id": "07",
-    "Departamento": "Callao"
+    "departamento": "Callao"
   },
   {
     "id": "08",
-    "Departamento": "Cusco"
+    "departamento": "Cusco"
   },
   {
     "id": "09",
-    "Departamento": "Huancavelica"
+    "departamento": "Huancavelica"
   },
   {
     "id": "10",
-    "Departamento": "Huánuco"
+    "departamento": "Huánuco"
   },
   {
     "id": "11",
-    "Departamento": "Ica"
+    "departamento": "Ica"
   },
   {
     "id": "12",
-    "Departamento": "Junín"
+    "departamento": "Junín"
   },
   {
     "id": "13",
-    "Departamento": "La Libertad"
+    "departamento": "La Libertad"
   },
   {
     "id": "14",
-    "Departamento": "Lambayeque"
+    "departamento": "Lambayeque"
   },
   {
     "id": "15",
-    "Departamento": "Lima"
+    "departamento": "Lima"
   },
   {
     "id": "16",
-    "Departamento": "Loreto"
+    "departamento": "Loreto"
   },
   {
     "id": "17",
-    "Departamento": "Madre de Dios"
+    "departamento": "Madre de Dios"
   },
   {
     "id": "18",
-    "Departamento": "Moquegua"
+    "departamento": "Moquegua"
   },
   {
     "id": "19",
-    "Departamento": "Pasco"
+    "departamento": "Pasco"
   },
   {
     "id": "20",
-    "Departamento": "Piura"
+    "departamento": "Piura"
   },
   {
     "id": "21",
-    "Departamento": "Puno"
+    "departamento": "Puno"
   },
   {
     "id": "22",
-    "Departamento": "San Martín"
+    "departamento": "San Martín"
   },
   {
     "id": "23",
-    "Departamento": "Tacna"
+    "departamento": "Tacna"
   },
   {
     "id": "24",
-    "Departamento": "Tumbes"
+    "departamento": "Tumbes"
   },
   {
     "id": "25",
-    "Departamento": "Ucayali"
+    "departamento": "Ucayali"
   }
 ]

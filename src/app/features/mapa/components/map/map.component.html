@@ -56,64 +56,53 @@
                 <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
                   <!--Acá va el filtro por región-->
                   <mat-form-field fxFlex> 
-                    <input type="text"
-                          placeholder="Región"
-                          aria-label="Región"
-                          matInput
-                          [matAutocomplete]="auto"
-                          [(ngModel)]="selectedRegion"
-                          (ngModelChange) = "selectRegion()"
-                          >
+                    <mat-label>Región</mat-label>
+                    <mat-select 
+                    disableOptionCentering
+                    [(ngModel)]="selectedRegion"
+                    (selectionChange) = "selectRegion()">
+                      <mat-option *ngFor = "let reg of regiones" [value] = "reg.departamento">
+                        {{reg.departamento}}
+                      </mat-option>
+                    </mat-select>
                     <button mat-button *ngIf="selectedRegion" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectRegion()">
                       <mat-icon>close</mat-icon>
                     </button>
-                    <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor = "let reg of regiones" [value] = "reg.Departamento">
-                        {{reg.Departamento}}
-                      </mat-option>
-                    </mat-autocomplete>
                   </mat-form-field>
 
                 <!--Acá va el filtro por provincia-->
 
                 <mat-form-field fxFlex>
-                  <input type="text"
-                        placeholder="Provincia"
-                        aria-label="Provincia"
-                        matInput
-                        [matAutocomplete]="auto1"
-                        [(ngModel)]="selectedProvincia"
-                        (ngModelChange) = "selectProvincia()"
-                        >
+                  <mat-label>Provincia</mat-label>
+                  <mat-select 
+                    disableOptionCentering
+                    [(ngModel)]="selectedProvincia"
+                    (selectionChange) = "selectProvincia()"
+                    >
+                    <mat-option *ngFor = "let pro of provinciasFiltradas" [value] = "pro.provincia">
+                      {{pro.provincia}}
+                    </mat-option>
+                  </mat-select>
                   <button mat-button *ngIf="selectedProvincia" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectProvincia()">
                     <mat-icon>close</mat-icon>
                   </button>
-                  <mat-autocomplete #auto1="matAutocomplete">
-                    <mat-option *ngFor = "let pro of provinciasFiltradas" [value] = "pro.Provincia">
-                      {{pro.Provincia}}
-                    </mat-option>
-                  </mat-autocomplete>
                 </mat-form-field>
 
                 <!--Acá va el filtro por distrito-->
 
                 <mat-form-field fxFlex>
-                  <input type="text"
-                        placeholder="Distrito"
-                        aria-label="Distrito"
-                        matInput
-                        [matAutocomplete]="auto2"
-                        [(ngModel)]="selectedDistrito"
-                        (ngModelChange) = "selectDistrito()"
-                        >
+                  <mat-label>Distrito</mat-label>
+                  <mat-select
+                    [(ngModel)]="selectedDistrito"
+                    (selectionChange) = "selectDistrito()"
+                    >
+                    <mat-option *ngFor = "let di of distritosFiltrados" [value] = "di.distrito">
+                      {{di.distrito}}
+                    </mat-option>
+                  </mat-select>
                   <button mat-button *ngIf="selectedDistrito" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectDistrito()">
                     <mat-icon>close</mat-icon>
                   </button>
-                  <mat-autocomplete #auto2="matAutocomplete">
-                    <mat-option *ngFor = "let di of distritosFiltrados" [value] = "di.Distrito">
-                      {{di.Distrito}}
-                    </mat-option>
-                  </mat-autocomplete>
                 </mat-form-field>
                 </div>
                 

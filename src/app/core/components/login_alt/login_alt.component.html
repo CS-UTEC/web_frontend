@@ -4,33 +4,29 @@
     <img src="../../../../assets/escudo.svg" class="escudoRojo" style="margin-bottom: 20px; fill: #bf0909">
 
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <div class="campo">
-        <mat-form-field appearance="fill">
-          <mat-label style="color: white;">Código de usuario</mat-label>
-          <input matInput type="text" style="color: white;" id="username" formControlName="username" autocomplete="off">
-        </mat-form-field>
-      </div>
+      <mat-form-field appearance="outline">
+        <mat-label >Código de usuario</mat-label>
+        <input matInput type="text" id="username" formControlName="username" autocomplete="off">
+      </mat-form-field>
 
       <br>
 
-      <div class="campo">
-        <mat-form-field appearance="fill">
-          <mat-label style="color: white;">Contraseña</mat-label>
-          
-          <!--<input matInput type="password" id="password" formControlName="password">-->
-          
-          <input matInput style="color: white;" [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
+      <mat-form-field appearance="outline">
+        <mat-label >Contraseña</mat-label>
+        
+        <!--<input matInput type="password" id="password" formControlName="password">-->
+        
+        <input matInput  [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
 
-          <button type="button" color="white" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Mostrar/esconder contraseña'" [attr.aria-pressed]="hide">
-           <mat-icon >{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-          </button>
-        </mat-form-field>
-      </div> 
+        <button type="button" color="primary" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Mostrar/esconder contraseña'" [attr.aria-pressed]="hide">
+         <mat-icon >{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </button>
+      </mat-form-field>
 
       <br>
 
-      <div class="actions">
-        <button mat-raised-button  type="submit" [disabled]="!loginForm.valid">Ingresar</button>
+      <div >
+        <button mat-flat-button color="primary" type="submit" [disabled]="!loginForm.valid">Ingresar</button>
       </div>
 
     </form>

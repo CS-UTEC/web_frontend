@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: MapComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   }
 
 ];

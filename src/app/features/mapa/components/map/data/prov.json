@@ -1,786 +1,982 @@
 [
   {
-    "Provincia": "Chachapoyas",
-    "pubigeo": "0101"
+    "provincia": "Chachapoyas",
+    "id": "01",
+    "idp": "01"
   },
   {
-    "Provincia": "Bagua",
-    "pubigeo": "0102"
+    "provincia": "Bagua",
+    "id": "01",
+    "idp": "02"
   },
   {
-    "Provincia": "Bongará",
-    "pubigeo": "0103"
+    "provincia": "Bongará",
+    "id": "01",
+    "idp": "03"
   },
   {
-    "Provincia": "Condorcanqui",
-    "pubigeo": "0104"
+    "provincia": "Condorcanqui",
+    "id": "01",
+    "idp": "04"
   },
   {
-    "Provincia": "Luya",
-    "pubigeo": "0105"
+    "provincia": "Luya",
+    "id": "01",
+    "idp": "05"
   },
   {
-    "Provincia": "Rodríguez de Mendoza",
-    "pubigeo": "0106"
+    "provincia": "Rodríguez de Mendoza",
+    "id": "01",
+    "idp": "06"
   },
   {
-    "Provincia": "Utcubamba",
-    "pubigeo": "0107"
+    "provincia": "Utcubamba",
+    "id": "01",
+    "idp": "07"
   },
   {
-    "Provincia": "Huaraz",
-    "pubigeo": "0201"
+    "provincia": "Huaraz",
+    "id": "02",
+    "idp": "01"
   },
   {
-    "Provincia": "Aija",
-    "pubigeo": "0202"
+    "provincia": "Aija",
+    "id": "02",
+    "idp": "02"
   },
   {
-    "Provincia": "Antonio Raymondi",
-    "pubigeo": "0203"
+    "provincia": "Antonio Raymondi",
+    "id": "02",
+    "idp": "03"
   },
   {
-    "Provincia": "Asunción",
-    "pubigeo": "0204"
+    "provincia": "Asunción",
+    "id": "02",
+    "idp": "04"
   },
   {
-    "Provincia": "Bolognesi",
-    "pubigeo": "0205"
+    "provincia": "Bolognesi",
+    "id": "02",
+    "idp": "05"
   },
   {
-    "Provincia": "Carhuaz",
-    "pubigeo": "0206"
+    "provincia": "Carhuaz",
+    "id": "02",
+    "idp": "06"
   },
   {
-    "Provincia": "Carlos Fermín Fitzcarrald",
-    "pubigeo": "0207"
+    "provincia": "Carlos Fermín Fitzcarrald",
+    "id": "02",
+    "idp": "07"
   },
   {
-    "Provincia": "Casma",
-    "pubigeo": "0208"
+    "provincia": "Casma",
+    "id": "02",
+    "idp": "08"
   },
   {
-    "Provincia": "Corongo",
-    "pubigeo": "0209"
+    "provincia": "Corongo",
+    "id": "02",
+    "idp": "09"
   },
   {
-    "Provincia": "Huari",
-    "pubigeo": "0210"
+    "provincia": "Huari",
+    "id": "02",
+    "idp": "10"
   },
   {
-    "Provincia": "Huarmey",
-    "pubigeo": "0211"
+    "provincia": "Huarmey",
+    "id": "02",
+    "idp": "11"
   },
   {
-    "Provincia": "Huaylas",
-    "pubigeo": "0212"
+    "provincia": "Huaylas",
+    "id": "02",
+    "idp": "12"
   },
   {
-    "Provincia": "Mariscal Luzuriaga",
-    "pubigeo": "0213"
+    "provincia": "Mariscal Luzuriaga",
+    "id": "02",
+    "idp": "13"
   },
   {
-    "Provincia": "Ocros",
-    "pubigeo": "0214"
+    "provincia": "Ocros",
+    "id": "02",
+    "idp": "14"
   },
   {
-    "Provincia": "Pallasca",
-    "pubigeo": "0215"
+    "provincia": "Pallasca",
+    "id": "02",
+    "idp": "15"
   },
   {
-    "Provincia": "Pomabamba",
-    "pubigeo": "0216"
+    "provincia": "Pomabamba",
+    "id": "02",
+    "idp": "16"
   },
   {
-    "Provincia": "Recuay",
-    "pubigeo": "0217"
+    "provincia": "Recuay",
+    "id": "02",
+    "idp": "17"
   },
   {
-    "Provincia": "Santa",
-    "pubigeo": "0218"
+    "provincia": "Santa",
+    "id": "02",
+    "idp": "18"
   },
   {
-    "Provincia": "Sihuas",
-    "pubigeo": "0219"
+    "provincia": "Sihuas",
+    "id": "02",
+    "idp": "19"
   },
   {
-    "Provincia": "Yungay",
-    "pubigeo": "0220"
+    "provincia": "Yungay",
+    "id": "02",
+    "idp": "20"
   },
   {
-    "Provincia": "Abancay",
-    "pubigeo": "0301"
+    "provincia": "Abancay",
+    "id": "03",
+    "idp": "01"
   },
   {
-    "Provincia": "Andahuaylas",
-    "pubigeo": "0302"
+    "provincia": "Andahuaylas",
+    "id": "03",
+    "idp": "02"
   },
   {
-    "Provincia": "Antabamba",
-    "pubigeo": "0303"
+    "provincia": "Antabamba",
+    "id": "03",
+    "idp": "03"
   },
   {
-    "Provincia": "Aymaraes",
-    "pubigeo": "0304"
+    "provincia": "Aymaraes",
+    "id": "03",
+    "idp": "04"
   },
   {
-    "Provincia": "Cotabambas",
-    "pubigeo": "0305"
+    "provincia": "Cotabambas",
+    "id": "03",
+    "idp": "05"
   },
   {
-    "Provincia": "Chincheros",
-    "pubigeo": "0306"
+    "provincia": "Chincheros",
+    "id": "03",
+    "idp": "06"
   },
   {
-    "Provincia": "Grau",
-    "pubigeo": "0307"
+    "provincia": "Grau",
+    "id": "03",
+    "idp": "07"
   },
   {
-    "Provincia": "Arequipa",
-    "pubigeo": "0401"
+    "provincia": "Arequipa",
+    "id": "04",
+    "idp": "01"
   },
   {
-    "Provincia": "Camaná",
-    "pubigeo": "0402"
+    "provincia": "Camaná",
+    "id": "04",
+    "idp": "02"
   },
   {
-    "Provincia": "Caravelí",
-    "pubigeo": "0403"
+    "provincia": "Caravelí",
+    "id": "04",
+    "idp": "03"
   },
   {
-    "Provincia": "Castilla",
-    "pubigeo": "0404"
+    "provincia": "Castilla",
+    "id": "04",
+    "idp": "04"
   },
   {
-    "Provincia": "Caylloma",
-    "pubigeo": "0405"
+    "provincia": "Caylloma",
+    "id": "04",
+    "idp": "05"
   },
   {
-    "Provincia": "Condesuyos",
-    "pubigeo": "0406"
+    "provincia": "Condesuyos",
+    "id": "04",
+    "idp": "06"
   },
   {
-    "Provincia": "Islay",
-    "pubigeo": "0407"
+    "provincia": "Islay",
+    "id": "04",
+    "idp": "07"
   },
   {
-    "Provincia": "La Uniòn",
-    "pubigeo": "0408"
+    "provincia": "La Uniòn",
+    "id": "04",
+    "idp": "08"
   },
   {
-    "Provincia": "Huamanga",
-    "pubigeo": "0501"
+    "provincia": "Huamanga",
+    "id": "05",
+    "idp": "01"
   },
   {
-    "Provincia": "Cangallo",
-    "pubigeo": "0502"
+    "provincia": "Cangallo",
+    "id": "05",
+    "idp": "02"
   },
   {
-    "Provincia": "Huanca Sancos",
-    "pubigeo": "0503"
+    "provincia": "Huanca Sancos",
+    "id": "05",
+    "idp": "03"
   },
   {
-    "Provincia": "Huanta",
-    "pubigeo": "0504"
+    "provincia": "Huanta",
+    "id": "05",
+    "idp": "04"
   },
   {
-    "Provincia": "La Mar",
-    "pubigeo": "0505"
+    "provincia": "La Mar",
+    "id": "05",
+    "idp": "05"
   },
   {
-    "Provincia": "Lucanas",
-    "pubigeo": "0506"
+    "provincia": "Lucanas",
+    "id": "05",
+    "idp": "06"
   },
   {
-    "Provincia": "Parinacochas",
-    "pubigeo": "0507"
+    "provincia": "Parinacochas",
+    "id": "05",
+    "idp": "07"
   },
   {
-    "Provincia": "Pàucar del Sara Sara",
-    "pubigeo": "0508"
+    "provincia": "Pàucar del Sara Sara",
+    "id": "05",
+    "idp": "08"
   },
   {
-    "Provincia": "Sucre",
-    "pubigeo": "0509"
+    "provincia": "Sucre",
+    "id": "05",
+    "idp": "09"
   },
   {
-    "Provincia": "Víctor Fajardo",
-    "pubigeo": "0510"
+    "provincia": "Víctor Fajardo",
+    "id": "05",
+    "idp": "10"
   },
   {
-    "Provincia": "Vilcas Huamán",
-    "pubigeo": "0511"
+    "provincia": "Vilcas Huamán",
+    "id": "05",
+    "idp": "11"
   },
   {
-    "Provincia": "Cajamarca",
-    "pubigeo": "0601"
+    "provincia": "Cajamarca",
+    "id": "06",
+    "idp": "01"
   },
   {
-    "Provincia": "Cajabamba",
-    "pubigeo": "0602"
+    "provincia": "Cajabamba",
+    "id": "06",
+    "idp": "02"
   },
   {
-    "Provincia": "Celendín",
-    "pubigeo": "0603"
+    "provincia": "Celendín",
+    "id": "06",
+    "idp": "03"
   },
   {
-    "Provincia": "Chota",
-    "pubigeo": "0604"
+    "provincia": "Chota",
+    "id": "06",
+    "idp": "04"
   },
   {
-    "Provincia": "Contumazá",
-    "pubigeo": "0605"
+    "provincia": "Contumazá",
+    "id": "06",
+    "idp": "05"
   },
   {
-    "Provincia": "Cutervo",
-    "pubigeo": "0606"
+    "provincia": "Cutervo",
+    "id": "06",
+    "idp": "06"
   },
   {
-    "Provincia": "Hualgayoc",
-    "pubigeo": "0607"
+    "provincia": "Hualgayoc",
+    "id": "06",
+    "idp": "07"
   },
   {
-    "Provincia": "Jaén",
-    "pubigeo": "0608"
+    "provincia": "Jaén",
+    "id": "06",
+    "idp": "08"
   },
   {
-    "Provincia": "San Ignacio",
-    "pubigeo": "0609"
+    "provincia": "San Ignacio",
+    "id": "06",
+    "idp": "09"
   },
   {
-    "Provincia": "San Marcos",
-    "pubigeo": "0610"
+    "provincia": "San Marcos",
+    "id": "06",
+    "idp": "10"
   },
   {
-    "Provincia": "San Miguel",
-    "pubigeo": "0611"
+    "provincia": "San Miguel",
+    "id": "06",
+    "idp": "11"
   },
   {
-    "Provincia": "San Pablo",
-    "pubigeo": "0612"
+    "provincia": "San Pablo",
+    "id": "06",
+    "idp": "12"
   },
   {
-    "Provincia": "Santa Cruz",
-    "pubigeo": "0613"
+    "provincia": "Santa Cruz",
+    "id": "06",
+    "idp": "13"
   },
   {
-    "Provincia": "Prov. Const. del Callao",
-    "pubigeo": "0701"
+    "provincia": "Prov. Const. del Callao",
+    "id": "07",
+    "idp": "01"
   },
   {
-    "Provincia": "Cusco",
-    "pubigeo": "0801"
+    "provincia": "Cusco",
+    "id": "08",
+    "idp": "01"
   },
   {
-    "Provincia": "Acomayo",
-    "pubigeo": "0802"
+    "provincia": "Acomayo",
+    "id": "08",
+    "idp": "02"
   },
   {
-    "Provincia": "Anta",
-    "pubigeo": "0803"
+    "provincia": "Anta",
+    "id": "08",
+    "idp": "03"
   },
   {
-    "Provincia": "Calca",
-    "pubigeo": "0804"
+    "provincia": "Calca",
+    "id": "08",
+    "idp": "04"
   },
   {
-    "Provincia": "Canas",
-    "pubigeo": "0805"
+    "provincia": "Canas",
+    "id": "08",
+    "idp": "05"
   },
   {
-    "Provincia": "Canchis",
-    "pubigeo": "0806"
+    "provincia": "Canchis",
+    "id": "08",
+    "idp": "06"
   },
   {
-    "Provincia": "Chumbivilcas",
-    "pubigeo": "0807"
+    "provincia": "Chumbivilcas",
+    "id": "08",
+    "idp": "07"
   },
   {
-    "Provincia": "Espinar",
-    "pubigeo": "0808"
+    "provincia": "Espinar",
+    "id": "08",
+    "idp": "08"
   },
   {
-    "Provincia": "La Convención",
-    "pubigeo": "0809"
+    "provincia": "La Convención",
+    "id": "08",
+    "idp": "09"
   },
   {
-    "Provincia": "Paruro",
-    "pubigeo": "0810"
+    "provincia": "Paruro",
+    "id": "08",
+    "idp": "10"
   },
   {
-    "Provincia": "Paucartambo",
-    "pubigeo": "0811"
+    "provincia": "Paucartambo",
+    "id": "08",
+    "idp": "11"
   },
   {
-    "Provincia": "Quispicanchi",
-    "pubigeo": "0812"
+    "provincia": "Quispicanchi",
+    "id": "08",
+    "idp": "12"
   },
   {
-    "Provincia": "Urubamba",
-    "pubigeo": "0813"
+    "provincia": "Urubamba",
+    "id": "08",
+    "idp": "13"
   },
   {
-    "Provincia": "Huancavelica",
-    "pubigeo": "0901"
+    "provincia": "Huancavelica",
+    "id": "09",
+    "idp": "01"
   },
   {
-    "Provincia": "Acobamba",
-    "pubigeo": "0902"
+    "provincia": "Acobamba",
+    "id": "09",
+    "idp": "02"
   },
   {
-    "Provincia": "Angaraes",
-    "pubigeo": "0903"
+    "provincia": "Angaraes",
+    "id": "09",
+    "idp": "03"
   },
   {
-    "Provincia": "Castrovirreyna",
-    "pubigeo": "0904"
+    "provincia": "Castrovirreyna",
+    "id": "09",
+    "idp": "04"
   },
   {
-    "Provincia": "Churcampa",
-    "pubigeo": "0905"
+    "provincia": "Churcampa",
+    "id": "09",
+    "idp": "05"
   },
   {
-    "Provincia": "Huaytará",
-    "pubigeo": "0906"
+    "provincia": "Huaytará",
+    "id": "09",
+    "idp": "06"
   },
   {
-    "Provincia": "Tayacaja",
-    "pubigeo": "0907"
+    "provincia": "Tayacaja",
+    "id": "09",
+    "idp": "07"
   },
   {
-    "Provincia": "Huánuco",
-    "pubigeo": "1001"
+    "provincia": "Huánuco",
+    "id": "10",
+    "idp": "01"
   },
   {
-    "Provincia": "Ambo",
-    "pubigeo": "1002"
+    "provincia": "Ambo",
+    "id": "10",
+    "idp": "02"
   },
   {
-    "Provincia": "Dos de Mayo",
-    "pubigeo": "1003"
+    "provincia": "Dos de Mayo",
+    "id": "10",
+    "idp": "03"
   },
   {
-    "Provincia": "Huacaybamba",
-    "pubigeo": "1004"
+    "provincia": "Huacaybamba",
+    "id": "10",
+    "idp": "04"
   },
   {
-    "Provincia": "Huamalíes",
-    "pubigeo": "1005"
+    "provincia": "Huamalíes",
+    "id": "10",
+    "idp": "05"
   },
   {
-    "Provincia": "Leoncio Prado",
-    "pubigeo": "1006"
+    "provincia": "Leoncio Prado",
+    "id": "10",
+    "idp": "06"
   },
   {
-    "Provincia": "Marañón",
-    "pubigeo": "1007"
+    "provincia": "Marañón",
+    "id": "10",
+    "idp": "07"
   },
   {
-    "Provincia": "Pachitea",
-    "pubigeo": "1008"
+    "provincia": "Pachitea",
+    "id": "10",
+    "idp": "08"
   },
   {
-    "Provincia": "Puerto Inca",
-    "pubigeo": "1009"
+    "provincia": "Puerto Inca",
+    "id": "10",
+    "idp": "09"
   },
   {
-    "Provincia": "Lauricocha",
-    "pubigeo": "1010"
+    "provincia": "Lauricocha",
+    "id": "10",
+    "idp": "10"
   },
   {
-    "Provincia": "Yarowilca",
-    "pubigeo": "1011"
+    "provincia": "Yarowilca",
+    "id": "10",
+    "idp": "11"
   },
   {
-    "Provincia": "Ica",
-    "pubigeo": "1101"
+    "provincia": "Ica",
+    "id": "11",
+    "idp": "01"
   },
   {
-    "Provincia": "Chincha",
-    "pubigeo": "1102"
+    "provincia": "Chincha",
+    "id": "11",
+    "idp": "02"
   },
   {
-    "Provincia": "Nasca",
-    "pubigeo": "1103"
+    "provincia": "Nasca",
+    "id": "11",
+    "idp": "03"
   },
   {
-    "Provincia": "Palpa",
-    "pubigeo": "1104"
+    "provincia": "Palpa",
+    "id": "11",
+    "idp": "04"
   },
   {
-    "Provincia": "Pisco",
-    "pubigeo": "1105"
+    "provincia": "Pisco",
+    "id": "11",
+    "idp": "05"
   },
   {
-    "Provincia": "Huancayo",
-    "pubigeo": "1201"
+    "provincia": "Huancayo",
+    "id": "12",
+    "idp": "01"
   },
   {
-    "Provincia": "Concepción",
-    "pubigeo": "1202"
+    "provincia": "Concepción",
+    "id": "12",
+    "idp": "02"
   },
   {
-    "Provincia": "Chanchamayo",
-    "pubigeo": "1203"
+    "provincia": "Chanchamayo",
+    "id": "12",
+    "idp": "03"
   },
   {
-    "Provincia": "Jauja",
-    "pubigeo": "1204"
+    "provincia": "Jauja",
+    "id": "12",
+    "idp": "04"
   },
   {
-    "Provincia": "Junín",
-    "pubigeo": "1205"
+    "provincia": "Junín",
+    "id": "12",
+    "idp": "05"
   },
   {
-    "Provincia": "Satipo",
-    "pubigeo": "1206"
+    "provincia": "Satipo",
+    "id": "12",
+    "idp": "06"
   },
   {
-    "Provincia": "Tarma",
-    "pubigeo": "1207"
+    "provincia": "Tarma",
+    "id": "12",
+    "idp": "07"
   },
   {
-    "Provincia": "Yauli",
-    "pubigeo": "1208"
+    "provincia": "Yauli",
+    "id": "12",
+    "idp": "08"
   },
   {
-    "Provincia": "Chupaca",
-    "pubigeo": "1209"
+    "provincia": "Chupaca",
+    "id": "12",
+    "idp": "09"
   },
   {
-    "Provincia": "Trujillo",
-    "pubigeo": "1301"
+    "provincia": "Trujillo",
+    "id": "13",
+    "idp": "01"
   },
   {
-    "Provincia": "Ascope",
-    "pubigeo": "1302"
+    "provincia": "Ascope",
+    "id": "13",
+    "idp": "02"
   },
   {
-    "Provincia": "Bolívar",
-    "pubigeo": "1303"
+    "provincia": "Bolívar",
+    "id": "13",
+    "idp": "03"
   },
   {
-    "Provincia": "Chepén",
-    "pubigeo": "1304"
+    "provincia": "Chepén",
+    "id": "13",
+    "idp": "04"
   },
   {
-    "Provincia": "Julcán",
-    "pubigeo": "1305"
+    "provincia": "Julcán",
+    "id": "13",
+    "idp": "05"
   },
   {
-    "Provincia": "Otuzco",
-    "pubigeo": "1306"
+    "provincia": "Otuzco",
+    "id": "13",
+    "idp": "06"
   },
   {
-    "Provincia": "Pacasmayo",
-    "pubigeo": "1307"
+    "provincia": "Pacasmayo",
+    "id": "13",
+    "idp": "07"
   },
   {
-    "Provincia": "Pataz",
-    "pubigeo": "1308"
+    "provincia": "Pataz",
+    "id": "13",
+    "idp": "08"
   },
   {
-    "Provincia": "Sánchez Carrión",
-    "pubigeo": "1309"
+    "provincia": "Sánchez Carrión",
+    "id": "13",
+    "idp": "09"
   },
   {
-    "Provincia": "Santiago de Chuco",
-    "pubigeo": "1310"
+    "provincia": "Santiago de Chuco",
+    "id": "13",
+    "idp": "10"
   },
   {
-    "Provincia": "Gran Chimú",
-    "pubigeo": "1311"
+    "provincia": "Gran Chimú",
+    "id": "13",
+    "idp": "11"
   },
   {
-    "Provincia": "Virú",
-    "pubigeo": "1312"
+    "provincia": "Virú",
+    "id": "13",
+    "idp": "12"
   },
   {
-    "Provincia": "Chiclayo",
-    "pubigeo": "1401"
+    "provincia": "Chiclayo",
+    "id": "14",
+    "idp": "01"
   },
   {
-    "Provincia": "Ferreñafe",
-    "pubigeo": "1402"
+    "provincia": "Ferreñafe",
+    "id": "14",
+    "idp": "02"
   },
   {
-    "Provincia": "Lambayeque",
-    "pubigeo": "1403"
+    "provincia": "Lambayeque",
+    "id": "14",
+    "idp": "03"
   },
   {
-    "Provincia": "Lima",
-    "pubigeo": "1501"
+    "provincia": "Lima",
+    "id": "15",
+    "idp": "01"
   },
   {
-    "Provincia": "Barranca",
-    "pubigeo": "1502"
+    "provincia": "Barranca",
+    "id": "15",
+    "idp": "02"
   },
   {
-    "Provincia": "Cajatambo",
-    "pubigeo": "1503"
+    "provincia": "Cajatambo",
+    "id": "15",
+    "idp": "03"
   },
   {
-    "Provincia": "Canta",
-    "pubigeo": "1504"
+    "provincia": "Canta",
+    "id": "15",
+    "idp": "04"
   },
   {
-    "Provincia": "Cañete",
-    "pubigeo": "1505"
+    "provincia": "Cañete",
+    "id": "15",
+    "idp": "05"
   },
   {
-    "Provincia": "Huaral",
-    "pubigeo": "1506"
+    "provincia": "Huaral",
+    "id": "15",
+    "idp": "06"
   },
   {
-    "Provincia": "Huarochirí",
-    "pubigeo": "1507"
+    "provincia": "Huarochirí",
+    "id": "15",
+    "idp": "07"
   },
   {
-    "Provincia": "Huaura",
-    "pubigeo": "1508"
+    "provincia": "Huaura",
+    "id": "15",
+    "idp": "08"
   },
   {
-    "Provincia": "Oyón",
-    "pubigeo": "1509"
+    "provincia": "Oyón",
+    "id": "15",
+    "idp": "09"
   },
   {
-    "Provincia": "Yauyos",
-    "pubigeo": "1510"
+    "provincia": "Yauyos",
+    "id": "15",
+    "idp": "10"
   },
   {
-    "Provincia": "Maynas",
-    "pubigeo": "1601"
+    "provincia": "Maynas",
+    "id": "16",
+    "idp": "01"
   },
   {
-    "Provincia": "Alto Amazonas",
-    "pubigeo": "1602"
+    "provincia": "Alto Amazonas",
+    "id": "16",
+    "idp": "02"
   },
   {
-    "Provincia": "Loreto",
-    "pubigeo": "1603"
+    "provincia": "Loreto",
+    "id": "16",
+    "idp": "03"
   },
   {
-    "Provincia": "Mariscal Ramón Castilla",
-    "pubigeo": "1604"
+    "provincia": "Mariscal Ramón Castilla",
+    "id": "16",
+    "idp": "04"
   },
   {
-    "Provincia": "Requena",
-    "pubigeo": "1605"
+    "provincia": "Requena",
+    "id": "16",
+    "idp": "05"
   },
   {
-    "Provincia": "Ucayali",
-    "pubigeo": "1606"
+    "provincia": "Ucayali",
+    "id": "16",
+    "idp": "06"
   },
   {
-    "Provincia": "Datem del Marañón",
-    "pubigeo": "1607"
+    "provincia": "Datem del Marañón",
+    "id": "16",
+    "idp": "07"
   },
   {
-    "Provincia": "Putumayo",
-    "pubigeo": "1608"
+    "provincia": "Putumayo",
+    "id": "16",
+    "idp": "08"
   },
   {
-    "Provincia": "Tambopata",
-    "pubigeo": "1701"
+    "provincia": "Tambopata",
+    "id": "17",
+    "idp": "01"
   },
   {
-    "Provincia": "Manu",
-    "pubigeo": "1702"
+    "provincia": "Manu",
+    "id": "17",
+    "idp": "02"
   },
   {
-    "Provincia": "Tahuamanu",
-    "pubigeo": "1703"
+    "provincia": "Tahuamanu",
+    "id": "17",
+    "idp": "03"
   },
   {
-    "Provincia": "Mariscal Nieto",
-    "pubigeo": "1801"
+    "provincia": "Mariscal Nieto",
+    "id": "18",
+    "idp": "01"
   },
   {
-    "Provincia": "General Sánchez Cerro",
-    "pubigeo": "1802"
+    "provincia": "General Sánchez Cerro",
+    "id": "18",
+    "idp": "02"
   },
   {
-    "Provincia": "Ilo",
-    "pubigeo": "1803"
+    "provincia": "Ilo",
+    "id": "18",
+    "idp": "03"
   },
   {
-    "Provincia": "Pasco",
-    "pubigeo": "1901"
+    "provincia": "Pasco",
+    "id": "19",
+    "idp": "01"
   },
   {
-    "Provincia": "Daniel Alcides Carrión",
-    "pubigeo": "1902"
+    "provincia": "Daniel Alcides Carrión",
+    "id": "19",
+    "idp": "02"
   },
   {
-    "Provincia": "Oxapampa",
-    "pubigeo": "1903"
+    "provincia": "Oxapampa",
+    "id": "19",
+    "idp": "03"
   },
   {
-    "Provincia": "Piura",
-    "pubigeo": "2001"
+    "provincia": "Piura",
+    "id": "20",
+    "idp": "01"
   },
   {
-    "Provincia": "Ayabaca",
-    "pubigeo": "2002"
+    "provincia": "Ayabaca",
+    "id": "20",
+    "idp": "02"
   },
   {
-    "Provincia": "Huancabamba",
-    "pubigeo": "2003"
+    "provincia": "Huancabamba",
+    "id": "20",
+    "idp": "03"
   },
   {
-    "Provincia": "Morropón",
-    "pubigeo": "2004"
+    "provincia": "Morropón",
+    "id": "20",
+    "idp": "04"
   },
   {
-    "Provincia": "Paita",
-    "pubigeo": "2005"
+    "provincia": "Paita",
+    "id": "20",
+    "idp": "05"
   },
   {
-    "Provincia": "Sullana",
-    "pubigeo": "2006"
+    "provincia": "Sullana",
+    "id": "20",
+    "idp": "06"
   },
   {
-    "Provincia": "Talara",
-    "pubigeo": "2007"
+    "provincia": "Talara",
+    "id": "20",
+    "idp": "07"
   },
   {
-    "Provincia": "Sechura",
-    "pubigeo": "2008"
+    "provincia": "Sechura",
+    "id": "20",
+    "idp": "08"
   },
   {
-    "Provincia": "Puno",
-    "pubigeo": "2101"
+    "provincia": "Puno",
+    "id": "21",
+    "idp": "01"
   },
   {
-    "Provincia": "Azángaro",
-    "pubigeo": "2102"
+    "provincia": "Azángaro",
+    "id": "21",
+    "idp": "02"
   },
   {
-    "Provincia": "Carabaya",
-    "pubigeo": "2103"
+    "provincia": "Carabaya",
+    "id": "21",
+    "idp": "03"
   },
   {
-    "Provincia": "Chucuito",
-    "pubigeo": "2104"
+    "provincia": "Chucuito",
+    "id": "21",
+    "idp": "04"
   },
   {
-    "Provincia": "El Collao",
-    "pubigeo": "2105"
+    "provincia": "El Collao",
+    "id": "21",
+    "idp": "05"
   },
   {
-    "Provincia": "Huancané",
-    "pubigeo": "2106"
+    "provincia": "Huancané",
+    "id": "21",
+    "idp": "06"
   },
   {
-    "Provincia": "Lampa",
-    "pubigeo": "2107"
+    "provincia": "Lampa",
+    "id": "21",
+    "idp": "07"
   },
   {
-    "Provincia": "Melgar",
-    "pubigeo": "2108"
+    "provincia": "Melgar",
+    "id": "21",
+    "idp": "08"
   },
   {
-    "Provincia": "Moho",
-    "pubigeo": "2109"
+    "provincia": "Moho",
+    "id": "21",
+    "idp": "09"
   },
   {
-    "Provincia": "San Antonio de Putina",
-    "pubigeo": "2110"
+    "provincia": "San Antonio de Putina",
+    "id": "21",
+    "idp": "10"
   },
   {
-    "Provincia": "San Román",
-    "pubigeo": "2111"
+    "provincia": "San Román",
+    "id": "21",
+    "idp": "11"
   },
   {
-    "Provincia": "Sandia",
-    "pubigeo": "2112"
+    "provincia": "Sandia",
+    "id": "21",
+    "idp": "12"
   },
   {
-    "Provincia": "Yunguyo",
-    "pubigeo": "2113"
+    "provincia": "Yunguyo",
+    "id": "21",
+    "idp": "13"
   },
   {
-    "Provincia": "Moyobamba",
-    "pubigeo": "2201"
+    "provincia": "Moyobamba",
+    "id": "22",
+    "idp": "01"
   },
   {
-    "Provincia": "Bellavista",
-    "pubigeo": "2202"
+    "provincia": "Bellavista",
+    "id": "22",
+    "idp": "02"
   },
   {
-    "Provincia": "El Dorado",
-    "pubigeo": "2203"
+    "provincia": "El Dorado",
+    "id": "22",
+    "idp": "03"
   },
   {
-    "Provincia": "Huallaga",
-    "pubigeo": "2204"
+    "provincia": "Huallaga",
+    "id": "22",
+    "idp": "04"
   },
   {
-    "Provincia": "Lamas",
-    "pubigeo": "2205"
+    "provincia": "Lamas",
+    "id": "22",
+    "idp": "05"
   },
   {
-    "Provincia": "Mariscal Cáceres",
-    "pubigeo": "2206"
+    "provincia": "Mariscal Cáceres",
+    "id": "22",
+    "idp": "06"
   },
   {
-    "Provincia": "Picota",
-    "pubigeo": "2207"
+    "provincia": "Picota",
+    "id": "22",
+    "idp": "07"
   },
   {
-    "Provincia": "Rioja",
-    "pubigeo": "2208"
+    "provincia": "Rioja",
+    "id": "22",
+    "idp": "08"
   },
   {
-    "Provincia": "San Martín",
-    "pubigeo": "2209"
+    "provincia": "San Martín",
+    "id": "22",
+    "idp": "09"
   },
   {
-    "Provincia": "Tocache",
-    "pubigeo": "2210"
+    "provincia": "Tocache",
+    "id": "22",
+    "idp": "10"
   },
   {
-    "Provincia": "Tacna",
-    "pubigeo": "2301"
+    "provincia": "Tacna",
+    "id": "23",
+    "idp": "01"
   },
   {
-    "Provincia": "Candarave",
-    "pubigeo": "2302"
+    "provincia": "Candarave",
+    "id": "23",
+    "idp": "02"
   },
   {
-    "Provincia": "Jorge Basadre",
-    "pubigeo": "2303"
+    "provincia": "Jorge Basadre",
+    "id": "23",
+    "idp": "03"
   },
   {
-    "Provincia": "Tarata",
-    "pubigeo": "2304"
+    "provincia": "Tarata",
+    "id": "23",
+    "idp": "04"
   },
   {
-    "Provincia": "Tumbes",
-    "pubigeo": "2401"
+    "provincia": "Tumbes",
+    "id": "24",
+    "idp": "01"
   },
   {
-    "Provincia": "Contralmirante Villar",
-    "pubigeo": "2402"
+    "provincia": "Contralmirante Villar",
+    "id": "24",
+    "idp": "02"
   },
   {
-    "Provincia": "Zarumilla",
-    "pubigeo": "2403"
+    "provincia": "Zarumilla",
+    "id": "24",
+    "idp": "03"
   },
   {
-    "Provincia": "Coronel Portillo",
-    "pubigeo": "2501"
+    "provincia": "Coronel Portillo",
+    "id": "25",
+    "idp": "01"
   },
   {
-    "Provincia": "Atalaya",
-    "pubigeo": "2502"
+    "provincia": "Atalaya",
+    "id": "25",
+    "idp": "02"
   },
   {
-    "Provincia": "Padre Abad",
-    "pubigeo": "2503"
+    "provincia": "Padre Abad",
+    "id": "25",
+    "idp": "03"
   },
   {
-    "Provincia": "Purús",
-    "pubigeo": "2504"
+    "provincia": "Purús",
+    "id": "25",
+    "idp": "04"
   }
 ]
