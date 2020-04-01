@@ -1,8 +1,9 @@
-import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit, NgModule } from '@angular/core';
+import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit, NgModule, enableProdMode } from '@angular/core';
 import * as _moment from 'moment';
 import { AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
-import { Title } from '@angular/platform-browser';
+import { Title, BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import * as data from './data.json';
 import MarkerClusterer from "@google/markerclusterer"
 import { Overlay } from '@angular/cdk/overlay';
@@ -19,6 +20,8 @@ import * as disData from './data/dist.json';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
+import { DxChartModule } from 'devextreme-angular';
+import { ScatterData, Service } from './map.service';
 
 
 const moment = _moment;
@@ -48,7 +51,8 @@ export class Coordenadas{
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
+  providers: [Service]
 })
 export class MapComponent implements AfterViewInit {
 
@@ -57,7 +61,8 @@ export class MapComponent implements AfterViewInit {
     private title: Title,
     private notificationService: NotificationService,
     private dataService: DataService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    service: Service
     ) { 
     this.title.setTitle("Dashboard");
     this.dateAdapter.setLocale('es');
@@ -65,6 +70,7 @@ export class MapComponent implements AfterViewInit {
     this.regiones = (depData as any).default;
     this.provincia = (provData as any).default;
     this.distrito = (disData as any).default;
+    this.dataSource = service.generateDataSource();
   }
   
 
@@ -72,6 +78,8 @@ export class MapComponent implements AfterViewInit {
   
   single: any[];
   multi: any[];
+
+  dataSource: ScatterData[];
 
   view: any[] = [700, 400];
 
