@@ -22,6 +22,8 @@ import { startWith, map } from 'rxjs/operators';
 
 import { DxChartModule } from 'devextreme-angular';
 import { ScatterData, Service } from './map.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { AnuncioComponent } from '../anuncio/anuncio.component';
 
 
 const moment = _moment;
@@ -59,10 +61,10 @@ export class MapComponent implements AfterViewInit {
   constructor(
     private dateAdapter: DateAdapter<any>,
     private title: Title,
-    private notificationService: NotificationService,
     private dataService: DataService,
     private fb: FormBuilder,
-    service: Service
+    service: Service,
+    private _bottomSheet: MatBottomSheet
     ) { 
     this.title.setTitle("Dashboard");
     this.dateAdapter.setLocale('es');
@@ -334,9 +336,11 @@ mapOptions: google.maps.MapOptions = {
     this.SelectedMarkers.push(temp);
     figure.setVisible (false);
   }
-
+  openBottomSheet(): void {
+    this._bottomSheet.open(AnuncioComponent);
+  }
   check(){
-    this.getData()
+    this.openBottomSheet()
   }
 
   /* Selection */
@@ -364,42 +368,7 @@ mapOptions: google.maps.MapOptions = {
     .subscribe(puntos => console.log(puntos))
   }
 
-  onNotify(){
-    console.log(this.SelectedMarkers)
-  }
-
-
-  reportCaseForm = this.fb.group({
-    document: [null, Validators.required],
-    type: [null, Validators.required],
-    report: [null, Validators.required]
-  })
-
-  docTypes: string[] = ['DNI', 'Pasaporte', 'Carnet de Extranjería'];
-  reportType: string[] = ['Caso confirmado', 'Caso recuperado'];
-
-  onReportCase () {
-    let person = this.reportCaseForm.value;
-    let req = new Person();
-    req.document = person.document;
-    req.type = person.type;
-    if (person.report === "Caso confirmado"){
-      this.notificationService.notifyConfirmedCase(req)
-      .subscribe(res=> {this.resetReportCaseForm()})
-    }else if(person.report === "Caso recuperado"){
-      this.notificationService.notifyRecoverCase(req)
-      .subscribe(res=> {this.resetReportCaseForm()})
-    }
-
-  }
-
-  resetReportCaseForm () {
-    this.reportCaseForm.reset();
-  }
-
-  notificationForm = this.fb.group({
-    message: [null, Validators.required]
-  })
+  
 
   /*Devxtreme */
 
