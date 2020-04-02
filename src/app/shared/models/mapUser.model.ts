@@ -1,9 +1,9 @@
 export class MapUser {
-    state: string;
     from: any;
     to: any;
 
-    constructor(){
-
+    constructor(f: any, t: any){
+        this.from = Number(f);
+        this.to = Number(t);
     };
 }

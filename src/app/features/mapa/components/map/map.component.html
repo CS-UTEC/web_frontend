@@ -16,16 +16,15 @@
 
               <div class="f-min-height-width-padding" fxLayout="column" class="f-height" fxLayoutAlign="space-between">
 
-                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu" xPosition="before">
-                  <button mat-menu-item>Limpiar</button>
-                </mat-menu>
-
               <!--Acá va el filtro por fecha-->
 
-              <mat-card fxFlex>         
+              <mat-card fxFlex>  
+                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item>Limpiar</button>
+                  </mat-menu>       
                 <mat-card-subtitle>Filtrar por fecha</mat-card-subtitle>
                 <form [formGroup]="filtroForm">
                 <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
@@ -163,7 +162,7 @@
 
     <!--Acá va el mapa-->
 
-		<div fxFlex="70" fxFlex.lt-sm="50" fxFill >    
+		<div fxFlex="70" fxFlex.lt-sm="50" fxFill >
       <div #mapContainer id="map"></div>
     </div>
     

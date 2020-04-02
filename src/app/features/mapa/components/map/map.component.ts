@@ -3,27 +3,26 @@ import * as _moment from 'moment';
 import { AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { Title, BrowserModule } from '@angular/platform-browser';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import * as data from './data.json';
 import MarkerClusterer from "@google/markerclusterer"
 import { Overlay } from '@angular/cdk/overlay';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { DataService } from 'src/app/shared/services/data.service';
 import { MapUser } from 'src/app/shared/models/mapUser.model';
 import { Person } from 'src/app/shared/models/person.model';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { single } from './data';
 
 import * as depData from './data/dep.json';
 import * as provData from './data/prov.json';
 import * as disData from './data/dist.json';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, distinct } from 'rxjs/operators';
 
 import { DxChartModule } from 'devextreme-angular';
 import { ScatterData, Service } from './map.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AnuncioComponent } from '../anuncio/anuncio.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SeleccionComponent } from '../seleccion/seleccion.component';
 
 
 const moment = _moment;
@@ -56,16 +55,18 @@ export class Coordenadas{
   styleUrls: ['./map.component.css'],
   providers: [Service]
 })
-export class MapComponent implements AfterViewInit {
-
+export class MapComponent {
+  mapLoading;
   constructor(
     private dateAdapter: DateAdapter<any>,
     private title: Title,
     private dataService: DataService,
     private fb: FormBuilder,
     service: Service,
-    private _bottomSheet: MatBottomSheet
+    public dialog: MatDialog,
+    private bottomSheet: MatBottomSheet
     ) { 
+    this.mapLoading = true;
     this.title.setTitle("Dashboard");
     this.dateAdapter.setLocale('es');
     Object.assign(this, {single});
@@ -73,6 +74,15 @@ export class MapComponent implements AfterViewInit {
     this.provincia = (provData as any).default;
     this.distrito = (disData as any).default;
     this.dataSource = service.generateDataSource();
+    let fecha = new MapUser(this.minDate, this.maxDate);
+    this.dataService.getDataConfirmed(fecha)
+    .toPromise().then(
+      res => {
+        this.data = res;
+        //console.log(this.data);
+        this.mapInitializer();
+        this.mapLoading = false;
+      });
   }
   
 
@@ -116,6 +126,7 @@ export class MapComponent implements AfterViewInit {
   regiones:any; 
   provincia:any;
   distrito: any;
+  data: any; //from server
  
 
 // Variables de control
@@ -135,6 +146,14 @@ mapOptions: google.maps.MapOptions = {
   rotateControl: true,
   fullscreenControl: true
 };
+  
+  getLatLong(ubigeo: any):any {
+    let ub = ubigeo.match(/.{1,2}/g)
+    let latLong: Array<any> = [];
+    let dist = this.distrito.filter(x => x.id == ub[0] && x.idp == ub[1] && x.idd == ub[2])[0];
+    latLong.push(dist.latitud, dist.longitud);
+    return latLong;
+  }
 
 //Funcion de inicializacion 
 
@@ -142,12 +161,37 @@ mapOptions: google.maps.MapOptions = {
 
     this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
 
+    let markersConfirmed = this.data.map(
+      function (dis, i){
+        let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
+        //console.log("Dentro")
+        for (let i = 0; i < dis.casos; i++){
+          //console.log(i);
+          return new google.maps.Marker(
+            {
+              position: pos,
+              title: dis.ubigeo,
+              icon : 
+                {
+                  url : '/./../../../assets/pins/pingray1.svg',
+                  scaledSize: new google.maps.Size(0, 0),
+                  //size : new google.maps.Size (40,30)
+                }
+            }
+          )
+        }
+      }
+    )
+
+    
     let markers = this.distrito.map(
       function (dis, i){
         let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
+        let title = dis.id+dis.idp+dis.idd;
         return new google.maps.Marker(
           {
             position: pos,
+            title: title,
             icon : 
               {
                 url : '/./../../../assets/pins/pingray1.svg',
@@ -158,8 +202,9 @@ mapOptions: google.maps.MapOptions = {
         )
       }
     )
+    
 
-    new MarkerClusterer ( this.map, markers,
+    new MarkerClusterer ( this.map, markersConfirmed,
       {
         gridSize: 40,
         imagePath: '/./../../../assets/marketsicons/m'
@@ -187,9 +232,7 @@ mapOptions: google.maps.MapOptions = {
     
   }
 
-  ngAfterViewInit() {
-    this.mapInitializer();
-  }
+
 
   /* Filtros */
 
@@ -308,8 +351,9 @@ mapOptions: google.maps.MapOptions = {
     let temp = []
     markers.forEach (function (mark){
       if (figure.getBounds ().contains (mark.getPosition ())){
-        console.log (mark.getPosition().toJSON());
-        temp.push (JSON.stringify(mark.getPosition().toJSON()));
+        console.log(mark.getTitle());
+        temp.push (JSON.stringify(mark.getTitle()));
+        //temp.push (JSON.stringify(mark.getPosition().toJSON()));
       }
     })
     this.SelectedMarkers.push(temp);
@@ -329,18 +373,44 @@ mapOptions: google.maps.MapOptions = {
     });
     markers.forEach (function (mark){
       if (bounds.contains (mark.getPosition ())){
-        console.log (mark.getPosition().toJSON());
-        temp.push (JSON.stringify(mark.getPosition().toJSON()));
+        //console.log (mark.getPosition().toJSON());
+        //temp.push (JSON.stringify(mark.getPosition().toJSON()));
+        console.log(mark.getTitle());
+        temp.push (JSON.stringify(mark.getTitle()));
       }
     })
     this.SelectedMarkers.push(temp);
     figure.setVisible (false);
   }
-  openBottomSheet(): void {
-    this._bottomSheet.open(AnuncioComponent);
+  /*Anuncio */
+  openAnuncio(){
+    this.dialog.open(
+      AnuncioComponent,
+      {
+        width: '400px',
+        data: { description: "Hola", title: 'Descripción de la imagen', placeholder: 'Editar descripción'}
+      }
+      );
   }
+
+
+  /*Seleccionados */
+
+  openSeleccionados(){
+    this.bottomSheet.open(
+      SeleccionComponent,
+      {
+        data: this.SelectedMarkers
+      }
+    )
+  }
+
+
   check(){
-    this.openBottomSheet()
+    let fecha = new MapUser(this.minDate, this.maxDate);
+    this.dataService.getAllData(fecha).subscribe(
+      res => console.log(res)
+    )
   }
 
   /* Selection */
@@ -351,21 +421,15 @@ mapOptions: google.maps.MapOptions = {
   filtroForm = this.fb.group({
     fechaInicio: [this.minDate, Validators.required],
     fechaFin: [new Date(), Validators.required],
-    estado: ['confirmed']
   })
 
-  getData(){
-
-    let req = new MapUser();
-    req.from = Number (new Date(this.filtroForm.value.fechaInicio));
-    req.to = Number (new Date(this.filtroForm.value.fechaFin));
+  getData(): any{
+    let from = this.filtroForm.value.fechaInicio;
+    let to= this.filtroForm.value.fechaFin;
+    let req = new MapUser(from, to);
     //req.from = this.filtroForm.value.fechaInicio;
-    //req.to = this.filtroForm.value.fechaFin;
-    req.state = this.filtroForm.value.estado;
-    
-    console.log(req);
-    this.dataService.getData(req)
-    .subscribe(puntos => console.log(puntos))
+    //req.to = this.filtroForm.value.fechaFin;    
+    return this.dataService.getAllData(req);
   }
 
   

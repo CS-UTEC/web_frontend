@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Person } from 'src/app/shared/models/person.model';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-anuncio',
@@ -12,14 +13,10 @@ import { Person } from 'src/app/shared/models/person.model';
 export class AnuncioComponent {
 
   constructor(
+    public dialogRef: MatDialogRef<AnuncioComponent>, 
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private notificationService: NotificationService,
-    private fb: FormBuilder,
-    private _bottomSheetRef: MatBottomSheetRef<AnuncioComponent>) {}
-
-  openLink(event: MouseEvent): void {
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
+    private fb: FormBuilder) {}
 
   onNotify(){
     

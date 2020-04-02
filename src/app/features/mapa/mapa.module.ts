@@ -10,9 +10,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { DxChartModule } from 'devextreme-angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AnuncioComponent } from './components/anuncio/anuncio.component';
+import { SeleccionComponent } from './components/seleccion/seleccion.component';
 
 @NgModule({
-  declarations: [MapComponent, AnuncioComponent],
+  declarations: [
+    MapComponent,
+    AnuncioComponent, 
+    SeleccionComponent
+  ],
   imports: [
     MaterialModule,
     CommonModule,
@@ -26,7 +31,8 @@ import { AnuncioComponent } from './components/anuncio/anuncio.component';
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   entryComponents: [
-    AnuncioComponent
+    AnuncioComponent,
+    SeleccionComponent
   ]
 })
 export class MapaModule { }
