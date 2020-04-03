@@ -49,13 +49,13 @@
                   <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center" *ngIf="isCustomDateFilter()">
                     <mat-form-field fxFlex>
                       <mat-label>Fecha de inicio</mat-label>
-                      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="fechaInicio" (change)="updateData()">
+                      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="fechaInicio">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field fxFlex>
                       <mat-label>Fecha de fin</mat-label>
-                      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" formControlName="fechaFin" (change)="updateData()">
+                      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" formControlName="fechaFin">
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                     </mat-form-field>
