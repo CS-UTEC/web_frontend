@@ -1,6 +1,6 @@
 import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit, NgModule, enableProdMode } from '@angular/core';
 import * as _moment from 'moment';
-import { AbstractControl, Validators, FormBuilder } from '@angular/forms';
+import { AbstractControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { Title } from '@angular/platform-browser';
 import MarkerClusterer from "@google/markerclustererplus"
@@ -110,10 +110,51 @@ export class MapComponent {
   maxDate = new Date();
   dateFilterType: string;
 
-  filtroForm = this.fb.group({
-    fechaInicio: [this.minDate, Validators.required],
-    fechaFin: [new Date(), Validators.required],
-  })
+  filtroForm: FormGroup;
+
+  ngOnInit(): void {
+    this.filtroForm = this.fb.group({
+      fechaInicio: [this.minDate, Validators.required],
+      fechaFin: [new Date(), Validators.required],
+    })
+
+    this.onChanges();
+  }
+
+  onChanges(){
+    this.filtroForm.valueChanges.subscribe( val => {
+      this.updateData(val.fechaInicio, val.fechaFin);
+    })
+  }
+
+  onChangeRango(value: string){
+    if(value === "Hoy"){
+      this.filtroForm.setValue({
+        fechaInicio: new Date(), 
+        fechaFin: new Date(),
+      });
+    }else if (value === "Ayer"){
+      this.filtroForm.setValue({
+        fechaInicio: new Date(), 
+        fechaFin: new Date(),
+      });
+
+    }else if (value === "Última semana"){
+      this.filtroForm.setValue({
+        fechaInicio: new Date(), 
+        fechaFin: new Date(),
+      });
+    }else if (value === "Desde el primer caso"){
+      this.filtroForm.setValue({
+        fechaInicio: this.minDate, 
+        fechaFin: this.maxDate,
+      });
+    }
+
+    console.log(this.filtroForm.value);
+    
+  }
+  
 
   isCustomDateFilter(): boolean{
     return this.dateFilterType === "Personalizado"? true : false;
@@ -146,7 +187,19 @@ export class MapComponent {
 
   /*---------- */
 
-
+  updateData(from: Date, to: Date){
+    let fecha = new RangoFecha(from, to);
+    this.dataService.getAllData(fecha)
+      .toPromise().then( res => {
+        this.confirmados = res['confirmed'];
+        this.recuperados = res['recovered'];
+        this.neutral = res['neutral'];
+        this.clusterConfirmed.repaint();
+        this.clusterNeutral.repaint();
+        this.clusterRecovered.repaint();
+        }
+      );
+  }
 
 //Funcion de inicializacion 
 
