@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,7 +9,10 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  acceso = new Date();
+  constructor(
+    private authService: AuthService) {
+   }
 
   ngOnInit(): void {
   }

@@ -104,8 +104,20 @@ export class MapComponent {
   showConfirmed = true;
   showNeutral = true;
   showRecovered = true;
-  
 
+  rangoFechas = ["Hoy", "Ayer", "Última semana", "Desde el primer caso", "Personalizado"];
+  minDate = new Date("2020-03-06");
+  maxDate = new Date();
+  dateFilterType: string;
+
+  filtroForm = this.fb.group({
+    fechaInicio: [this.minDate, Validators.required],
+    fechaFin: [new Date(), Validators.required],
+  })
+
+  isCustomDateFilter(): boolean{
+    return this.dateFilterType === "Personalizado"? true : false;
+  }
   /* Gráficos */
   
   single: any[];
@@ -404,19 +416,6 @@ createCluster(map: google.maps.Map, markers: google.maps.Marker[], clusterIconPa
     )
   }
 
-
-
-
-
-  /* Selection */
-
-  minDate = new Date("2020-03-06");
-  maxDate = new Date();
-
-  filtroForm = this.fb.group({
-    fechaInicio: [this.minDate, Validators.required],
-    fechaFin: [new Date(), Validators.required],
-  })
   
 
   /*Devxtreme */
