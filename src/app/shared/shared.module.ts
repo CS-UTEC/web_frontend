@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { SharedRoutingModule } from './shared-routing.module';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-import { InformationDialogComponent } from './components/information-dialog/information-dialog.component';
 import { MaterialModule } from '../material.module';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
-import { NotificationService } from './services/notification.service';
-import { DataService } from './services/data.service';
 import { httpInterceptorProviders } from './interceptors';
+import { ConfirmDialogComponent, InformationDialogComponent } from './components';
+import { NotificationService, DataService } from './services';
 
 
 @NgModule({

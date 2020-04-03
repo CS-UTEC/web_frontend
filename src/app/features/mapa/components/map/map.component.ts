@@ -2,27 +2,20 @@ import { Component, OnInit, DoCheck, ViewChild, ElementRef, AfterViewInit, NgMod
 import * as _moment from 'moment';
 import { AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
-import { Title, BrowserModule } from '@angular/platform-browser';
-import MarkerClusterer from "@google/markerclusterer"
-import { Overlay } from '@angular/cdk/overlay';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { Title } from '@angular/platform-browser';
+import MarkerClusterer from "@google/markerclustererplus"
 import { DataService } from 'src/app/shared/services/data.service';
-import { MapUser } from 'src/app/shared/models/mapUser.model';
-import { Person } from 'src/app/shared/models/person.model';
+
 import { single } from './data';
 
-import * as depData from './data/dep.json';
-import * as provData from './data/prov.json';
-import * as disData from './data/dist.json';
-import { Observable } from 'rxjs';
-import { startWith, map, distinct } from 'rxjs/operators';
-
-import { DxChartModule } from 'devextreme-angular';
 import { ScatterData, Service } from './map.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AnuncioComponent } from '../anuncio/anuncio.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SeleccionComponent } from '../seleccion/seleccion.component';
+import { Data } from '@angular/router';
+import { RangoFecha, Case } from 'src/app/shared/models';
+
 
 
 const moment = _moment;
@@ -39,16 +32,6 @@ export const MY_FORMATS = {
   },
 };
 
-export class Coordenadas{
-  latitud: number;
-  longitud: number;
-
-  constructor (lat, long){
-    this.latitud = lat;
-    this.longitud = long;
-  }
-}
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -56,34 +39,71 @@ export class Coordenadas{
   providers: [Service]
 })
 export class MapComponent {
-  mapLoading;
+
+  @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
+  
   constructor(
     private dateAdapter: DateAdapter<any>,
     private title: Title,
     private dataService: DataService,
     private fb: FormBuilder,
-    service: Service,
-    public dialog: MatDialog,
+    private service: Service,
+    private dialog: MatDialog,
     private bottomSheet: MatBottomSheet
     ) { 
-    this.mapLoading = true;
     this.title.setTitle("Dashboard");
     this.dateAdapter.setLocale('es');
-    Object.assign(this, {single});
-    this.regiones = (depData as any).default;
-    this.provincia = (provData as any).default;
-    this.distrito = (disData as any).default;
+
+    this.regiones = this.dataService.getRegion();
+    this.provincia = this.dataService.getProvincia();
+    this.distrito = this.dataService.getDistrito();
+    
     this.dataSource = service.generateDataSource();
-    let fecha = new MapUser(this.minDate, this.maxDate);
-    this.dataService.getDataConfirmed(fecha)
-    .toPromise().then(
-      res => {
-        this.data = res;
-        //console.log(this.data);
+
+    this.dataService.getAllData(new RangoFecha (this.minDate, this.maxDate))
+      .toPromise().then( res => {
+        this.confirmados = res['confirmed'];
+        this.recuperados = res['recovered'];
+        this.neutral = res['neutral'];
         this.mapInitializer();
-        this.mapLoading = false;
-      });
+        }
+      );
   }
+
+  /* Variables */
+
+  // Mapa
+
+  regiones:any; 
+  provincia:any;
+  distrito: any;
+
+  selectedRegion = '';
+  selectedProvincia = '';
+  selectedDistrito = '';
+
+  provinciasFiltradas = [];
+  distritosFiltrados = [];
+
+  map: google.maps.Map;
+  coordinates = new google.maps.LatLng(-9.1899672, -75.015152);
+  
+
+  confirmados: Case[];
+  neutral: Case[];
+  recuperados: Case[];
+
+  markersNeutral: google.maps.Marker[];
+  markersConfirmed: google.maps.Marker[];
+  markersRecovered: google.maps.Marker[];
+
+  clusterNeutral: MarkerClusterer;
+  clusterConfirmed: MarkerClusterer;
+  clusterRecovered: MarkerClusterer;
+
+  showConfirmed = true;
+  showNeutral = true;
+  showRecovered = true;
   
 
   /* Gráficos */
@@ -114,102 +134,73 @@ export class MapComponent {
 
   /*---------- */
 
-  @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
 
-  selectedRegion = '';
-  selectedProvincia = '';
-  selectedDistrito = '';
-
-/*Mapa */
-
-// Data de regiones, provincias y distritos
-  regiones:any; 
-  provincia:any;
-  distrito: any;
-  data: any; //from server
- 
-
-// Variables de control
-
-map: google.maps.Map;
-coordMapaInicial = new Coordenadas(-9.1899672, -75.015152);
-coordinates = new google.maps.LatLng(this.coordMapaInicial.latitud, this.coordMapaInicial.longitud);
-
-mapOptions: google.maps.MapOptions = {
-  center: this.coordinates,
-  zoom: 6,
-  mapTypeId: 'hybrid', //Opciones de visualización
-  zoomControl: true,
-  mapTypeControl: false,
-  scaleControl: true,
-  streetViewControl: false,
-  rotateControl: true,
-  fullscreenControl: true
-};
-  
-  getLatLong(ubigeo: any):any {
-    let ub = ubigeo.match(/.{1,2}/g)
-    let latLong: Array<any> = [];
-    let dist = this.distrito.filter(x => x.id == ub[0] && x.idp == ub[1] && x.idd == ub[2])[0];
-    latLong.push(dist.latitud, dist.longitud);
-    return latLong;
-  }
 
 //Funcion de inicializacion 
 
-  mapInitializer() {
-
-    this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
-
-    let markersConfirmed = this.data.map(
-      function (dis, i){
-        let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
-        //console.log("Dentro")
-        for (let i = 0; i < dis.casos; i++){
-          //console.log(i);
-          return new google.maps.Marker(
+createMarkers(caso: Case[], color: string, iconPath: string): google.maps.Marker[] {
+  return caso.map(function (dis){
+    let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
+      return new google.maps.Marker(
+        {
+          position: pos,
+          title: dis.ubigeo,
+          label:
             {
-              position: pos,
-              title: dis.ubigeo,
-              icon : 
-                {
-                  url : '/./../../../assets/pins/pingray1.svg',
-                  scaledSize: new google.maps.Size(0, 0),
-                  //size : new google.maps.Size (40,30)
-                }
+              color: color,
+              text: String(dis.casos),
+              fontSize: "10px"
+            },
+          visible: true,
+          icon : 
+            {
+              url : iconPath,
+              scaledSize: new google.maps.Size(50, 50),
+              //size : new google.maps.Size (40,30)
             }
-          )
         }
-      }
-    )
+      );
+    }
+  );
+}
+'/./../../../assets/marketsicons/m'
 
-    
-    let markers = this.distrito.map(
-      function (dis, i){
-        let pos = {"lat" : parseFloat(dis.latitud), "lng" : parseFloat(dis.longitud)};
-        let title = dis.id+dis.idp+dis.idd;
-        return new google.maps.Marker(
-          {
-            position: pos,
-            title: title,
-            icon : 
-              {
-                url : '/./../../../assets/pins/pingray1.svg',
-                scaledSize: new google.maps.Size(0, 0),
-                //size : new google.maps.Size (40,30)
-              }
-          }
-        )
-      }
-    )
-    
+createCluster(map: google.maps.Map, markers: google.maps.Marker[], clusterIconPath: string): MarkerClusterer{
+  return new MarkerClusterer ( map, markers,
+    {
+      //gridSize: 30,
+      imagePath: clusterIconPath,
+      averageCenter: true,
+      ignoreHidden: true
+      //minimumClusterSize: 1
+    }
+  );
 
-    new MarkerClusterer ( this.map, markersConfirmed,
-      {
-        gridSize: 40,
-        imagePath: '/./../../../assets/marketsicons/m'
-      }
-    );
+}
+
+  mapInitializer() {
+    
+    let mapOptions: google.maps.MapOptions = {
+      center: this.coordinates,
+      zoom: 6,
+      mapTypeId: 'hybrid', //Opciones de visualización
+      zoomControl: true,
+      mapTypeControl: false,
+      scaleControl: true,
+      streetViewControl: false,
+      rotateControl: true,
+      fullscreenControl: true
+    };
+
+    this.map = new google.maps.Map(this.gmap.nativeElement, mapOptions);
+
+    this.markersConfirmed = this.createMarkers(this.confirmados, 'white', '/./../../../assets/pins/pinred1.svg');
+    this.markersNeutral = this.createMarkers(this.neutral, "black", '/./../../../assets/pins/pingray1.svg');
+    this.markersRecovered = this.createMarkers(this.recuperados, 'black', '/./../../../assets/pins/pinblue1.svg');
+
+    this.clusterConfirmed = this.createCluster(this.map,this.markersConfirmed, '/./../../../assets/marketsicons/m');
+    this.clusterNeutral = this.createCluster(this.map, this.markersNeutral, '/./../../../assets/marketsicons/a');
+    this.clusterRecovered = this.createCluster(this.map, this.markersRecovered, '/./../../../assets/marketsicons/m');
 
     let drawingManager = new google.maps.drawing.DrawingManager (
       {
@@ -224,13 +215,36 @@ mapOptions: google.maps.MapOptions = {
 
     drawingManager.setMap(this.map);
 
-    google.maps.event.addListener (drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle,markers))
+    let arrayMarkers = [this.markersConfirmed, this.markersRecovered, this.markersNeutral];
 
-    google.maps.event.addListener (drawingManager, 'polygoncomplete', polygon => this.polygonComplete (polygon, markers))
-
-    google.maps.event.addListener (drawingManager, 'circlecomplete', circle => this.figureComplete (circle, markers))
+    for(let markers of arrayMarkers){
+      google.maps.event.addListener (drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle, markers));
+      google.maps.event.addListener (drawingManager, 'polygoncomplete', polygon => this.polygonComplete (polygon, markers));
+      google.maps.event.addListener (drawingManager, 'circlecomplete', circle => this.figureComplete (circle, markers));  
+    }  
     
   }
+  
+  showHideCluster(markers: google.maps.Marker[], cluster: MarkerClusterer, flag: boolean){
+    for (let i in markers) {
+      markers[i].setVisible(flag);
+    }
+    cluster.repaint();
+  }
+
+  onConfirmedToggle(enable: boolean){
+    this.showHideCluster(this.markersConfirmed, this.clusterConfirmed, enable);
+  }
+
+  onRecoveredToggle(enable: boolean){
+    this.showHideCluster(this.markersRecovered, this.clusterRecovered, enable);
+  }
+
+  onNeutralToggle(enable: boolean){
+    this.showHideCluster(this.markersNeutral, this.clusterNeutral, enable);
+  }
+
+
 
 
 
@@ -238,42 +252,23 @@ mapOptions: google.maps.MapOptions = {
 
   //Utilitarios
 
-  getRegionId(name): string{
-    return this.regiones.find(x => x.departamento == name).id;
-  }
+ check(){
+   
+ }
 
-  getProvinciaId(name: any, dataFiltrada: any[]): any{
+  getProvinciaFiltradaId(name: any, dataFiltrada: any[]): any{
     let p = dataFiltrada.find(x => x.provincia == name);
     return [p.id, p.idp];
   }
 
-  getLatLongFirstDistrict(type, id, idp?):any {
-    let latLong: Array<any> = [];
-    if (type == "dep"){
-      let dist = this.distrito.filter(x => x.id == id)[0];
-      latLong.push(dist.latitud, dist.longitud);
-    }else if( type == "prov"){
-      let dist = this.distrito.filter(x => x.id == id && x.idp == idp)[0];
-      latLong.push(dist.latitud, dist.longitud);
-    }
-    return latLong;
-  }
-
-  provinciasFiltradas = [];
-  distritosFiltrados = [];
-
-
-  // Funciones
-
   selectRegion () {
     if (this.selectedRegion){
       this.provinciasFiltradas = [];
-      let idRegionSelected: any;
       let latLong: any;
       for (let prov of this.provincia){
-        idRegionSelected = this.getRegionId(this.selectedRegion);
+        let idRegionSelected = this.dataService.getRegionId(this.selectedRegion);
         if (idRegionSelected == prov.id){
-          latLong = this.getLatLongFirstDistrict("dep", idRegionSelected);
+          latLong = this.dataService.getLatLongFirstDistrict("dep", idRegionSelected);
           prov['lat']=latLong[0];
           prov['lng']=latLong[1];
           this.provinciasFiltradas.push (prov);
@@ -302,9 +297,9 @@ mapOptions: google.maps.MapOptions = {
       let idProvSelected: any;
       let latLong: any;
       for (let dist of this.distrito){
-        idProvSelected = this.getProvinciaId(this.selectedProvincia,this.provinciasFiltradas);
+        idProvSelected = this.getProvinciaFiltradaId(this.selectedProvincia,this.provinciasFiltradas);
         if (idProvSelected[0] == dist.id && idProvSelected[1] == dist.idp){
-          latLong = this.getLatLongFirstDistrict("prov",idProvSelected[0], idProvSelected[1]);
+          latLong = this.dataService.getLatLongFirstDistrict("prov",idProvSelected[0], idProvSelected[1]);
           dist['lat'] = latLong[0];
           dist['lng'] = latLong[1];
           this.distritosFiltrados.push (dist);
@@ -342,6 +337,7 @@ mapOptions: google.maps.MapOptions = {
     this.map.panTo ({"lat" : parseFloat(this.distritosFiltrados[0].latitud), "lng" : parseFloat (this.distritosFiltrados[0].longitud)});
     this.map.setZoom (12);
   }
+
   /*Draw selection */
 
   SelectedMarkers = [];
@@ -361,7 +357,7 @@ mapOptions: google.maps.MapOptions = {
   }
 
   polygonComplete (figure, markers) {
-    console.log ("Figura creada");
+    console.log ("Polígono creada");
     var temp = []
     var paths = figure.getPaths();
     var bounds = new google.maps.LatLngBounds();
@@ -382,6 +378,9 @@ mapOptions: google.maps.MapOptions = {
     this.SelectedMarkers.push(temp);
     figure.setVisible (false);
   }
+
+
+
   /*Anuncio */
   openAnuncio(){
     this.dialog.open(
@@ -406,12 +405,8 @@ mapOptions: google.maps.MapOptions = {
   }
 
 
-  check(){
-    let fecha = new MapUser(this.minDate, this.maxDate);
-    this.dataService.getAllData(fecha).subscribe(
-      res => console.log(res)
-    )
-  }
+
+
 
   /* Selection */
 
@@ -422,16 +417,6 @@ mapOptions: google.maps.MapOptions = {
     fechaInicio: [this.minDate, Validators.required],
     fechaFin: [new Date(), Validators.required],
   })
-
-  getData(): any{
-    let from = this.filtroForm.value.fechaInicio;
-    let to= this.filtroForm.value.fechaFin;
-    let req = new MapUser(from, to);
-    //req.from = this.filtroForm.value.fechaInicio;
-    //req.to = this.filtroForm.value.fechaFin;    
-    return this.dataService.getAllData(req);
-  }
-
   
 
   /*Devxtreme */
@@ -440,21 +425,6 @@ mapOptions: google.maps.MapOptions = {
     e.target.select();
 }
 
-
-
-  customizePoint = (arg: any) => {
-      var color, hoverStyle;
-      switch (arg.data.type) {
-          case "Star":
-              color = "red";
-              hoverStyle = { border: { color: "red" } };
-              break;
-          case "Satellite":
-              color = "gray";
-              hoverStyle = { border: { color: "gray" } };
-      }
-      return { color, hoverStyle };
-  }
 }
 
 export class DateValidator {

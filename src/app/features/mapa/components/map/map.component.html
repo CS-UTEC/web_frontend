@@ -116,9 +116,10 @@
               <mat-card fxFlex>
                 <mat-card-subtitle>Filtrar por tipo</mat-card-subtitle>
                 <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
-                  <mat-slide-toggle color="primary" fxFlex>Casos confirmados</mat-slide-toggle>
-                  <mat-slide-toggle color="primary" fxFlex>Casos probables</mat-slide-toggle>
-                  <mat-slide-toggle color="primary" fxFlex>Casos descartados</mat-slide-toggle>  
+                  <mat-slide-toggle color="primary" [(ngModel)]="showConfirmed" (change)="onConfirmedToggle($event.checked)" fxFlex>Casos confirmados</mat-slide-toggle>
+                  <div class="alter-theme"><mat-slide-toggle color="accent" [(ngModel)]="showRecovered" (change)="onRecoveredToggle($event.checked)" fxFlex>Casos recuperados</mat-slide-toggle></div>
+                  <mat-slide-toggle color="accent" [(ngModel)]="showNeutral" (change)="onNeutralToggle($event.checked)" fxFlex>Casos no determinados</mat-slide-toggle>
+                  
                 
                 </div>
               </mat-card>

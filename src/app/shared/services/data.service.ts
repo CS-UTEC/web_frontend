@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { MapUser } from '../models/mapUser.model';
-import { HttpParams } from "@angular/common/http";
-import { Case } from '../models/case.model';
 import { map } from 'rxjs/operators';
-import * as disData from '../../features/mapa/components/map/data/dist.json';
-import { Data } from '../models/data.model';
+import * as regData from './data/dep.json';
+import * as provData from './data/prov.json';
+import * as disData from './data/dist.json';
+import { Case, RangoFecha, Data } from '../models';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,86 +15,90 @@ import { Data } from '../models/data.model';
 export class DataService {
 
   static path = environment.APIEndpoint + '/map/data';
-  private distrito: any;
 
-  constructor(private http: HttpClient) { 
-    this.distrito = (disData as any).default;
+  private regiones: any;
+  private provincias: any;
+  private distritos: any;
+  
+
+  constructor(private http: HttpClient) {
+    this.regiones = (regData as any).default;
+    this.provincias = (provData as any).default;
+    this.distritos = (disData as any).default;
   }
+
+  /* Getters */
+
+  getRegion (){
+    return this.regiones;
+  }
+
+  getProvincia (){
+    return this.provincias;
+  }
+
+  getDistrito (){
+    return this.distritos;
+  }
+
+  getRegionId(nombreRegion: string): string{
+    return this.regiones.find(x => x.departamento == nombreRegion).id;
+  }
+
+
+  getLatLongFirstDistrict(type: string, id: string, idp?: string):any {
+    let latLong: Array<any> = [];
+    if (type == "dep"){
+      let dist = this.distritos.filter(x => x.id == id)[0];
+      latLong.push(dist.latitud, dist.longitud);
+    }else if( type == "prov"){
+      let dist = this.distritos.filter(x => x.id == id && x.idp == idp)[0];
+      latLong.push(dist.latitud, dist.longitud);
+    }
+    return latLong;
+  }
+
+  /* Utilitarios */
 
   private getLatLong(ubigeo: any):any {
     let ub = ubigeo.match(/.{1,2}/g)
     let latLong: Array<any> = [];
-    let dist = this.distrito.filter(x => x.id == ub[0] && x.idp == ub[1] && x.idd == ub[2])[0];
+    let dist = this.distritos.filter(x => x.id == ub[0] && x.idp == ub[1] && x.idd == ub[2])[0];
     latLong.push(dist.latitud, dist.longitud);
     return latLong;
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    body.then(
-      bod => bod.map(
-        item => {
-          item.map(
-            i => {
-              
-            }
-          )
-        }
-      )
-    )
-    return body || {};
-}
-
-  getAllData(item: MapUser): Observable<Data> {
-    return this.http.post(DataService.path, item).pipe(
-      map(this.extractData)
-    )
+  private addLatLong(data: any, param: string): Case[] {
+    return data[param].map((item: { ubigeo: string; casos: number; }) => {
+      let latLong = this.getLatLong(item.ubigeo);
+      return new Case(
+        item.ubigeo,
+        item.casos,
+        latLong[0],
+        latLong[1]
+      );
+    });
   }
 
-  getDataConfirmed(item: MapUser): Observable<Case[]>{
+  /* Request */
+
+  getAllData(item: RangoFecha): Observable<Data> {
+ 
     return this.http.post(DataService.path, item).pipe(
       map(res => {
-        return res['confirmed'].map(item => {
-          let latLong = this.getLatLong(item.ubigeo);
-          return new Case(
-            item.ubigeo,
-            item.casos,
-            latLong[0],
-            latLong[1]
-          );
-        });
+        let conf = this.addLatLong(res, "confirmed");
+        let rec = this.addLatLong(res, "recovered");
+        let neu = this.addLatLong(res, "neutral");
+        let data = new Data(conf, neu, rec);
+        return data;
       })
     )
   }
 
-  getDataNeutral(item: MapUser): Observable<Case[]>{
+  getDataByType(item: RangoFecha, type: string): Observable<Case[]>{
     return this.http.post(DataService.path, item).pipe(
       map(res => {
-        return res['neutral'].map(item => {
-          let latLong = this.getLatLong(item.ubigeo);
-          return new Case(
-            item.ubigeo,
-            item.casos,
-            latLong[0],
-            latLong[1]
-          );
-        });
-      })
-    )
-  }
-
-  getDataRecovered(item: MapUser): Observable<Case[]>{
-    return this.http.post(DataService.path, item).pipe(
-      map(res => {
-        return res['recovered'].map(item => {
-          let latLong = this.getLatLong(item.ubigeo);
-          return new Case(
-            item.ubigeo,
-            item.casos,
-            latLong[0],
-            latLong[1]
-          );
-        });
+        return this.addLatLong(res, type);
       })
     )
   }
