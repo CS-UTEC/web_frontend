@@ -9,9 +9,15 @@ import { CoreModule } from 'src/app/core/core.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DxChartModule } from 'devextreme-angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AnuncioComponent } from './components/anuncio/anuncio.component';
+import { SeleccionComponent } from './components/seleccion/seleccion.component';
 
 @NgModule({
-  declarations: [MapComponent],
+  declarations: [
+    MapComponent,
+    AnuncioComponent, 
+    SeleccionComponent
+  ],
   imports: [
     MaterialModule,
     CommonModule,
@@ -23,7 +29,11 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     DxChartModule,
     NgxChartsModule
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  entryComponents: [
+    AnuncioComponent,
+    SeleccionComponent
+  ]
 })
 export class MapaModule { }
 
