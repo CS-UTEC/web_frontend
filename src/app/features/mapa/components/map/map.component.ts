@@ -17,6 +17,7 @@ import { Data } from '@angular/router';
 import { RangoFecha, Case, ClusterSelection } from 'src/app/shared/models';
 import { Cluster } from '@google/markerclustererplus/dist/cluster';
 import { SelectionService } from 'src/app/shared/services';
+import { ReportarComponent } from '../reportar/reportar.component';
 
 
 const moment = _moment;
@@ -50,7 +51,8 @@ export class MapComponent {
     private fb: FormBuilder,
     private service: Service,
     private selectedMarkersService: SelectionService,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private dialog: MatDialog
     ) { 
     this.title.setTitle("Dashboard");
     this.dateAdapter.setLocale('es');
@@ -321,8 +323,8 @@ createCluster(map: google.maps.Map, markers: google.maps.Marker[], clusterIconPa
   //Utilitarios
 
  check(){
-   console.log(this.selectedMarkersService.getAllSelectedMarkers());
-   this.openSeleccionados();
+   //this.openSeleccionados();
+   this.openReportes();
    
  }
 
@@ -456,6 +458,15 @@ createCluster(map: google.maps.Map, markers: google.maps.Marker[], clusterIconPa
     this.bottomSheet.open(
       SeleccionComponent
     )
+  }
+
+  openReportes(){
+    this.dialog.open(
+      ReportarComponent,
+      {
+        width: '400px',
+      }
+      );
   }
 
   

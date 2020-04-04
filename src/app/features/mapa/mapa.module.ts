@@ -33,7 +33,8 @@ import { ReportarComponent } from './components/reportar/reportar.component';
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   entryComponents: [
     AnuncioComponent,
-    SeleccionComponent
+    SeleccionComponent,
+    ReportarComponent
   ]
 })
 export class MapaModule { }

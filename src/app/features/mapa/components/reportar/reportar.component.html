@@ -1,35 +1,34 @@
-<div class="f-min-height-width-padding" fxLayout="column" class="f-height" fxLayoutAlign="space-between">
-    <mat-card fxFlex>
-      <form [formGroup]="reportCaseForm">
-        <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
-          <mat-form-field fxFlex>
-            <mat-label>Tipo de Documento</mat-label>
-            <mat-select formControlName="type" required>
-              <mat-option *ngFor="let docType of docTypes" [value]="docType">
-                {{docType}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+<h2 mat-dialog-title>Reportar Caso</h2>
+<div mat-dialog-content>
+  <form [formGroup]="reportCaseForm">
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+      <mat-form-field fxFlex>
+        <mat-label>Tipo de Documento</mat-label>
+        <mat-select formControlName="type" required>
+          <mat-option *ngFor="let docType of docTypes" [value]="docType">
+            {{docType}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-          <mat-form-field fxFlex>
-            <mat-label>Número de Documento</mat-label>
-            <input matInput type="text" formControlName="document" required>
-          </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-label>Número de Documento</mat-label>
+        <input matInput type="text" formControlName="document" required>
+      </mat-form-field>
 
-          <mat-form-field fxFlex>
-            <mat-label>Tipo de Caso</mat-label>
-            <mat-select formControlName="report" required>
-              <mat-option *ngFor="let val of reportType" [value]="val">
-                {{val}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          
-        </div>
-      </form>
-      <mat-card-actions align="end">
-        <button mat-button color="warn" type= "button" (click)="resetReportCaseForm()">Limpiar</button>
-        <button mat-button color="accent" type= "button" (click)="onReportCase()" [disabled]="!reportCaseForm.valid">Notificar</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+      <mat-form-field fxFlex>
+        <mat-label>Tipo de Caso</mat-label>
+        <mat-select formControlName="report" required>
+          <mat-option *ngFor="let val of reportType" [value]="val">
+            {{val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button color="warn" type= "button" (click)="resetReportCaseForm()">Limpiar</button>
+  <button mat-button color="accent" type= "button" (click)="onReportCase()" [disabled]="!reportCaseForm.valid">Notificar</button>
+</div>
