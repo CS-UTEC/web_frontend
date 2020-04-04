@@ -44,6 +44,11 @@
                       <mat-icon>close</mat-icon>
                     </button>
                   </mat-form-field>
+
+                  <div fxFlex>
+                    <button mat-button (click)="check()">Check</button>
+                  </div>
+
                 </div>
                 <form [formGroup]="filtroForm">
                   <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center" *ngIf="isCustomDateFilter()">

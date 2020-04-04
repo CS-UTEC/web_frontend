@@ -1,0 +1,64 @@
+<mat-accordion style="max-width: 600px;">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Casos Confirmados
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-chip-list #chipList aria-label="Selección casos confirmados ">
+      <mat-chip color="accent" *ngFor="let value of data.confirmados.entries()"
+      [removable]="removable" (removed)="remove('Confirmed', value[0])">
+      {{value[1]}}
+      <mat-icon color="accent" matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="removeAll('Confirmed')" >Vaciar Todo</button>
+      <button mat-button color="accent">Enviar Anuncio</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Casos Recuperados
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-chip-list #chipList aria-label="Selección casos recuperados ">
+      <mat-chip color="accent" *ngFor="let value of data.recuperados.entries()"
+      [removable]="removable" (removed)="remove('Recovered', value[0])">
+      {{value[1]}}
+      <mat-icon color="accent" matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="removeAll('Recovered')">Vaciar Todo</button>
+      <button mat-button color="accent">Enviar Anuncio</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Casos No Determinados
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-chip-list #chipList aria-label="Selección casos no determinados ">
+      <mat-chip color="accent" *ngFor="let value of data.neutral.entries()"
+      [removable]="removable" (removed)="remove('Neutral', value[0])">
+      {{value[1]}}
+      <mat-icon color="accent" matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+    <mat-action-row>
+      <button mat-button color="warn" (click)="removeAll('Neutral')">Vaciar Todo</button>
+      <button mat-button color="accent">Enviar Anuncio</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+
+

@@ -38,6 +38,7 @@
     height: 400px;
     margin-top: -200px;
   }
+  
   .backgroundDiv{
     background-image: url("../../../../assets/background_vicuna.svg");
     height: 100vh;
@@ -45,6 +46,7 @@
     background-repeat: no-repeat;
     background-position: bottom;
   }
+  
 
   .escudoRojo{
     filter: brightness(0.5) sepia(2) saturate(10000%) invert(20%) brightness(0.8);

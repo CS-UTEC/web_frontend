@@ -27,6 +27,7 @@
     "@google/markerclustererplus": "^5.0.3",
     "@swimlane/ngx-charts": "^13.0.2",
     "@types/googlemaps": "^3.39.3",
+    "angular-cli-ghpages": "^0.6.2",
     "devextreme": "19.2.7",
     "devextreme-angular": "19.2.7",
     "jwt-decode": "^2.2.0",

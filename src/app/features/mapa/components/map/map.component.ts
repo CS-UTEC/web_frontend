@@ -14,8 +14,9 @@ import { AnuncioComponent } from '../anuncio/anuncio.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SeleccionComponent } from '../seleccion/seleccion.component';
 import { Data } from '@angular/router';
-import { RangoFecha, Case } from 'src/app/shared/models';
-
+import { RangoFecha, Case, ClusterSelection } from 'src/app/shared/models';
+import { Cluster } from '@google/markerclustererplus/dist/cluster';
+import { SelectionService } from 'src/app/shared/services';
 
 
 const moment = _moment;
@@ -48,6 +49,7 @@ export class MapComponent {
     private dataService: DataService,
     private fb: FormBuilder,
     private service: Service,
+    private selectedMarkersService: SelectionService,
     private dialog: MatDialog,
     private bottomSheet: MatBottomSheet
     ) { 
@@ -68,7 +70,7 @@ export class MapComponent {
         this.mapInitializer();
         }
       );
-  }
+  } 
 
   /* Variables */
 
@@ -104,6 +106,7 @@ export class MapComponent {
   showConfirmed = true;
   showNeutral = true;
   showRecovered = true;
+
 
   rangoFechas = ["Hoy", "Ayer", "Última semana", "Desde el primer caso", "Personalizado"];
   minDate = new Date("2020-03-06");
@@ -228,7 +231,7 @@ createMarkers(caso: Case[], color: string, iconPath: string): google.maps.Marker
     }
   );
 }
-'/./../../../assets/marketsicons/m'
+
 
 createCluster(map: google.maps.Map, markers: google.maps.Marker[], clusterIconPath: string): MarkerClusterer{
   return new MarkerClusterer ( map, markers,
@@ -281,11 +284,12 @@ createCluster(map: google.maps.Map, markers: google.maps.Marker[], clusterIconPa
     drawingManager.setMap(this.map);
 
     let arrayMarkers = [this.markersConfirmed, this.markersRecovered, this.markersNeutral];
+    let markersTypes = ['Confirmed', 'Recovered', 'Neutral'];
 
-    for(let markers of arrayMarkers){
-      google.maps.event.addListener (drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle, markers));
-      google.maps.event.addListener (drawingManager, 'polygoncomplete', polygon => this.polygonComplete (polygon, markers));
-      google.maps.event.addListener (drawingManager, 'circlecomplete', circle => this.figureComplete (circle, markers));  
+    for(let i = 0; i < arrayMarkers.length; i++){
+      google.maps.event.addListener (drawingManager, 'rectanglecomplete', rectangle => this.figureComplete(rectangle, arrayMarkers[i], markersTypes[i]));
+      google.maps.event.addListener (drawingManager, 'polygoncomplete', polygon => this.polygonComplete (polygon, arrayMarkers[i], markersTypes[i]));
+      google.maps.event.addListener (drawingManager, 'circlecomplete', circle => this.figureComplete (circle, arrayMarkers[i], markersTypes[i]));  
     }  
     
   }
@@ -318,6 +322,8 @@ createCluster(map: google.maps.Map, markers: google.maps.Marker[], clusterIconPa
   //Utilitarios
 
  check(){
+   console.log(this.selectedMarkersService.getAllSelectedMarkers());
+   this.openSeleccionados();
    
  }
 
@@ -405,42 +411,41 @@ createCluster(map: google.maps.Map, markers: google.maps.Marker[], clusterIconPa
 
   /*Draw selection */
 
-  SelectedMarkers = [];
 
-  figureComplete (figure, markers) {
-    console.log ("Figura creada");
-    let temp = []
+
+  figureComplete (figure, markers, type: string) {
+    console.log ("Figura creada " + type);
+    let temp: Array<string> = []
     markers.forEach (function (mark){
       if (figure.getBounds ().contains (mark.getPosition ())){
         console.log(mark.getTitle());
-        temp.push (JSON.stringify(mark.getTitle()));
-        //temp.push (JSON.stringify(mark.getPosition().toJSON()));
+        temp.push(mark.getTitle())
       }
     })
-    this.SelectedMarkers.push(temp);
+
+    this.selectedMarkersService.addSelectedMarkers(type, temp);
     figure.setVisible (false);
   }
 
-  polygonComplete (figure, markers) {
-    console.log ("Polígono creada");
-    var temp = []
-    var paths = figure.getPaths();
-    var bounds = new google.maps.LatLngBounds();
+  polygonComplete (figure, markers, type: string) {
+    console.log ("Polígono creada " + type);
+    let temp: Array<string> = []
+    let paths = figure.getPaths();
+    let bounds = new google.maps.LatLngBounds();
     paths.forEach(function(path) {
-      var ar = path.getArray();
-      for(var i = 0, l = ar.length;i < l; i++) {
+      let ar = path.getArray();
+      for(let i = 0, l = ar.length;i < l; i++) {
         bounds.extend(ar[i]);
       }
     });
     markers.forEach (function (mark){
       if (bounds.contains (mark.getPosition ())){
-        //console.log (mark.getPosition().toJSON());
-        //temp.push (JSON.stringify(mark.getPosition().toJSON()));
         console.log(mark.getTitle());
-        temp.push (JSON.stringify(mark.getTitle()));
+        temp.push(mark.getTitle())
       }
     })
-    this.SelectedMarkers.push(temp);
+
+    this.selectedMarkersService.addSelectedMarkers(type, temp);
     figure.setVisible (false);
   }
 
@@ -462,10 +467,7 @@ createCluster(map: google.maps.Map, markers: google.maps.Marker[], clusterIconPa
 
   openSeleccionados(){
     this.bottomSheet.open(
-      SeleccionComponent,
-      {
-        data: this.SelectedMarkers
-      }
+      SeleccionComponent
     )
   }
 

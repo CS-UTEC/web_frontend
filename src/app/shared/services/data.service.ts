@@ -58,6 +58,12 @@ export class DataService {
     return latLong;
   }
 
+  getDistrictNameByUbigeo(ubigeo: string): string{
+    let ub = ubigeo.match(/.{1,2}/g)
+    let dis = this.distritos.filter(x => x.id == ub[0] && x.idp == ub[1] && x.idd == ub[2])[0];
+    return dis.distrito;
+  }
+
   /* Utilitarios */
 
   private getLatLong(ubigeo: any):any {
@@ -101,6 +107,10 @@ export class DataService {
         return this.addLatLong(res, type);
       })
     )
+  }
+
+  getDataMinsaApp(){
+    return this.http.get("https://us-central1-cadi360-sac.cloudfunctions.net/function-pakipe-publish/api/v1/marks")
   }
 
 }
