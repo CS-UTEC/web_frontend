@@ -1,9 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Person } from 'src/app/shared/models/person.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NotifyRegion } from 'src/app/shared/models/notifyRegion';
+import { SelectionService } from 'src/app/shared/services';
 
 @Component({
   selector: 'app-anuncio',
@@ -12,47 +14,33 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class AnuncioComponent {
 
+
+  selection: Map <string, string>;
+  notificationForm = this.fb.group({
+    message: ['', Validators.required],
+  })
+
   constructor(
     public dialogRef: MatDialogRef<AnuncioComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any,
     private notificationService: NotificationService,
-    private fb: FormBuilder) {}
-
-  onNotify(){
-    
-  }
-
-
-  reportCaseForm = this.fb.group({
-    document: [null, Validators.required],
-    type: [null, Validators.required],
-    report: [null, Validators.required]
-  })
-
-  docTypes: string[] = ['DNI', 'Pasaporte', 'Carnet de Extranjería'];
-  reportType: string[] = ['Caso confirmado', 'Caso recuperado'];
-
-  onReportCase () {
-    let person = this.reportCaseForm.value;
-    let req = new Person();
-    req.document = person.document;
-    req.type = person.type;
-    if (person.report === "Caso confirmado"){
-      this.notificationService.notifyConfirmedCase(req)
-      .subscribe(res=> {this.resetReportCaseForm()})
-    }else if(person.report === "Caso recuperado"){
-      this.notificationService.notifyRecoverCase(req)
-      .subscribe(res=> {this.resetReportCaseForm()})
+    private selectionService: SelectionService,
+    private fb: FormBuilder) {
+      this.selection = this.selectionService.getSelectedMarkersByType(data);
     }
 
+  onNotify(){
+    let ubigeos = [];
+    for(let key of this.selection.keys()){
+      ubigeos.push(key);
+    }
+    let notify = new NotifyRegion(this.notificationForm.value.message, ubigeos);
+    this.notificationService.notifyUbigeos(notify)
+    .subscribe(res=> {this.notificationForm.reset()})
   }
 
-  resetReportCaseForm () {
-    this.reportCaseForm.reset();
+  onNoClick(): void {
+    this.dialogRef.close();
   }
-
-  notificationForm = this.fb.group({
-    message: [null, Validators.required]
-  })
 
 }

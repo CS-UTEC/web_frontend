@@ -24,6 +24,12 @@ export class SelectionService {
     return this.selectedMarkers;
   }
 
+  getSelectedMarkersByType(type: string): Map<string, string>{
+    if (type === "Confirmed") return this.selectedMarkers.confirmados;
+    else if(type === "Neutral")  return this.selectedMarkers.neutral;
+    else if(type === "Recovered") return this.selectedMarkers.recuperados;
+  }
+
   add(type: string, ubigeo: string, nombre: string){
     if (type === "Confirmed") this.selectedMarkers.confirmados.set(ubigeo, nombre);
     else if(type === "Neutral")  this.selectedMarkers.neutral.set(ubigeo, nombre);

@@ -11,12 +11,13 @@ import { DxChartModule } from 'devextreme-angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AnuncioComponent } from './components/anuncio/anuncio.component';
 import { SeleccionComponent } from './components/seleccion/seleccion.component';
+import { ReportarComponent } from './components/reportar/reportar.component';
 
 @NgModule({
   declarations: [
     MapComponent,
     AnuncioComponent, 
-    SeleccionComponent
+    SeleccionComponent, ReportarComponent
   ],
   imports: [
     MaterialModule,

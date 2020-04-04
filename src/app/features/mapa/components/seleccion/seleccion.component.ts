@@ -5,6 +5,8 @@ import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree'
 import { SelectionModel } from '@angular/cdk/collections';
 import { SelectionService } from 'src/app/shared/services';
 import { ClusterSelection } from 'src/app/shared/models';
+import { MatDialog } from '@angular/material/dialog';
+import { AnuncioComponent } from '../anuncio/anuncio.component';
 export interface Fruit {
   name: string;
 }
@@ -20,7 +22,8 @@ export class SeleccionComponent {
 
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<SeleccionComponent>,
-    private selectService: SelectionService
+    private selectService: SelectionService,
+    private anuncio: MatDialog,
     ){
       this.data = this.selectService.getAllSelectedMarkers();
    }
@@ -33,8 +36,15 @@ export class SeleccionComponent {
      this.selectService.clear(type);
    }
 
-   openAnuncio(){
+   openAnuncio(type: string){
     this._bottomSheetRef.dismiss();
+    this.anuncio.open(
+      AnuncioComponent,
+      {
+        width: '400px',
+        data: type
+      }
+      );
   }
 
 }

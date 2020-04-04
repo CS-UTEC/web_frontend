@@ -50,7 +50,6 @@ export class MapComponent {
     private fb: FormBuilder,
     private service: Service,
     private selectedMarkersService: SelectionService,
-    private dialog: MatDialog,
     private bottomSheet: MatBottomSheet
     ) { 
     this.title.setTitle("Dashboard");
@@ -449,18 +448,6 @@ createCluster(map: google.maps.Map, markers: google.maps.Marker[], clusterIconPa
     figure.setVisible (false);
   }
 
-
-
-  /*Anuncio */
-  openAnuncio(){
-    this.dialog.open(
-      AnuncioComponent,
-      {
-        width: '400px',
-        data: { description: "Hola", title: 'Descripción de la imagen', placeholder: 'Editar descripción'}
-      }
-      );
-  }
 
 
   /*Seleccionados */
