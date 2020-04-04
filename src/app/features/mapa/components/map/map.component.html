@@ -23,7 +23,8 @@
                     <mat-icon>more_vert</mat-icon>
                   </button>
                   <mat-menu #menu="matMenu" xPosition="before">
-                    <button mat-menu-item>Limpiar</button>
+                    <button mat-menu-item (click)="openSeleccionados()" >Anuncio</button>
+                    <button mat-menu-item (click)="openReportes()">Reportar</button>
                   </mat-menu>       
                 <mat-card-subtitle>Filtrar por fecha</mat-card-subtitle>
                 
@@ -40,15 +41,10 @@
                         {{rango}}
                       </mat-option>
                     </mat-select>
-                    <button mat-button *ngIf="selectedRegion" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectRegion()">
+                    <button mat-button *ngIf="dateFilterType" matSuffix mat-icon-button aria-label="Borrar" (click)="dateFilterType=''">
                       <mat-icon>close</mat-icon>
                     </button>
                   </mat-form-field>
-
-                  <div fxFlex>
-                    <button mat-button (click)="check()">Check</button>
-                  </div>
-
                 </div>
                 <form [formGroup]="filtroForm">
                   <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center" *ngIf="isCustomDateFilter()">
@@ -186,7 +182,7 @@
 
     <!--Acá va el mapa-->
 
-		<div fxFlex="70" fxFlex.lt-sm="50" fxFill >
+    <div fxFlex="70" fxFlex.lt-sm="50" fxFill >
       <div #mapContainer id="map"></div>
     </div>
     
