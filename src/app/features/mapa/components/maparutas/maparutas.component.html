@@ -1,0 +1,187 @@
+<div id="wrapper">
+
+    <!--Acá va la barra de navegación-->
+  
+    <app-nav-bar></app-nav-bar>
+    <div style="width: 100vw; height: calc(100% - 64px);" fxLayout="row" fxLayout.lt-sm="column"  fxFill>
+          <div fxFlex="30" fxFlex.lt-sm="50">
+        <div fxLayout="column" class="f-height">
+  
+          <div fxFlex="50">
+  
+            <mat-tab-group mat-stretch-tabs  color="primary" class="full-width-height ">
+              
+              <!--Filter Tab-->
+              <mat-tab label="Filtros"> 
+  
+                <div class="f-min-height-width-padding" fxLayout="column" class="f-height" fxLayoutAlign="space-between">
+  
+                <!--Acá va el filtro por fecha-->
+  
+                <mat-card fxFlex>  
+                  <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" xPosition="before">
+                      <button mat-menu-item>Limpiar</button>
+                    </mat-menu>       
+                  <mat-card-subtitle>Filtrar por fecha</mat-card-subtitle>
+                  
+                  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+                    
+                    <mat-form-field fxFlex> 
+                      <mat-label>Rango</mat-label>
+                      <mat-select 
+                      disableOptionCentering
+                      [(ngModel)]="dateFilterType"
+                      (selectionChange)="onChangeRango($event.value)"
+                      >
+                        <mat-option *ngFor = "let rango of rangoFechas" [value] = "rango">
+                          {{rango}}
+                        </mat-option>
+                      </mat-select>
+                      <button mat-button *ngIf="selectedRegion" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectRegion()">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <form [formGroup]="filtroForm">
+                    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center" *ngIf="isCustomDateFilter()">
+                      <mat-form-field fxFlex>
+                        <mat-label>Fecha de inicio</mat-label>
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="fechaInicio">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                      <mat-form-field fxFlex>
+                        <mat-label>Fecha de fin</mat-label>
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" formControlName="fechaFin">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </form> 
+                        
+                </mat-card>
+                
+                <mat-divider></mat-divider>
+                <!--Acá va el filtro por ubicación-->
+  
+                <mat-card fxFlex>
+                  <mat-card-subtitle>Filtrar por ubicación</mat-card-subtitle>
+                  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+                    <!--Acá va el filtro por región-->
+                    <mat-form-field fxFlex> 
+                      <mat-label>Región</mat-label>
+                      <mat-select 
+                      disableOptionCentering
+                      [(ngModel)]="selectedRegion"
+                      (selectionChange) = "selectRegion()">
+                        <mat-option *ngFor = "let reg of regiones" [value] = "reg.departamento">
+                          {{reg.departamento}}
+                        </mat-option>
+                      </mat-select>
+                      <button mat-button *ngIf="selectedRegion" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectRegion()">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </mat-form-field>
+  
+                  <!--Acá va el filtro por provincia-->
+  
+                  <mat-form-field fxFlex>
+                    <mat-label>Provincia</mat-label>
+                    <mat-select 
+                      disableOptionCentering
+                      [(ngModel)]="selectedProvincia"
+                      (selectionChange) = "selectProvincia()"
+                      >
+                      <mat-option *ngFor = "let pro of provinciasFiltradas" [value] = "pro.provincia">
+                        {{pro.provincia}}
+                      </mat-option>
+                    </mat-select>
+                    <button mat-button *ngIf="selectedProvincia" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectProvincia()">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
+  
+                  <!--Acá va el filtro por distrito-->
+  
+                  <mat-form-field fxFlex>
+                    <mat-label>Distrito</mat-label>
+                    <mat-select
+                      [(ngModel)]="selectedDistrito"
+                      (selectionChange) = "selectDistrito()"
+                      >
+                      <mat-option *ngFor = "let di of distritosFiltrados" [value] = "di.distrito">
+                        {{di.distrito}}
+                      </mat-option>
+                    </mat-select>
+                    <button mat-button *ngIf="selectedDistrito" matSuffix mat-icon-button aria-label="Borrar" (click)="deselectDistrito()">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
+                  </div>
+                  
+                </mat-card>
+  
+                <mat-divider></mat-divider>
+  
+                <!--Acá va el filtro por tipo-->
+  
+                <mat-card fxFlex>
+                  <mat-card-subtitle>Filtrar por tipo</mat-card-subtitle>
+                  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+                    <mat-slide-toggle color="primary" [(ngModel)]="showConfirmed" (change)="onConfirmedToggle($event.checked)" fxFlex>Casos confirmados</mat-slide-toggle>
+                    <div class="alter-theme"><mat-slide-toggle color="accent" [(ngModel)]="showRecovered" (change)="onRecoveredToggle($event.checked)" fxFlex>Casos recuperados</mat-slide-toggle></div>
+                    <mat-slide-toggle color="accent" [(ngModel)]="showNeutral" (change)="onNeutralToggle($event.checked)" fxFlex>Casos no determinados</mat-slide-toggle>
+                    
+                  
+                  </div>
+                </mat-card>
+
+              </div>
+  
+              </mat-tab>
+            </mat-tab-group>
+            
+          </div>
+  
+          <div fxFlex="50" >
+
+            <!--Acá van nuevo features-->
+              
+            <mat-tab-group mat-stretch-tabs  color="primary" class="full-width-height mat-elevation-z4">
+              <!--Graph Tab-->
+              <mat-tab label="Búsqueda">        
+                <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center" style="padding: 10px;">
+                  <mat-form-field fxFlex>
+                    <mat-label>Tipo de Documento</mat-label>
+                    <mat-select [(value)] = "DocSelected">
+                      <mat-option *ngFor="let do of tipoDoc" [value]="do.viewValue">
+                        {{do.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field fxFlex>
+                    <mat-label>{{DocSelected}}</mat-label>
+                    <input matInput>
+                  </mat-form-field>
+                  <button mat-raised-button color="warn" (click)="calculateAndDisplayRoute()">Buscar</button>
+                </div>
+              </mat-tab> 
+            </mat-tab-group>
+          </div>
+          
+        </div>
+      </div>
+  
+      <!--Acá va el mapa-->
+  
+          <div fxFlex="70" fxFlex.lt-sm="50" fxFill >
+        <div #mapContainer id="map"></div>
+      </div>
+      
+      </div>
+  
+  </div>
+  
