@@ -36,7 +36,7 @@ export class SharedModule {
         /*Acá van los servicios */
         NotificationService,
         DataService,
-        httpInterceptorProviders
+        //httpInterceptorProviders
       ]
 
     }

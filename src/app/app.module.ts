@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 import { MapaModule } from './features/mapa/mapa.module';
 import { HttpClientModule } from '@angular/common/http'; 
 import { SharedModule } from './shared/shared.module';
+import { AlgorithmModule } from './features/algorithm/algorithm.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,9 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    CoreModule,
-    MapaModule,
+    //CoreModule,
+    //MapaModule,
+    AlgorithmModule,
     SharedModule.forRoot(),
     MaterialModule,
     AppRoutingModule,

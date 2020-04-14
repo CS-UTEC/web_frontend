@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
 
 
 const routes: Routes = [
+  /*
   {
     path: 'dashboard',
     pathMatch: 'full',
@@ -18,6 +18,15 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '/login'
+  }*/
+  {
+    path: 'algorithm',
+    pathMatch: 'full',
+    loadChildren: () => import('./features/algorithm/algorithm.module').then(mod => mod.AlgorithmModule),
+  },
+  {
+    path: '**',
+    redirectTo: '/algorithm'
   }
 ];
 
