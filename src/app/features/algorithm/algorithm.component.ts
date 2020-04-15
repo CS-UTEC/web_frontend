@@ -16,50 +16,48 @@ export class Data{
   styleUrls: ['./algorithm.component.css']
 })
 export class AlgorithmComponent implements OnInit {
-  //@ViewChild(DxChartComponent, { static: false }) component: DxChartComponent;
   constructor(private as: AlgorithmService) { }
-  public chart: any = null;
+  
   datasource = [];
   selected = [];
-  s = 100;
-  n = 10;
-
-  clear(){
-    this.datasource = [];
-    this.selected = [];
-    this.s = 0;
-    this.n = 0;
-  }
+  squareSize = 100;
+  sample = 10;
 
   ngOnInit(): void {
-    
-}
+  }
 
 
-customizeTooltip(arg: any) {
-  return {
-      text: 'id: ' + arg.point._dataItem.data.name + '<br>' + 'pB: ' + Math.round((arg.point._dataItem.data.pb + Number.EPSILON) * 100) / 100 + '<br>pG: ' + Math.round((arg.point._dataItem.data.pg + Number.EPSILON) * 100) / 100  + '<br>' + 'status: ' +'<span style="color:blue;">'+ arg.point._dataItem.data.status +'</span>'
-  };
-}
+  customizeTooltip(arg: any) {
+    return {
+        text: 'id: ' + arg.point._dataItem.data.name + '<br>' + 'pB: ' 
+        + Math.round((arg.point._dataItem.data.pb + Number.EPSILON) * 100) / 100 
+        + '<br>pG: ' + Math.round((arg.point._dataItem.data.pg + Number.EPSILON) * 100) / 100  
+        + '<br>' + 'status: ' +'<span style="color:blue;">'+ arg.point._dataItem.data.status +'</span>'
+    };
+  }
 
   generateData(){
-    console.log(this.n + ':' + this.s)
-    this.as.getData(this.n, this.s).toPromise()
+    console.log(this.sample + ':' + this.squareSize)
+    this.as.getData(this.sample, this.squareSize).toPromise()
     .then(
       res => {
         res['users'].forEach(element => {
           let point = new Data(element.x, element.y, element.id, element.p_b, element.p_g, element.infected);
-  
-          //this.chart.data.datasets[0].data.push(point);
           this.datasource.push(point);
-          //this.chart.update();
         });
       }
     )
   }
 
+  clear(){
+    this.datasource = [];
+    this.selected = [];
+    this.squareSize = 0;
+    this.sample = 0;
+  }
+
   generateBluetoothEvent(){
-    this.as.getDataFromGPSEvents(this.s).toPromise()
+    this.as.getDataFromGPSEvents(this.squareSize).toPromise()
     .then(
       res => {
         this.datasource = [];
@@ -72,7 +70,7 @@ customizeTooltip(arg: any) {
   }
 
   generateGPSEvent(){
-    this.as.getDataFromBluetoothEvents(this.s).toPromise()
+    this.as.getDataFromBluetoothEvents(this.squareSize).toPromise()
     .then(
       res => {
         this.datasource = [];
@@ -82,10 +80,6 @@ customizeTooltip(arg: any) {
         })
       }
     )
-  }
-  legendClick(e: any){
-    console.log(e);
-
   }
 
   pointClick(e: any) {
