@@ -1,3 +1,77 @@
-<canvas #canvas width="600" height="300"></canvas>
-<button (click)="animate()">Play</button> 
-<button (click)="check()">Check</button> 
+<h1 style="text-align: center;">Algorithm Visualization</h1>
+<div style="width: 100vw; height: 100vh;" fxLayout="row"  fxFill>
+    <div fxFlex="20">
+
+        <div fxLayout="column wrap" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Square size</mat-label>
+                <input matInput [(ngModel)]="s">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Sample size</mat-label>
+                <input matInput [(ngModel)]="n">
+              </mat-form-field>
+            <button mat-stroked-button color="accent" (click)="generateData()"fxFlex>Generate Data</button> 
+            <button mat-stroked-button color="warn" (click)="clear()"fxFlex>Clear Data</button> 
+            <button mat-stroked-button color="accent" (click)="generateBluetoothEvent()"fxFlex>GPS Event</button> 
+            <button mat-stroked-button color="accent" (click)="generateGPSEvent()"fxFlex>Bluetooth Event</button> 
+            <button mat-stroked-button color="accent" (click)="runAlgorithm()"fxFlex>Run Algorithm</button> 
+        </div>
+
+    </div>
+    <div fxFlex="60">
+        <dx-chart
+        id="chart"
+        [dataSource]="datasource"
+        pointSelectionMode="multiple"
+        (onPointClick)="pointClick($event)"
+        (onLegendClick)="legendClick($event)"
+        >
+        <dxo-size
+        [height]="600"
+        [width]="800">
+        </dxo-size>
+        <dxi-series argumentField="x" valueField="y"></dxi-series>
+        <dxi-value-axis [tickInterval]="5" showZero = "true" [max]="s"></dxi-value-axis>
+        <dxo-common-series-settings type="scatter"></dxo-common-series-settings>
+        <dxo-argument-axis [tickInterval]="5" min="0" [max]="s">
+            <dxo-grid [visible]="true"></dxo-grid>
+            <dxo-minor-grid [visible]="true"></dxo-minor-grid>
+        </dxo-argument-axis>
+        <dxo-legend [visible]="false" ></dxo-legend>
+        <dxo-common-pane-settings>
+            <dxo-border [visible]="true"></dxo-border>
+        </dxo-common-pane-settings>
+        <dxo-tooltip
+            [enabled]="true"
+            [customizeTooltip]="customizeTooltip"
+        >
+        </dxo-tooltip>
+    </dx-chart>
+    
+    </div>
+
+    <div fxflex = "20">
+        <strong *ngIf="selected.length">Selected points:</strong>
+        <mat-list *ngFor="let item of selected" >
+            <mat-list-item >{{item}}</mat-list-item>
+            <mat-divider></mat-divider>
+        </mat-list>
+        <br>
+        <strong>Puntos:</strong>
+        <mat-list *ngFor="let item of datasource" >
+            <mat-list-item >{{item.name}}, pB: {{item.pb}}, pG: {{item.pg}}</mat-list-item>
+            <mat-divider></mat-divider>
+        </mat-list>
+          
+    </div>
+
+
+</div>
+

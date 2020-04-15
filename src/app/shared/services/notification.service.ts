@@ -12,27 +12,13 @@ import { NotifyRegion } from '../models/notifyRegion';
 })
 export class NotificationService {
   
-  static path = environment.APIEndpoint + '/notification/';
+  static path = environment.APIEndpoint + '/map/';
 
   constructor(private http: HttpClient) { }
 
-  notifyUsersByRegion(item: NotifyRegion): Observable<any> {
-    return this.http.post<any>(NotificationService.path + 'departamento/', item);
-  }
   
-  notifyUsersByProvincia(item: NotifyProvincia): Observable<any> {
-    return this.http.post<any>(NotificationService.path + 'provincia/', item);
-  }
-
-  notifyUsersByDistrito(item: NotifyDistrito): Observable<any> {
-    return this.http.post<any>(NotificationService.path + 'distrito/', item);
-  }
-
-  notifyConfirmedCase(person: Person): Observable<any>{
-    return this.http.post<any>(NotificationService.path + 'report-case/', person);
-  }
-  notifyRecoverCase(person: Person): Observable<any>{
-    return this.http.post<any>(NotificationService.path + 'report-recover/', person);
+  notifyUbigeos(item: NotifyRegion): Observable<any>{
+    return this.http.post<any>(NotificationService.path + 'notify-region/', item);
   }
  
 }

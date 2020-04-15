@@ -1,8 +1,4 @@
 export class NotifyRegion {
-    departamento: string;
-    message: string;
-
-    constructor (){
-        
+    constructor (public message: string, public ubigeos: string[]){
     }
 }

@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Enviar Anuncio</h2>
+<form [formGroup]="notificationForm">
+<div mat-dialog-content>
+  <mat-form-field class="full-width">
+    <mat-label>Escriba su anuncio aquí:</mat-label>
+    <textarea matInput rows="8" placeholder="Ej. Respete la cuarentena..." formArrayName="message"></textarea>
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button color="warn" (click)="onNoClick()">Cancelar</button>
+  <button mat-button color="accent" (click)="onNotify()">Enviar</button>
+</div>
+</form>

@@ -11,8 +11,8 @@
   
   mat-form-field {
     width: 100%;
-    color: #ffffff;
   }
+  
   .actions {
     text-align: center;
   }
@@ -38,26 +38,7 @@
     height: 400px;
     margin-top: -200px;
   }
-
-  ::ng-deep.mat-form-field-ripple {
-    background-color: white !important;;
-   }
-
-
-   ::ng-deep input.mat-input-element {
-    color: black;
-  }
-
-  .campo{
-    background-color:#bf0909;
-    border-radius: 15px;
-    height: 50px;
-  }
-
-  ::ng-deep .mat-form-field-underline {
-    display: none;
-  }
-
+  
   .backgroundDiv{
     background-image: url("../../../../assets/background_vicuna.svg");
     height: 100vh;
@@ -65,6 +46,7 @@
     background-repeat: no-repeat;
     background-position: bottom;
   }
+  
 
   .escudoRojo{
     filter: brightness(0.5) sepia(2) saturate(10000%) invert(20%) brightness(0.8);

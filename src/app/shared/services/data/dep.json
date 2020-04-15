@@ -1,0 +1,102 @@
+[
+  {
+    "id": "01",
+    "departamento": "Amazonas"
+  },
+  {
+    "id": "02",
+    "departamento": "Áncash"
+  },
+  {
+    "id": "03",
+    "departamento": "Apurímac"
+  },
+  {
+    "id": "04",
+    "departamento": "Arequipa"
+  },
+  {
+    "id": "05",
+    "departamento": "Ayacucho"
+  },
+  {
+    "id": "06",
+    "departamento": "Cajamarca"
+  },
+  {
+    "id": "07",
+    "departamento": "Callao"
+  },
+  {
+    "id": "08",
+    "departamento": "Cusco"
+  },
+  {
+    "id": "09",
+    "departamento": "Huancavelica"
+  },
+  {
+    "id": "10",
+    "departamento": "Huánuco"
+  },
+  {
+    "id": "11",
+    "departamento": "Ica"
+  },
+  {
+    "id": "12",
+    "departamento": "Junín"
+  },
+  {
+    "id": "13",
+    "departamento": "La Libertad"
+  },
+  {
+    "id": "14",
+    "departamento": "Lambayeque"
+  },
+  {
+    "id": "15",
+    "departamento": "Lima"
+  },
+  {
+    "id": "16",
+    "departamento": "Loreto"
+  },
+  {
+    "id": "17",
+    "departamento": "Madre de Dios"
+  },
+  {
+    "id": "18",
+    "departamento": "Moquegua"
+  },
+  {
+    "id": "19",
+    "departamento": "Pasco"
+  },
+  {
+    "id": "20",
+    "departamento": "Piura"
+  },
+  {
+    "id": "21",
+    "departamento": "Puno"
+  },
+  {
+    "id": "22",
+    "departamento": "San Martín"
+  },
+  {
+    "id": "23",
+    "departamento": "Tacna"
+  },
+  {
+    "id": "24",
+    "departamento": "Tumbes"
+  },
+  {
+    "id": "25",
+    "departamento": "Ucayali"
+  }
+]
