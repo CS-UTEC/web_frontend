@@ -31,7 +31,7 @@
     "devextreme": "19.2.7",
     "devextreme-angular": "19.2.7",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "rxjs": "~6.5.4",
     "stream": "0.0.2",
     "tslib": "^1.10.0",
